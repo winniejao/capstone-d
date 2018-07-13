@@ -5,7 +5,6 @@ import form
 def add_form():
     pass
     ##Transfer python ccnverted JSON object to add_form
-
 #Handle 2
     #Delete a form from an existing table
 def del_form():
@@ -15,14 +14,13 @@ def del_form():
 def alter_data():
     pass
 #Handle 4
-    #Alter the column in a table with values category/subcategory/item with the given column change
-def alter_colum():
-    pass
-#Handle 5
     #Create a new table given a category/subcategory
 def new_item():
     pass
-#Handle 6
+#Handle 5
     #Apply filter to given data and return that data
 def apply_filter():
+    pass
+#(optional) Handle 6
+def alter_colum():
     pass
