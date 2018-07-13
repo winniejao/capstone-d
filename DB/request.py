@@ -2,16 +2,9 @@ import form
 
 #Handle 1
     #Add a form to an existing table
-def add_form(json_object):
-    ##pass
+def add_form():
+    pass
     ##Transfer python ccnverted JSON object to add_form
-    f = json_object
-    if json_object.item:
-        ('''ADD json_object IN json_object.item''')
-    else:
-        ('''CREATE json_object.item IN db''')
-        ('''ADD json_object IN table_json_object.item''')
-    return success
 
 #Handle 2
     #Delete a form from an existing table
