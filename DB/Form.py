@@ -11,3 +11,6 @@ class form:
         self.notes = notes
 
 ## Creates the manual class
+class manual:
+    def __init__(self, text):
+        self.text = ""
