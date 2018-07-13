@@ -1,21 +1,16 @@
-import sqlite3
-import form
-import request
+from flask import Flask, request, jsonify
 
-## Import the JSON request file
+app = Flask(__name__)
 
-## parse action code
-# 1 - add Form
-# 2 - delete form
-# 3 - alter data in a Form
-# 4 - alter a column in a form
-# 5 - create a new subcategory (table)
-# 6 - Return specific filter range of data
+@app.route('/', methods=['POST'])
+def index():
+    value = request.json['opcode']
+    return value
 
-## call function from request.py based on the action code
+@app.route('/', methods=['GET'])
+def response():
+    result = "Pong"
+    return jsonify(result)
 
-## if 1 - 5 return a success code and encode in JSON
-
-## if 6 return the desired information, encoded in JSON
-
-##Either Save JSON file in appropriate location or pipeline into Angular
+if __name__ == '__main__':
+    app.run(debug=True)
