@@ -1,0 +1,28 @@
+<div class="container">
+
+  <form #searchForm="ngForm">
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select class="form-control" id="category" required>
+        <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="search-text">Search Text</label>
+      <input type="text" class="form-control" id="search-text"
+             [(ngModel)]="search_text"
+             (ngModelChange)="getResults($event)"
+             name="search-text"
+             placeholder="Type here to search..." />
+      <ul *ngIf="results" class="result-dropdown">
+        <li *ngFor="let res of results" [value]="res">{{res.name}}</li>
+      </ul>
+      <!-- TODO:
+            -Make list of results into links
+            -Make it look pretty-->
+    </div>
+
+  </form>
+</div>
