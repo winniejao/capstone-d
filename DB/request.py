@@ -1,4 +1,5 @@
-import form
+import main
+import Form
 
 #Handle 1
     #Add a form to an existing table
