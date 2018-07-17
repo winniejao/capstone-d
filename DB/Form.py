@@ -1,7 +1,8 @@
 ## Creates the Form class
-class form:
-    def __init__(self, parent, name, purpose, cost, serial, date, attach, notes):
-        self.parent = parent
+class Form:
+    def __init__(self, formid, subcat, name, purpose, cost, serial, date, attach, notes):
+        self.formid = formid
+        self.subcat = subcat
         self.name = name
         self.purpose = purpose
         self.cost = cost
@@ -10,6 +11,7 @@ class form:
         self.attach = attach
         self.notes = notes
 
+##purpose, cost, serial, date, attach, notes
 ## Creates the manual class
 class manual:
     def __init__(self, text):

@@ -1,26 +1,19 @@
-import form
+import Form
 
-#Handle 1
-    #Add a form to an existing table
-def add_form():
-    pass
-    ##Transfer python ccnverted JSON object to add_form
-#Handle 2
-    #Delete a form from an existing table
-def del_form():
-    pass
-#Handle 3
-    #Alter the data in table with values category/subcategory/item with the given JSON data
-def alter_data():
-    pass
-#Handle 4
-    #Create a new table given a category/subcategory
-def new_item():
-    pass
-#Handle 5
-    #Apply filter to given data and return that data
-def apply_filter():
-    pass
-#(optional) Handle 6
-def alter_colum():
-    pass
+def add_form(dict):
+    print(dict)
+
+def del_form(self):
+    print("Worked like a charm")
+
+def alter_data(self):
+    print("You're doing good")
+
+def new_item(self):
+    print("I guess this works")
+
+def apply_filter(self):
+    print("Keep it coming")
+
+def alter_colum(self):
+    print("Home sweet home")
