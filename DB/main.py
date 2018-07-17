@@ -12,6 +12,7 @@ def rAddForm():
     try:
         getRequest = json.loads(request.data)
         reqHandle = req.add_form(getRequest)
+        return "POST success!"
     except:
         return "Error: form POST"
 
@@ -37,7 +38,7 @@ def rAlterForm():
     try:
         getRequest = json.loads(request.data)
 
-        return "from PUT Success!"
+        return "form PUT Success!"
     except:
         return "Error: form PUT failed"
 
