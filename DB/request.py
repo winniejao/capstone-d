@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import main
+>>>>>>> 1021a79f622ea149e9defbbd189d4c10472457e6
 import Form
 
 def add_form(dict):
