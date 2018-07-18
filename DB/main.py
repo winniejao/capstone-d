@@ -1,6 +1,6 @@
 import Form
 import json
-import request
+import req
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -9,97 +9,65 @@ app = Flask(__name__)
 
 @app.route('/equipment/form/', methods=['POST'])
 def rAddForm():
-    try:
-        getRequest = json.loads(request.data)
-        reqHandle = req.add_form(getRequest)
-        return "POST success!"
-    except:
-        return "Error: form POST"
+    getRequest = json.loads(request.data)
+    reqHandle = req.add_form(getRequest)
+    return jsonify(reqHandle)
 
-@app.route('/equipment/form<id>', methods=['GET'])
-def rGetForm():
-        try:
-            result = "form GET Success!"
-            return jsonify(result)
-        except:
-             return "Error: form GET failed"
+@app.route('/equipment/form/<int:formid>', methods=['GET'])
+def rGetForm(formid):
+    getRequest = json.loads(request.data)
+    reqHandle = req.get_form(getRequest, formid)
+    return jsonify(reqHandle)
 
-@app.route('/equipment/form<id>', methods=['DELETE'])
-def rDeleteForm():
-    try:
-        getRequest = json.loads(request.data)
+@app.route('/equipment/form/<int:formid>', methods=['DELETE'])
+def rDeleteForm(formid):
+    getRequest = json.loads(request.data)
+    reqHandle = req.del_form(getRequest, formid)
+    return jsonify(reqHandle)
 
-        return "form DELETE Success!"
-    except:
-        return "Error: form DELETE failed"
-
-@app.route('/equipment/form<id>', methods=['PUT'])
-def rAlterForm():
-    try:
-        getRequest = json.loads(request.data)
-
-        return "form PUT Success!"
-    except:
-        return "Error: form PUT failed"
-
-
-        return "fomr PUT Success!"
-    except:
-        return "Error: form PUT failed"
+@app.route('/equipment/form/<int:formid>', methods=['PUT'])
+def rAlterForm(formid):
+    getRequest = json.loads(request.data)
+    reqHandle = req.alter_form(getRequest, formid)
+    return jsonify(reqHandle)
 
 ################ NEW SUBCATEGORY BANK ############
-@app.route('/landscape/sub/<name>', methods=['POST'])
-def rLandscapeSub():
-    try:
-        getRequest = json.loads(request.data)
-        print getRequest
-        return "POST Success!"
-    except:
-        return "Error: POST failed"
+@app.route('/landscape/sub/<string:subcat>', methods=['POST'])
+def rLandscapeSub(subcat):
+    getRequest = json.loads(request.data)
+    reqHandle = req.new_subcat(getRequest, subcat)
+    return jsonify(reqHandle)
 
-@app.route('/equipment/sub/<name>', methods=['POST'])
-def rEquipmentSub():
-    try:
-        getRequest = json.loads(request.data)
-        print getRequest
-        return "POST Success!"
-    except:
-        return "Error: POST failed"
+@app.route('/equipment/sub/<string:subcat>', methods=['POST'])
+def rEquipmentSub(subcat):
+    getRequest = json.loads(request.data)
+    reqHandle = req.new_subcat(getRequest, subcat)
+    return jsonify(reqHandle)
 
-@app.route('/tools/sub/<name>', methods=['POST'])
-def rToolSub():
-    try:
-        getRequest = json.loads(request.data)
-        print getRequest
-        return "POST Success!"
-    except:
-        return "Error: POST failed"
-
+@app.route('/tools/sub/<string:subcat>', methods=['POST'])
+def rToolSub(subcat):
+    getRequest = json.loads(request.data)
+    reqHandle = req.new_subcat(getRequest, subcat)
+    return jsonify(reqHandle)
 
 ################ GET BANK ##################
-@app.route('/landscape/<string>', methods=['GET'])
-def rLandscapeGet():
-    try:
-        result = "landscape GET Success"
-        return jsonify(result)
-    except:
-         return "Error: GET failed"
+@app.route('/landscape/<string:subcat>', methods=['GET'])
+def rLandscapeGet(subcat):
+    getRequest = json.loads(request.data)
+    reqHandle = req.new_subcat(getRequest, subcat)
+    return jsonify(reqHandle)
 
-@app.route('/equipment/<string>', methods=['GET'])
-def rEquipmentGet():
-    try:
-        result = "equipment GET Success"
-        return jsonify(result)
-    except:
-         return "Error: GET failed"
+@app.route('/equipment/<string:subcat>', methods=['GET'])
+def rEquipmentGet(subcat):
+    getRequest = json.loads(request.data)
+    reqHandle = req.new_subcat(getRequest, subcat)
+    return jsonify(reqHandle)
 
-@app.route('/tools/<string>', methods=['GET'])
-def rToolsGet():
-    try:
-        result = "tools GET Success"
-        return jsonify(result)
-    except:
-         return "Error: GET failed"
+@app.route('/tools/<string:subcat>', methods=['GET'])
+def rToolsGet(subcat):
+    getRequest = json.loads(request.data)
+    reqHandle = req.new_subcat(getRequest, subcat)
+    return jsonify(reqHandle)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
