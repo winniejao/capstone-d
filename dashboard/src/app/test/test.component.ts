@@ -11,8 +11,12 @@ export class TestComponent implements OnInit {
 
   constructor(private service: DashService) { }
   result: String;
-   test(): void {  
-     this.service.getTest().subscribe(asd => this.result = asd);
+   testWeb(): void {  
+     this.service.getTestWeb().subscribe(val => this.result = val);
+    }
+
+    testPython(): void {
+      this.service.getTestPython().subscribe(val => this.result = val);
     }
 
   ngOnInit() {

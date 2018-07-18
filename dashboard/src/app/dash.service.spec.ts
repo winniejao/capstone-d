@@ -19,7 +19,8 @@ describe('DashService', () => {
   });
 
   it('should figure out async testing', () => {
-    testService.getTest().subscribe(val => console.log("Ran with value" + val));
+    // @todo figure out async testing
+    //testService.getTest().subscribe(val => console.log("Ran with value" + val));
   });
 
 });
