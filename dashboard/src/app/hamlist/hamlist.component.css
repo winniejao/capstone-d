@@ -1,4 +1,4 @@
-div { 
+nav { 
   background: #034F84;
   color: #fff;
   position: fixed;
@@ -16,7 +16,9 @@ ul {
   list-style: none;
 }
 
-a {
+a:visited, a:link {
   cursor: pointer;
+  color: #fff;
+  text-decoration: none;
 }
 
