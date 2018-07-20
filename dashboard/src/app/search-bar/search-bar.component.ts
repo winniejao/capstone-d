@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchResult } from '../search-result';
-import { SearchBarService } from '../search-bar.service';
+import { DummyService } from '../dummy.service';
+// TODO: use real service
 
 @Component({
   selector: 'app-search-bar',
@@ -12,17 +13,17 @@ export class SearchBarComponent implements OnInit {
   categories: string[];
   results: SearchResult[];
 
-  constructor(private searchBarService: SearchBarService) { }
+  constructor(private dummyService: DummyService) { }
 
   ngOnInit() {
     this.getCategories();
   }
 
-  getResults(query: string): void {
-    this.results = this.searchBarService.getResults(query);
+  getResults(category: string, query: string): void {
+    this.dummyService.getSearchResults(category, query).subscribe(results => this.results = results);
   }
 
   getCategories(): void {
-    this.categories = this.searchBarService.getCategories();
+    this.dummyService.getCategories().subscribe(categories => this.categories = categories);
   }
 }

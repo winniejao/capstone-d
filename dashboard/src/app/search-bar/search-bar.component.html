@@ -13,15 +13,16 @@
       <label for="search-text">Search Text</label>
       <input type="text" class="form-control" id="search-text"
              [(ngModel)]="search_text"
-             (ngModelChange)="getResults($event)"
+             (ngModelChange)="getResults(cat, $event)"
              name="search-text"
              placeholder="Type here to search..." />
+      <!-- TODO: Change to a search result page -->
       <ul *ngIf="results" class="result-dropdown">
         <li *ngFor="let res of results" [value]="res">{{res.name}}</li>
       </ul>
       <!-- TODO:
-            -Make list of results into links
-            -Make it look pretty-->
+        -Make list of results into links
+        -Make it look pretty-->
     </div>
 
   </form>
