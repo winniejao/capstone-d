@@ -17,12 +17,6 @@
              name="search-text"
              placeholder="Type here to search..." />
       <!-- TODO: Change to a search result page -->
-      <ul *ngIf="results" class="result-dropdown">
-        <li *ngFor="let res of results" [value]="res">{{res.name}}</li>
-      </ul>
-      <!-- TODO:
-        -Make list of results into links
-        -Make it look pretty-->
     </div>
 
   </form>
