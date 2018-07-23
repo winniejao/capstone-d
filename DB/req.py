@@ -1,7 +1,10 @@
 import Form
+from ast import literal_eval
+import sqlite3
 
-def add_form(dict):
-    return dict
+def add_form(Form):
+	print("sure")
+    # return data
 
 def del_form(dict, formid):
     print formid
@@ -16,9 +19,14 @@ def alter_form(dict, formid):
     return dict
 
 def new_subcat(dict, subcat):
-    print subcat
     return dict
 
 def get_filter(dict, subcat):
     print subcatt
     return dict
+
+def get_subcat(subcat):
+	return "This worked!"
+
+#if __name__ == '__main__':
+	#data = serialize_data(dict)

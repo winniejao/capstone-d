@@ -50,7 +50,7 @@ def rToolSub(subcat):
     reqHandle = req.new_subcat(getRequest, subcat)
     return jsonify(reqHandle)
 
-################ GET BANK ##################
+################ GET SUBCAT ITEMS BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
 def rLandscapeGet(subcat):
     getRequest = json.loads(request.data)
@@ -67,6 +67,12 @@ def rEquipmentGet(subcat):
 def rToolsGet(subcat):
     getRequest = json.loads(request.data)
     reqHandle = req.new_subcat(getRequest, subcat)
+    return jsonify(reqHandle)
+
+################## GET SUBCAT BANK #######################
+@app.route('/subcatlist/<string:category>', methods=['GET'])
+def rSubcatGet(category):
+    reqHandle = req.get_subcat(category)
     return jsonify(reqHandle)
 
 if __name__ == '__main__':

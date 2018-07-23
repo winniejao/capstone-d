@@ -1,7 +1,9 @@
 ## Creates the Form class
+import req
+
 class Form:
-    def __init__(self, formid, subcat, name, purpose, cost, serial, date, attach, notes):
-        self.formid = formid
+    def __init__(self, category, subcat, name, purpose, cost, serial, date, attach, notes):
+        self.category = category
         self.subcat = subcat
         self.name = name
         self.purpose = purpose
