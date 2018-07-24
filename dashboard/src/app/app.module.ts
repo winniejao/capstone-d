@@ -5,15 +5,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
 import { HamlistComponent } from './hamlist/hamlist.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { MainpageComponent } from './mainpage/mainpage.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AdditemformComponent } from './additemform/additemform.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HamburgerComponent,
-    HamlistComponent
+    HamlistComponent,
+    MainpageComponent,
+    AdditemformComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule
   ],

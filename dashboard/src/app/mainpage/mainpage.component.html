@@ -1,0 +1,62 @@
+<nav>
+  <table class="floatleft">
+    <tr>
+      <th rowspan="2">
+	<a routerLink="/equipment">Equipment</a>
+	</th>
+      <td><a routerLink="/sub">sub</a></td>
+      <td><a routerLink="/sub">sub</a></td>
+    </tr>
+    <tr>
+      <td><a routerLink="/sub">sub</a></td>
+      <td><a routerLink="/sub">sub</a></td>
+    </tr>
+    <tr>
+      <th rowspan="2">
+	<a routerLink="/tool">Tools</a>
+	</th>
+      <td><a routerLink="/sub">sub</a></td>
+      <td><a routerLink="/sub">sub</a></td>
+    </tr>
+    <tr>
+      <td><a routerLink="/sub">sub</a></td>
+      <td><a routerLink="/sub">sub</a></td>
+    </tr>
+    <tr>
+      <th rowspan="2">
+	<a routerLink="/landscape">Landscape</a>
+	</th>
+      <td><a routerLink="/sub">sub</a></td>
+      <td><a routerLink="/sub">sub</a></td>
+    </tr>
+    <tr>
+      <td><a routerLink="/sub">sub</a></td>
+      <td><a routerLink="/sub">sub</a></td>
+    </tr>
+  </table>
+  <table class="floatright">
+    <tr>
+      <th><a routerLink="/">Backup</a></th> 
+    </tr>
+    <tr>
+      <th><a routerLink="/">PDF Forms</a></th> 
+    </tr>
+    <tr>
+      <th><a routerLink="/">Open Calendar</a></th> 
+    </tr>
+    <tr>
+      <div class="dnd" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+	<form>
+          <p> Drag a file here to upload </p>
+	  <input type="file" id="files" multiple accept="pdf"> 
+	</form>
+      </div>
+    </tr>
+    
+  </table>
+
+  
+</nav>
+  <a routerLink="/additemform" (click)=initState()>next page!</a>
+
+

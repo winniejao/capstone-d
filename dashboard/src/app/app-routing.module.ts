@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HamlistComponent } from './hamlist/hamlist.component';
+
+import { MainpageComponent } from './mainpage/mainpage.component';
+import { AdditemformComponent } from './additemform/additemform.component';
 
 const routes: Routes = [
-  { path: 'hamlist', component: HamlistComponent }
+  { path: '', redirectTo: '/mainpage', pathMatch: 'full' },
+  { path: 'mainpage', component: MainpageComponent },
+  { path: 'additemform', component: AdditemformComponent }
 ];
 @NgModule({
+  imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule { }
