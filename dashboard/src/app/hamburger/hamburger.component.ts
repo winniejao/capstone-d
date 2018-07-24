@@ -10,4 +10,7 @@ export class HamburgerComponent {
   changeState() {
     this.nextState = this.nextState === 'out'? 'in' : 'out';
   }
+  initState() {
+    this.nextState = 'out';
+  }
 }
