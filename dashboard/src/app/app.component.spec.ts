@@ -7,8 +7,9 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        TestComponentStub
-      ],
+        TestComponentStub,
+        SubCategoryStub
+      ]  
     }).compileComponents();
     
   }));
@@ -32,3 +33,6 @@ describe('AppComponent', () => {
 
 @Component({selector: 'app-test', template: ''})
 class TestComponentStub {}
+
+@Component({selector: 'app-subcategory', template: ''})
+class SubCategoryStub {}
