@@ -1,0 +1,23 @@
+<div class="tabular">
+  <!-- All of these will need to be anchors -->
+  <div class="scrollbox">
+    <ul>
+      <li *ngFor="let sub of subcat">{{sub.name}}</li>
+    </ul>
+  </div>
+
+  <div class="table">
+    <table>
+      <tr>
+        <th *ngFor="let col of table_columns">
+          {{col}}
+        </th>
+      </tr>
+      <tr *ngFor="let row of table_details">
+        <td *ngFor="let col of table_columns">
+          {{row[col]}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
