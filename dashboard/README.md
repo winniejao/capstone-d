@@ -16,7 +16,6 @@ Run `ng generate component component-name` to generate a new component. You can 
 `npm run electron-build` to build the angular project and then launch electron
 `electron-packager . --platform=win32` to build an windows executable
 
-
 ### Specifically the angular project
 Run `ng build` to build the angular project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 

@@ -1,0 +1,16 @@
+.scrollbox{
+  background-color: lightgrey;
+  width: 30%;
+  border: 1px solid dodgerblue;
+  overflow: auto;
+  float: left;
+}
+
+.table{
+  background-color: lightgrey;
+  width: 60%;
+  height: 75%;
+  border: 1px solid dodgerblue;
+  overflow: auto;
+  float: right;
+}
