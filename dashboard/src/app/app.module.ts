@@ -26,7 +26,8 @@ import { TestComponent } from './test/test.component';
     AdditemformComponent,
     SearchBarComponent,
     TestComponent,
-    TabularComponent
+    TabularComponent,
+    AdditemformComponent
   ],
   imports: [
     AppRoutingModule,
