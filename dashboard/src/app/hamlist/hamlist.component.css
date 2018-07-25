@@ -1,0 +1,24 @@
+nav { 
+  background: #034F84;
+  color: #fff;
+  position: fixed;
+  left: auto;
+  top: 100px;
+  right: 0;
+  bottom: 0;
+  width: 600px;
+}
+
+ul {
+  font-size: 20px;
+  line-height: 3;
+  padding-top: 20px;
+  list-style: none;
+}
+
+a:visited, a:link {
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+}
+
