@@ -7,66 +7,65 @@ app = Flask(__name__)
 
 ################ FORM BANK ##################
 
-@app.route('/equipment/form/', methods=['POST'])
+@app.route('/form/<string:category>', methods=['POST'])
 def rAddForm():
     getRequest = json.loads(request.data)
     reqHandle = req.add_form(getRequest)
     return jsonify(reqHandle)
 
-@app.route('/equipment/form/<int:formid>', methods=['GET'])
+@app.route('/form/<int:formid>', methods=['GET'])
 def rGetForm(formid):
     getRequest = json.loads(request.data)
     reqHandle = req.get_form(getRequest, formid)
     return jsonify(reqHandle)
 
-@app.route('/equipment/form/<int:formid>', methods=['DELETE'])
+@app.route('/form/<int:formid>', methods=['DELETE'])
 def rDeleteForm(formid):
     getRequest = json.loads(request.data)
     reqHandle = req.del_form(getRequest, formid)
     return jsonify(reqHandle)
 
-@app.route('/equipment/form/<int:formid>', methods=['PUT'])
-def rAlterForm(formid):
+@app.route('/form/<int:formid>/<string:category>', methods=['PUT'])
+def rAlterForm(formid, category):
     getRequest = json.loads(request.data)
-    reqHandle = req.alter_form(getRequest, formid)
+    reqHandle = req.alter_form(getRequest, formid, category)
     return jsonify(reqHandle)
 
 ################ NEW SUBCATEGORY BANK ############
 @app.route('/landscape/sub/<string:subcat>', methods=['POST'])
 def rLandscapeSub(subcat):
     getRequest = json.loads(request.data)
-    reqHandle = req.new_subcat(getRequest, subcat)
+    reqHandle = req.get_filter("landscape", subcat)
     return jsonify(reqHandle)
 
 @app.route('/equipment/sub/<string:subcat>', methods=['POST'])
 def rEquipmentSub(subcat):
-    getRequest = json.loads(request.data)
-    reqHandle = req.new_subcat(getRequest, subcat)
-    return jsonify(reqHandle)
+    req.new_subcat(subcat)
+    return 'Added', 201
 
 @app.route('/tools/sub/<string:subcat>', methods=['POST'])
 def rToolSub(subcat):
     getRequest = json.loads(request.data)
-    reqHandle = req.new_subcat(getRequest, subcat)
+    reqHandle = req.get_filter("tools", subcat)
     return jsonify(reqHandle)
 
 ################ GET SUBCAT ITEMS BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
 def rLandscapeGet(subcat):
     getRequest = json.loads(request.data)
-    reqHandle = req.new_subcat(getRequest, subcat)
+    reqHandle = req.get_subcat(getRequest, subcat)
     return jsonify(reqHandle)
 
 @app.route('/equipment/<string:subcat>', methods=['GET'])
 def rEquipmentGet(subcat):
     getRequest = json.loads(request.data)
-    reqHandle = req.new_subcat(getRequest, subcat)
+    reqHandle = req.get_subcat(getRequest, subcat)
     return jsonify(reqHandle)
 
 @app.route('/tools/<string:subcat>', methods=['GET'])
 def rToolsGet(subcat):
     getRequest = json.loads(request.data)
-    reqHandle = req.new_subcat(getRequest, subcat)
+    reqHandle = req.get_subcat(getRequest, subcat)
     return jsonify(reqHandle)
 
 ################## GET SUBCAT BANK #######################
