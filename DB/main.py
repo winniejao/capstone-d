@@ -25,50 +25,60 @@ def rDeleteForm(formid):
     reqHandle = req.del_form(getRequest, formid)
     return jsonify(reqHandle)
 
-@app.route('/form/<int:formid>/<string:category>', methods=['PUT'])
-def rAlterForm(formid, category):
+@app.route('/form/<int:formid>/<string:category>/<string:subcategory>', methods=['PUT'])
+def rAlterForm(formid, category, subcategory):
     getRequest = json.loads(request.data)
-    reqHandle = req.alter_form(getRequest, formid, category)
-    return jsonify(reqHandle)
+    responseCode = req.alter_form(getRequest, formid, category, subcategory)
+    if responseCode == 1:
+        return "Success", 201
+    else:
+        return "Form ID not found", 400
 
 ################ NEW SUBCATEGORY BANK ############
 @app.route('/landscape/sub/<string:subcat>', methods=['POST'])
 def rLandscapeSub(subcat):
-    getRequest = json.loads(request.data)
-    reqHandle = req.get_filter("landscape", subcat)
-    return jsonify(reqHandle)
+    try:
+        req.new_subcat("Landscape", subcat)
+        return 'Added', 201
+    except:
+        return "Error", 404
 
 @app.route('/equipment/sub/<string:subcat>', methods=['POST'])
 def rEquipmentSub(subcat):
-    req.new_subcat(subcat)
-    return 'Added', 201
+    try:
+        req.new_subcat("Equipment", subcat)
+        return 'Added', 201
+    except:
+        return "Error", 404
 
 @app.route('/tools/sub/<string:subcat>', methods=['POST'])
 def rToolSub(subcat):
-    getRequest = json.loads(request.data)
-    reqHandle = req.get_filter("tools", subcat)
-    return jsonify(reqHandle)
+    try:
+        req.new_subcat("Tools", subcat)
+        return 'Added', 201
+    except:
+        return "Error", 404
 
-################ GET SUBCAT ITEMS BANK ##################
+################ GET SUBCAT FILTER BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
 def rLandscapeGet(subcat):
     getRequest = json.loads(request.data)
-    reqHandle = req.get_subcat(getRequest, subcat)
+    reqHandle = req.get_filter(getRequest, subcat)
     return jsonify(reqHandle)
 
 @app.route('/equipment/<string:subcat>', methods=['GET'])
 def rEquipmentGet(subcat):
     getRequest = json.loads(request.data)
-    reqHandle = req.get_subcat(getRequest, subcat)
+    reqHandle = req.get_filter(getRequest, subcat)
     return jsonify(reqHandle)
 
 @app.route('/tools/<string:subcat>', methods=['GET'])
 def rToolsGet(subcat):
     getRequest = json.loads(request.data)
-    reqHandle = req.get_subcat(getRequest, subcat)
+    reqHandle = req.get_filter(getRequest, subcat)
     return jsonify(reqHandle)
 
-################## GET SUBCAT BANK #######################
+################## GET SUBCAT LIST BANK #######################
 @app.route('/subcatlist/<string:category>', methods=['GET'])
 def rSubcatGet(category):
     reqHandle = req.get_subcat(category)
