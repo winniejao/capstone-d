@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "c13ae0aa-a76b-49ef-a2e5-b078ba5df509",
+		"name": "Capstone Project Requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddForm",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t'form_id': 222,\n\t'name': 'test_form',\n\t'item': 'test_item',\n\t'purpose': 'test_purpose',\n\t'cost' : 44,\n\t'serial': 'test_serial',\n\t'date' : 'test_date',\n\t'notes' : 'test_notes'\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/form/addform",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"form",
+						"addform"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetForm",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteForm",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/form/222",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"form",
+						"222"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

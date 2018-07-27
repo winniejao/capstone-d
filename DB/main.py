@@ -7,22 +7,23 @@ app = Flask(__name__)
 
 ################ FORM BANK ##################
 
-@app.route('/form/<string:category>', methods=['POST'])
+#@app.route('/form/<string:category>', methods=['POST'])
+@app.route('/form/addform', methods=['POST'])
 def rAddForm():
-    getRequest = json.loads(request.data)
+    getRequest = request.json
     reqHandle = req.add_form(getRequest)
     return jsonify(reqHandle)
 
 @app.route('/form/<int:formid>', methods=['GET'])
 def rGetForm(formid):
-    getRequest = json.loads(request.data)
-    reqHandle = req.get_form(getRequest, formid)
+    #getRequest = json.loads(request.data)
+    reqHandle = req.get_form(formid)
     return jsonify(reqHandle)
 
 @app.route('/form/<int:formid>', methods=['DELETE'])
 def rDeleteForm(formid):
-    getRequest = json.loads(request.data)
-    reqHandle = req.del_form(getRequest, formid)
+    #getRequest = json.loads(request.data)
+    reqHandle = req.del_form(formid)
     return jsonify(reqHandle)
 
 @app.route('/form/<int:formid>/<string:category>', methods=['PUT'])
