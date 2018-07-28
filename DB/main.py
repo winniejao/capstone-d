@@ -1,4 +1,3 @@
-import Form
 import json
 import req
 from flask import Flask, request, jsonify
