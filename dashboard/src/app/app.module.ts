@@ -15,6 +15,7 @@ import { AdditemformComponent } from './additemform/additemform.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
+import { SubcategoryComponent } from './subcategory/subcategory.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { TestComponent } from './test/test.component';
     SearchBarComponent,
     TestComponent,
     TabularComponent,
-    AdditemformComponent
+    AdditemformComponent,
+    SubcategoryComponent
   ],
   imports: [
     AppRoutingModule,
