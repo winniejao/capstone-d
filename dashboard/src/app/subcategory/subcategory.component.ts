@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-subcategory',
@@ -61,6 +62,7 @@ export class SubcategoryComponent implements OnInit {
   display: string[] = this.theList;
   alphabet: string[] = [];
   selected = "";
+  path: string = "";
 
   //Flag to render the main add subcategory div
   addBox = false; 
@@ -108,13 +110,16 @@ export class SubcategoryComponent implements OnInit {
     this.closeBoxes();
   }
   
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     //Naive way to get an array of A-Z
     for(var i = 0; i < 26; i++){
       this.alphabet.push(String.fromCharCode(65+i));
     }
+
+    this.path = this.route.snapshot.url.toString();
+ 
   }
 
 }

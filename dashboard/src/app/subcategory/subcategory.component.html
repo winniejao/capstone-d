@@ -1,9 +1,9 @@
-<h1>Subcategory</h1>
+<h1> {{ path | titlecase }}</h1>
 <h2>Selected: {{ selected }}</h2>
 <div>
     <ul class="alpha-list">
-      <li *ngFor="let item of alphabet" (click)="select(item)" class="alpha-item"> 
-        {{ item }}
+      <li *ngFor="let character of alphabet" (click)="select(character)" class="alpha-item"> 
+        {{ character }}
       </li>
     </ul>
   </div>
@@ -12,7 +12,7 @@
 <div>
   <ul class="display-list">
     <li *ngFor="let item of display">
-      {{ item }}
+      <a routerLink="/tabular">{{ item }} </a>
     </li>
 </ul>
 </div>
