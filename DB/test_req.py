@@ -3,7 +3,7 @@ import req
 
 test_data = {
 	"formID": "1197",
-	"category": "Landscape"
+	"category": "Landscape",
 	"name": "Boiler1",
 	"item": "Wood Pellets",
 	"purpose": "To Burn ",

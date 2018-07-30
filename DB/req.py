@@ -22,8 +22,7 @@ def alter_form(dict, formid, category, subcat):
 
 	attch_tbl = subcat + '_' + str(formid) + '_attch'
 
-	query2 = "INSERT OR REPLACE INTO {} (attach_id, attach_path) VALUES(?, ?)".format(attch_tbl)
-	query3 = "DELETE FROM {}".format(attch_tbl)
+	query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
 	conn = sqlite3.connect(category + '.db')
 	c = conn.cursor()
 	c.execute(query, (dict['name'], dict['item'],
@@ -31,7 +30,7 @@ def alter_form(dict, formid, category, subcat):
 			  dict['serial'], dict['date'],\
 			  attch_tbl, dict['notes'], formid))
 	conn.commit()
-	c.execute(query3)
+	c.execute(query_tbl_reset)
 	conn.commit()
 	conn.close()
 	attach_table(category, subcat, formid, dict)
@@ -53,6 +52,7 @@ def new_subcat(category, subcat):
 	conn = sqlite3.connect(category + '.db')
 	c = conn.cursor()
 	c.execute(query)
+	conn.commit()
 	conn.close()
 
 def get_filter(category, subcat):
