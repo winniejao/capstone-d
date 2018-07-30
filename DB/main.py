@@ -79,22 +79,19 @@ def rToolSub(subcat):
 ################ GET SUBCAT FILTER BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
 def rLandscapeGet(subcat):
-    getRequest = json.loads(request.data)
-    reqHandle = req.get_filter(getRequest, subcat)
+    reqHandle = req.get_filter("Landscape", subcat)
     return jsonify(reqHandle)
 
 
 @app.route('/equipment/<string:subcat>', methods=['GET'])
 def rEquipmentGet(subcat):
-    getRequest = json.loads(request.data)
-    reqHandle = req.get_filter(getRequest, subcat)
+    reqHandle = req.get_filter("Equipment", subcat)
     return jsonify(reqHandle)
 
 
 @app.route('/tools/<string:subcat>', methods=['GET'])
 def rToolsGet(subcat):
-    getRequest = json.loads(request.data)
-    reqHandle = req.get_filter(getRequest, subcat)
+    reqHandle = req.get_filter("Tools", subcat)
     return jsonify(reqHandle)
 
 
