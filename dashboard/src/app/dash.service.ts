@@ -13,6 +13,7 @@ const pythonURL = 'http://127.0.0.1:5000';
 
 export interface Form {
   formid: number;
+  category: string;
   subcat: string;
   name: string;
   item: string;
@@ -30,9 +31,8 @@ export interface Form {
 
 export class DashService {
 
-
   private readonly webURL = 'https://b7d795f9-3d11-416b-ab01-62de1c4baeae.mock.pstmn.io/api';
-  //private readonly pythonURL = 'http://127.0.0.1:5000';
+
   constructor(private http: HttpClient) { }
 
   getTestWeb(): Observable<String> {
@@ -57,9 +57,13 @@ export class DashService {
    * Gets a specific form based on its ID. This version extracts the route for you
    * @param route - ActivatedRouteSnapshot of your current location
    * @param id - The form ID number
+   * @todo Restructure routing so that we can make a few assumptions about the format of the route
    */
-  getForm(route: ActivatedRouteSnapshot, id: number): Observable<Object> {
-    return this.http.get<Form>(pythonURL + '/subcatlist/tools').pipe(
+  getFormFromRoute(route: ActivatedRouteSnapshot, id: number): Observable<Object> {
+    var routeUrl = route.url;
+    var category = routeUrl[0];
+    var subcategory = routeUrl[1];   
+    return this.http.get<Form>(pythonURL + category + subcategory).pipe(
       catchError(this.handleError('getForm', undefined)),
       tap(data => console.log(data)
     )); 
@@ -72,7 +76,7 @@ export class DashService {
    * @param id - The form ID number
    */
   getForm(cat: string, sub: string, id: number): Observable<Object> {
-    return this.http.get<Form>(pythonURL + '/subcatlist/tools').pipe(
+    return this.http.get<Form>(pythonURL + '/' + cat + '/' + sub + '/' + id).pipe(
       catchError(this.handleError('getForm', undefined)),
       tap(data => console.log(data)
     )); 
@@ -102,7 +106,17 @@ export class DashService {
     )); 
   }
 
-
+  /**
+   * @param input - A completed form object without a formid
+   * @returns - The assigned formid
+   */
+  addForm(input: Form): Observable<number> {
+    var route = pythonURL +'/' + input.category + '/' + input.subcat + '/';
+    return this.http.post<number>(route, input).pipe(
+      catchError(this.handleError('addForm', 0)),
+      tap(data => console.log(data)
+    ));
+  }
 
 /**
  * Handle Http operation that failed.
