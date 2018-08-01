@@ -11,7 +11,18 @@ const httpOptions = {
 
 const pythonURL = 'http://127.0.0.1:5000';
 
-
+export interface Form {
+  formid: number;
+  subcat: string;
+  name: string;
+  item: string;
+  purpose: string;
+  cost: number;
+  serial: string;
+  date: string;
+  attachment: string;
+  notes: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +59,10 @@ export class DashService {
    * @param id - The form ID number
    */
   getForm(route: ActivatedRouteSnapshot, id: number): Observable<Object> {
-  
+    return this.http.get<Form>(pythonURL + '/subcatlist/tools').pipe(
+      catchError(this.handleError('getForm', undefined)),
+      tap(data => console.log(data)
+    )); 
   }
 
   /**
@@ -58,22 +72,34 @@ export class DashService {
    * @param id - The form ID number
    */
   getForm(cat: string, sub: string, id: number): Observable<Object> {
-
-  };
-
-  getTools(): Observable<string> {
-    return this.http.get(pythonURL, {responseType: 'text'}).pipe(
-      catchError(this.handleError('getTestPython', '')),
-      tap(data => console.log(data),
-    ));
+    return this.http.get<Form>(pythonURL + '/subcatlist/tools').pipe(
+      catchError(this.handleError('getForm', undefined)),
+      tap(data => console.log(data)
+    )); 
   }
 
-  getEquipment(): Observable<String> {
-
+  /**
+   * @todo Do better route construction than this
+   */
+  getTools(): Observable<string[]> {
+    return this.http.get<string[]>(pythonURL + '/subcatlist/tools').pipe(
+      catchError(this.handleError('getForm', [''])),
+      tap(data => console.log(data)
+    )); 
   }
 
-  getLandscape(): Observable<String> {
+  getEquipment(): Observable<string[]> {
+    return this.http.get<string[]>(pythonURL + '/subcatlist/equipment').pipe(
+      catchError(this.handleError('getForm', [''])),
+      tap(data => console.log(data)
+    )); 
+  }
 
+  getLandscape(): Observable<string[]> {
+    return this.http.get<string[]>(pythonURL + '/subcatlist/landscape').pipe(
+      catchError(this.handleError('getForm', [''])),
+      tap(data => console.log(data)
+    )); 
   }
 
 
