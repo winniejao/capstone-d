@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
+import { Form } from './form'
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -11,19 +12,7 @@ const httpOptions = {
 
 const pythonURL = 'http://127.0.0.1:5000';
 
-export interface Form {
-  formid: number;
-  category: string;
-  subcat: string;
-  name: string;
-  item: string;
-  purpose: string;
-  cost: number;
-  serial: string;
-  date: string;
-  attachment: string;
-  notes: string;
-}
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +21,9 @@ export interface Form {
 export class DashService {
 
   private readonly webURL = 'https://b7d795f9-3d11-416b-ab01-62de1c4baeae.mock.pstmn.io/api';
-
   constructor(private http: HttpClient) { }
 
-  getTestWeb(): Observable<String> {
+  getTestWeb(): Observable<string> {
     return this.http.get(this.webURL, {responseType: 'text'}).pipe(
       catchError(this.handleError('getTestWeb', '')),
       tap(data => console.log(data),
@@ -46,7 +34,7 @@ export class DashService {
    * @todo Figure out the difference between responseType and content type with the headers
    * I should need to do app/json somewhere I think instead of text
    */
-  getTestPython(): Observable<String> {
+  getTestPython(): Observable<string> {
     return this.http.get(pythonURL, {responseType: 'text'}).pipe(
       catchError(this.handleError('getTestPython', '')),
       tap(data => console.log(data),
@@ -76,10 +64,19 @@ export class DashService {
    * @param id - The form ID number
    */
   getForm(cat: string, sub: string, id: number): Observable<Object> {
-    return this.http.get<Form>(pythonURL + '/' + cat + '/' + sub + '/' + id).pipe(
+    return this.http.get<Form>(pythonURL + '/form/' + cat + '/' + sub + '/' + id).pipe(
       catchError(this.handleError('getForm', undefined)),
       tap(data => console.log(data)
     )); 
+  }
+
+  /**
+   * 
+   * @param cat 
+   * @param sub 
+   */
+  getAllForms(cat: string, sub: string): Observable<Object> {
+    return this.http.get<Form>(pythonURL)
   }
 
   /**
@@ -111,7 +108,7 @@ export class DashService {
    * @returns - The assigned formid
    */
   addForm(input: Form): Observable<number> {
-    var route = pythonURL +'/' + input.category + '/' + input.subcat + '/';
+    var route = pythonURL +'/' + 'form/' + input.category.toLowerCase() + '/' + input.subcat.toLowerCase();
     return this.http.post<number>(route, input).pipe(
       catchError(this.handleError('addForm', 0)),
       tap(data => console.log(data)
