@@ -22,7 +22,7 @@ export class DashService {
    * @param id - The form ID number
    * @todo Restructure routing so that we can make a few assumptions about the format of the route
    */
-  getFormFromRoute(route: ActivatedRouteSnapshot, id: number): Observable<Object> {
+  getFormFromRoute(route: ActivatedRouteSnapshot, id: number): Observable<Form> {
     var routeUrl = route.url;
     var category = routeUrl[0];
     var subcategory = routeUrl[1];   
@@ -38,7 +38,7 @@ export class DashService {
    * @param sub - The subcategory of the form
    * @param id - The form ID number
    */
-  getForm(cat: string, sub: string, id: number): Observable<Object> {
+  getForm(cat: string, sub: string, id: number): Observable<Form> {
     return this.http.get<Form>(pythonURL + '/form/' + cat + '/' + sub + '/' + id).pipe(
       catchError(this.handleError('getForm', undefined)),
       tap(data => console.log(data)
@@ -50,7 +50,7 @@ export class DashService {
    * @param cat 
    * @param sub 
    */
-  getAllForms(cat: string, sub: string): Observable<Object> {
+  getAllForms(cat: string, sub: string): Observable<Form[]> {
     return this.http.get<Form>(pythonURL + '/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
       catchError(this.handleError('getAllForms', null)),
       tap(data => console.log(data)

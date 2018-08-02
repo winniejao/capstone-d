@@ -3,6 +3,8 @@
 import { Injectable } from '@angular/core';
 import { SearchResult } from './search-result';
 import { Observable, of } from 'rxjs';
+import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
+import { Form } from './form';
 
 
 @Injectable({
@@ -79,4 +81,98 @@ export class DummyService {
   }
 
   // For MOCKING DASH.SERVICE CLASS
+  //Below is the current model of the mock data. 
+  //Adding does not currently persist
+  dashCategories = [
+    'Tools',
+    'Equipment',
+    'Landscape' 
+  ]
+
+  toolSub = [
+    'Hammer',
+    'Nail',
+    'Tool',
+    'Pen',
+    'Saw',
+    'A-Tool',
+    'B-Tool',
+    'Z-Tool'
+  ]
+
+  equipSub = [
+    'Computer',
+    'EquipmentItem',
+    'Truck',
+    'Boiler'
+  ]
+
+  landSub = [
+    'Trails',
+    'Benches',
+    'Landscape item'
+  ]
+
+  dummyForm = new Form(101, 'Equipment', 'Boiler');
+
+  dummyList = [
+    new Form(101, 'Tools', 'Hammer'),
+    new Form(102, 'Tools', 'Hammer'),
+    new Form(103, 'Tools', 'Hammer')
+];
+
+
+    /**
+   * Gets a specific form based on its ID. This version extracts the route for you
+   * @param route - ActivatedRouteSnapshot of your current location
+   * @param id - The form ID number
+   */
+  getFormFromRoute(route: ActivatedRouteSnapshot, id: number): Observable<Object> {
+    return of(this.dummyForm);  
+  }
+
+  /**
+   * Gets a specific form based on an explicit path and ID
+   * @param cat - The category of the form
+   * @param sub - The subcategory of the form
+   * @param id - The form ID number
+   */
+  getForm(cat: string, sub: string, id: number): Observable<Object> {
+    return of(this.dummyForm);
+  }
+
+  getAllForms(cat: string, sub: string): Observable<Form[]> {
+    return of(this.dummyList);
+  }
+
+  getTools(): Observable<string[]> {
+    return of(this.toolSub);
+  }
+
+  getEquipment(): Observable<string[]> {
+    return of(this.equipSub);
+  }
+
+  getLandscape(): Observable<string[]> {
+    return of(this.landSub);
+  }
+  /**
+   * This mock function doesn't persist
+   * Always returns 201 as the id
+   * @param input - A completed form object without a formid
+   * @returns - Will return 201
+   */
+  addForm(input: Form): Observable<number> {
+    return of(201);
+  }
+
+  /**
+   * This mock always succeeds
+   * @param cat - The category to be placed under
+   * @param input - The name of the category
+   */
+  addSubcategory(cat: string, input: string): Observable<Object> {
+    return of('Added');
+  }
+
 }
