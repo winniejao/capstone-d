@@ -196,59 +196,6 @@ def attach_table(category, subcat, formid, dict):
 	conn.commit()
 	conn.close()
 
-def backup_db(filepath):
-    # copyfile(r'C:\Users\Ben3\Code\capstone-d\DB\Equipment.db', r'C:\Users\Ben3\Desktop\Equipment.db')
-    if path.exists("Equipment.db"):
-        src = path.relpath("Equipment.db")
-        #seperate the path from the filter
-    head, tail = path.split(src)
-    print("path:" +head)
-    print("file:" +tail)
-
-	#let's make a backup copy by appending "bak" to the name
-    dst = src+".bak"
-	# nowuse the shell to make a copy of the file
-    shutil.copy(src, dst)
-
-	#copy over the permissions,modification
-    shutil.copystat(src,dst)
-
-def restore_backup(filepath):
-    if path.exists("Equipment.db.bak"):
-        src = path.realpath("Equipment.db.bak")
-        #seperate the path from the filter
-    head, tail = path.split(src)
-    print("path:" +head)
-    print("file:" +tail)
-
-	#let's make a backup copy by appending "bak" to the name
-    # tail =
-    dst = src
-	# nowuse the shell to make a copy of the file
-    shutil.copy(src, dst)
-
-	#copy over the permissions,modification
-    shutil.copystat(src,dst)
-
-def search_db():
-    databases =[]
-
-    directory = ".\DB"
-    for filename in os.listdir(directory):
-        if filename.endswith(".db"):
-            filname = os.path.join(directory, filename)
-            databases.append(filname)
-
-    print(databases)
-    dtbs = []
-    for database in databases:
-        dtbs.append(ntpath.basename(database))
-
-    print(dtbs)
-    # print(ntpath.basename(databases[0]))
-    print(dtbs[0])
-    print(get_subcat(dtbs[0]))
-
 # if __name__ == '__main__':
 	# new_subcat("Equipment", "ArcWelder")
  	# alter_form(test_data, 1, "Equipment", "AirConditioning")
