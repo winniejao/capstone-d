@@ -12,15 +12,17 @@
   <div *ngIf="resultsArr">
     <li *ngFor="let item of resultsArr"> {{item}} </li>
   </div>
-  <p> Please don't hit Postman too much, I have a limited API quota!</p>
-  <button (click)="testWeb()">Hit postman API</button>
-  <button (click)="testPython()">Python</button>
 
   <div>
     <h3>Getting array of strings for subcategories</h3>
     <button (click)="getTool()"> Tool</button>
     <button (click)="getEquip()"> Equipment</button>
     <button (click)="getLand()"> Landscape</button>
+  </div>
+
+  <div>
+    <h3> Adding a new subcategory</h3>
+    <button (click)="addSub()"> Add subcategory</button>
   </div>
 
   <div>

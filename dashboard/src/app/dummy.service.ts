@@ -77,4 +77,6 @@ export class DummyService {
   getSubcat(search: string): Observable<SearchResult[]> {
     return of(this.results);
   }
+
+  // For MOCKING DASH.SERVICE CLASS
 }

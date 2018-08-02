@@ -6,13 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
 const pythonURL = 'http://127.0.0.1:5000';
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -20,26 +14,7 @@ const pythonURL = 'http://127.0.0.1:5000';
 
 export class DashService {
 
-  private readonly webURL = 'https://b7d795f9-3d11-416b-ab01-62de1c4baeae.mock.pstmn.io/api';
   constructor(private http: HttpClient) { }
-
-  getTestWeb(): Observable<string> {
-    return this.http.get(this.webURL, {responseType: 'text'}).pipe(
-      catchError(this.handleError('getTestWeb', '')),
-      tap(data => console.log(data),
-    ));
-  } 
-
-  /**
-   * @todo Figure out the difference between responseType and content type with the headers
-   * I should need to do app/json somewhere I think instead of text
-   */
-  getTestPython(): Observable<string> {
-    return this.http.get(pythonURL, {responseType: 'text'}).pipe(
-      catchError(this.handleError('getTestPython', '')),
-      tap(data => console.log(data),
-    ));
-  }
 
   /**
    * Gets a specific form based on its ID. This version extracts the route for you
@@ -71,12 +46,15 @@ export class DashService {
   }
 
   /**
-   * 
+   * Not currently working
    * @param cat 
    * @param sub 
    */
   getAllForms(cat: string, sub: string): Observable<Object> {
-    return this.http.get<Form>(pythonURL)
+    return this.http.get<Form>(pythonURL + '/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
+      catchError(this.handleError('getAllForms', null)),
+      tap(data => console.log(data)
+    ));
   }
 
   /**
@@ -108,13 +86,25 @@ export class DashService {
    * @returns - The assigned formid
    */
   addForm(input: Form): Observable<number> {
-    var route = pythonURL +'/' + 'form/' + input.category.toLowerCase() + '/' + input.subcat.toLowerCase();
+    var route = pythonURL + '/' + 'form/' + input.category.toLowerCase() + '/' + input.subcat.toLowerCase();
     return this.http.post<number>(route, input).pipe(
       catchError(this.handleError('addForm', 0)),
       tap(data => console.log(data)
     ));
   }
 
+  /**
+   * Adds a new subcategory to the database under a parent category
+   * @param cat - The category to be placed under
+   * @param input - The name of the category
+   */
+  addSubcategory(cat: string, input: string): Observable<Object> {
+    var route = pythonURL + '/' + cat.toLowerCase() + '/sub/' + input;
+    return this.http.post(route, {}, { responseType: "text" }).pipe(
+      catchError(this.handleError('addSubcateogry')),
+      tap(data => console.log(data)
+    ));    
+  }
 /**
  * Handle Http operation that failed.
  * Let the app continue.
