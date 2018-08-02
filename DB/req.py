@@ -2,16 +2,19 @@ import sqlite3
 import json
 import itertools
 import datetime
+import shutil
+import os
+import ntpath
+from os import path
 
 test_data = {
-    "form_id": "4",
-    "name": "It's Me",
-    "item": "Now Let's See",
+    "name": "Boiler1",
+    "item": "Exhaust Pipe",
     "purpose": "To Burn ",
-    "cost": "24.99 ",
-    "serial": "134-987-2210 ",
+    "cost": "99.99 ",
+    "serial": "122-937-2210 ",
     "date": "07-13-18 ",
-    "attach": ["C:\\Users\\Christian\\Forms\\Thing.pdf", "Q.jpg", "A.png", "s.png"],
+    "attach": ["Q.jpg", "A.png", "s.png"],
     "notes": "All of these need to burn"
 }
 
@@ -43,8 +46,8 @@ def add_form(category, subcat, formInfo):
     if subcat not in table_list:
         new_subcat(category, subcat)
 
-    #if formInfo["attach"]:
-        #attach_table(category, subcat, form_id, formInfo)
+    # if formInfo["attach"]:
+        # attach_table(category, subcat, form_id, formInfo)
 
     if check_existence(category, subcat, form_id) is None:
         conn = sqlite3.connect(database)
@@ -64,7 +67,7 @@ def add_form(category, subcat, formInfo):
         conn.close()
         return form_id + ", 201 - CREATED"
     else:
-        return "404 - NOT FOUND"
+        return "405 - NOT FOUND"
 
     # return data
 
@@ -140,7 +143,7 @@ def new_subcat(category, subcat):
 def get_filter(category, subcat):
 	query_row = ("SELECT * FROM {}").format(subcat)
 
-	conn = sqlite3.connect(category + '.db')
+	conn = sqlite3.connect(category + ".db")
 	c = conn.cursor()
 	c.execute(query_row)
 	conn.commit()
@@ -162,7 +165,7 @@ def get_filter(category, subcat):
 
 def get_subcat(category):
 	query = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
-	conn = sqlite3.connect(category + '.db')
+	conn = sqlite3.connect(category + ".db")
 	c = conn.cursor()
 	c.execute(query)
 
@@ -183,7 +186,7 @@ def attach_table(category, subcat, formid, dict):
 					attach_id TEXT,\
 					attach_path TEXT UNIQUE,\
 					FOREIGN KEY (attach_id) REFERENCES\
-					 {}(attach))".format(attch_tbl, subcat)
+					 {}(attach) ON DELETE CASCADE)".format(attch_tbl, subcat)
 	c.execute(query_create)
 	conn.commit()
 
@@ -193,9 +196,64 @@ def attach_table(category, subcat, formid, dict):
 	conn.commit()
 	conn.close()
 
+def backup_db(filepath):
+    # copyfile(r'C:\Users\Ben3\Code\capstone-d\DB\Equipment.db', r'C:\Users\Ben3\Desktop\Equipment.db')
+    if path.exists("Equipment.db"):
+        src = path.relpath("Equipment.db")
+        #seperate the path from the filter
+    head, tail = path.split(src)
+    print("path:" +head)
+    print("file:" +tail)
+
+	#let's make a backup copy by appending "bak" to the name
+    dst = src+".bak"
+	# nowuse the shell to make a copy of the file
+    shutil.copy(src, dst)
+
+	#copy over the permissions,modification
+    shutil.copystat(src,dst)
+
+def restore_backup(filepath):
+    if path.exists("Equipment.db.bak"):
+        src = path.realpath("Equipment.db.bak")
+        #seperate the path from the filter
+    head, tail = path.split(src)
+    print("path:" +head)
+    print("file:" +tail)
+
+	#let's make a backup copy by appending "bak" to the name
+    # tail =
+    dst = src
+	# nowuse the shell to make a copy of the file
+    shutil.copy(src, dst)
+
+	#copy over the permissions,modification
+    shutil.copystat(src,dst)
+
+def search_db():
+    databases =[]
+
+    directory = ".\DB"
+    for filename in os.listdir(directory):
+        if filename.endswith(".db"):
+            filname = os.path.join(directory, filename)
+            databases.append(filname)
+
+    print(databases)
+    dtbs = []
+    for database in databases:
+        dtbs.append(ntpath.basename(database))
+
+    print(dtbs)
+    # print(ntpath.basename(databases[0]))
+    print(dtbs[0])
+    print(get_subcat(dtbs[0]))
+
 # if __name__ == '__main__':
 	# new_subcat("Equipment", "ArcWelder")
  	# alter_form(test_data, 1, "Equipment", "AirConditioning")
 	# attach_table("Equipment", "Computer", 2, test_data)
 	# get_subcat("Equipment")
 	# get_filter("Equipment", "Computer")
+    # get_all_tables("Equipment.db")
+    # search_db()

@@ -38,8 +38,8 @@ def rDeleteForm(category, subcat, formid):
         return jsonify("404 - NOT FOUND")
 
 
-@app.route('/form/<int:formid>/<string:category>/<string:subcategory>', methods=['PUT'])
-def rAlterForm(formid, category, subcategory):
+@app.route('/form/<string:category>/<string:subcategory>/<int:formid>', methods=['PUT'])
+def rAlterForm(category, subcategory, formid):
     getRequest = json.loads(request.data)
     responseCode = req.alter_form(getRequest, formid, category, subcategory)
     if responseCode == 1:
