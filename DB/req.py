@@ -175,18 +175,21 @@ def get_subcat(category):
 	lst_fltrd = list(filter(lambda n: not n.endswith('_attch'), lst_to_fltr))
 	return lst_fltrd
 
-
 def attach_table(category, subcat, formid, dict):
 	attch_tbl = subcat + '_' + str(formid) + '_attch'
-	query_nsrt = "INSERT OR REPLACE INTO {} (attach_id, attach_path) VALUES(?, ?)".format(attch_tbl)
+	query_nsrt = "INSERT OR REPLACE INTO {} \
+                  (attach_id, attach_path) \
+                  VALUES(?, ?)".format(attch_tbl)
 
-	conn = sqlite3.connect(category + '.db')
-	c = conn.cursor()
 	query_create = "CREATE TABLE IF NOT EXISTS {} (\
 					attach_id TEXT,\
 					attach_path TEXT UNIQUE,\
 					FOREIGN KEY (attach_id) REFERENCES\
 					 {}(attach) ON DELETE CASCADE)".format(attch_tbl, subcat)
+
+	conn = sqlite3.connect(category + '.db')
+	c = conn.cursor()
+
 	c.execute(query_create)
 	conn.commit()
 
@@ -196,11 +199,30 @@ def attach_table(category, subcat, formid, dict):
 	conn.commit()
 	conn.close()
 
-# if __name__ == '__main__':
+def backup_db(filepath):
+    for filename in os.listdir(".\\"):
+        if filename.endswith(".db"):
+            head, tail = path.split(filename)
+            dst = filepath + tail + ".bak"
+
+            shutil.copy(filename, dst)
+            shutil.copystat(filename, dst)
+
+def restore_backup(filepath):
+    for filename in os.listdir(filepath):
+        if filename.endswith(".db.bak"):
+            src = os.path.join(filepath, filename)
+            src = src[:-4]
+
+            shutil.copy(src, ".\\" + ntpath.basename(src))
+            shutil.copystat(src, ".\\" + ntpath.basename(src))
+
+if __name__ == '__main__':
 	# new_subcat("Equipment", "ArcWelder")
  	# alter_form(test_data, 1, "Equipment", "AirConditioning")
 	# attach_table("Equipment", "Computer", 2, test_data)
 	# get_subcat("Equipment")
 	# get_filter("Equipment", "Computer")
     # get_all_tables("Equipment.db")
-    # search_db()
+    # backup_db("C:\\Users\\Ben3\\Desktop\\")
+    # restore_backup("C:\\Users\\Ben3\\Desktop\\")
