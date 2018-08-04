@@ -17,6 +17,9 @@ import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 
+import { DashService } from './dash.service'
+import { DummyService } from './dummy.service';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +41,7 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ {provide: DashService, useClass: DummyService }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

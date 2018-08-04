@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
+import { MasterService } from './master-service';
 
 const pythonURL = 'http://127.0.0.1:5000';
 
@@ -12,12 +13,13 @@ const pythonURL = 'http://127.0.0.1:5000';
   providedIn: 'root'
 })
 
-export class DashService {
+export class DashService implements MasterService {
 
   constructor(private http: HttpClient) { }
 
   /**
    * Gets a specific form based on its ID. This version extracts the route for you
+   * @deprecated - Not currently working well
    * @param route - ActivatedRouteSnapshot of your current location
    * @param id - The form ID number
    * @todo Restructure routing so that we can make a few assumptions about the format of the route
@@ -46,9 +48,10 @@ export class DashService {
   }
 
   /**
-   * Not currently working
-   * @param cat 
-   * @param sub 
+   * Gets all forms for a category and subcategory
+   * @param cat - The category of the form dump
+   * @param sub - The subcategory of the form dump
+   * 
    */
   getAllForms(cat: string, sub: string): Observable<Form[]> {
     return this.http.get<Form>(pythonURL + '/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
@@ -58,7 +61,8 @@ export class DashService {
   }
 
   /**
-   * @todo Do better route construction than this
+   * Gets a list of all possible Tool subcategories
+   * @returns string[] of subcategories
    */
   getTools(): Observable<string[]> {
     return this.http.get<string[]>(pythonURL + '/subcatlist/tools').pipe(
@@ -67,6 +71,10 @@ export class DashService {
     )); 
   }
 
+  /**
+   * Gets a list of all possible Equipment subcategories
+   * @returns string[] of subcategories
+   */
   getEquipment(): Observable<string[]> {
     return this.http.get<string[]>(pythonURL + '/subcatlist/equipment').pipe(
       catchError(this.handleError('getForm', [''])),
@@ -74,6 +82,10 @@ export class DashService {
     )); 
   }
 
+  /**
+   * Gets a list of all possible Landscape subcategories
+   * @returns string[] of subcategories
+   */
   getLandscape(): Observable<string[]> {
     return this.http.get<string[]>(pythonURL + '/subcatlist/landscape').pipe(
       catchError(this.handleError('getForm', [''])),
@@ -83,7 +95,8 @@ export class DashService {
 
   /**
    * @param input - A completed form object without a formid
-   * @returns - The assigned formid
+   * @returns - The assigned formid or 0 if unsuccessful
+   * 
    */
   addForm(input: Form): Observable<number> {
     var route = pythonURL + '/' + 'form/' + input.category.toLowerCase() + '/' + input.subcat.toLowerCase();
@@ -105,6 +118,7 @@ export class DashService {
       tap(data => console.log(data)
     ));    
   }
+
 /**
  * Handle Http operation that failed.
  * Let the app continue.

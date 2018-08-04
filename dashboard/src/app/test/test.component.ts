@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DashService } from '../dash.service';
-import { map, tap } from '../../../node_modules/rxjs/operators';
 import { Form } from '../form'
 
 @Component({
@@ -12,7 +11,7 @@ export class TestComponent implements OnInit {
 
   constructor(private service: DashService) { }
   result: string;
-  resultsArr: string[];
+  resultsArr: string[] = [];
 
   category: string;
   subcategory: string;
@@ -39,12 +38,20 @@ export class TestComponent implements OnInit {
   }
 
   getForms(): void {
-    this.service.getAllForms(this.category, this.subcategory).subscribe();
+    var output: Form[];
+    this.service.getAllForms(this.category, this.subcategory).subscribe(v => output = v);
+
+    console.log(output);
+
+    output.forEach(element => {
+      this.resultsArr.push('Form: ' + element.name + ' ' + element.formid);
+    });
+ 
   }
 
   post(): void {
     var inputForm = new Form(
-      Math.floor(Math.random()),
+      Math.floor(Math.random()*1000+1),
       this.category,
       this.subcategory
     );
