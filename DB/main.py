@@ -4,7 +4,9 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+
 ################ FORM BANK ##################
+
 @app.route('/form/<string:category>/<string:subcat>', methods=['POST'])
 def rAddForm(category, subcat):
     try:
@@ -13,9 +15,10 @@ def rAddForm(category, subcat):
         return jsonify(reqHandle)
 
     except:
-        return jsonify("404 - NOT FOUND")
+        return jsonify(req.status_code[2])
 
 
+@app.route('/form/<string:category>/<string:subcat>/', defaults={'formid': None}, methods=['GET'])
 @app.route('/form/<string:category>/<string:subcat>/<int:formid>', methods=['GET'])
 def rGetForm(category, subcat, formid):
     try:
@@ -23,17 +26,17 @@ def rGetForm(category, subcat, formid):
         return jsonify(reqHandle)
 
     except:
-        return jsonify("404 - NOT FOUND")
+        return jsonify(req.status_code[2])
 
 
 @app.route('/form/<string:category>/<string:subcat>/<int:formid>', methods=['DELETE'])
 def rDeleteForm(category, subcat, formid):
-    # try:
+    try:
         reqHandle = req.del_form(category, subcat, formid)
         return jsonify(reqHandle)
 
-    # except:
-        # return jsonify("404 - NOT FOUND")
+    except:
+        return jsonify(req.status_code[2])
 
 
 @app.route('/form/<string:category>/<string:subcategory>/<int:formid>', methods=['PUT'])

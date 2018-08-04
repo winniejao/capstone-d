@@ -19,6 +19,8 @@ test_data = {
     "notes": "All of these need to burn"
 }
 
+status_code = [200, 201, 404]
+
 ######################################################
 # Method Name: get_all_tables
 # Arguments (1): Category Name (Database),
@@ -63,6 +65,7 @@ def add_form(category, subcat, formInfo):
     subcat = subcat.replace(" ", "_").lower()
     form_id = datetime.datetime.now()
     form_id = str(form_id).replace("-", "").replace(" ", "").replace(":", "").split(".", 1)[0]
+    success_flag = False
 
     attachment = subcat + "_" + form_id + "_attch"
     database = ".\\databases\\" + category + ".db"
@@ -91,11 +94,10 @@ def add_form(category, subcat, formInfo):
                formInfo["notes"]))
         conn.commit()
         conn.close()
-        return form_id + ", 201 - CREATED"
-    else:
-        return "405 - NOT FOUND"
+        success_flag = True
 
-    # return data
+    return form_id, status_code[1] if success_flag else status_code[2]
+
 
 ######################################################
 # Method Name: get_form
@@ -110,13 +112,16 @@ def get_form(category, subcat, formid):
     database = ".\\databases\\" + category + ".db"
     conn = sqlite3.connect(database)
     c = conn.cursor()
-    c.execute("SELECT * FROM {} WHERE form_id=?".format(subcat), (formid,))
-    query = c.fetchone()
-    c.close()
-    if query is not None:
-        return query
+    if formid is None:
+        c.execute("SELECT * FROM {}".format(subcat))
+        query = c.fetchall()
     else:
-        return "404 - NOT FOUND"
+        c.execute("SELECT * FROM {} WHERE form_id=?".format(subcat), (formid,))
+        query = c.fetchone()
+
+    c.close()
+
+    return query, status_code[0] if query is not None else status_code[2]
 
 ######################################################
 # Method Name: del_form
@@ -126,6 +131,8 @@ def get_form(category, subcat, formid):
 # Description:
 ######################################################
 def del_form(category, subcat, formid):
+    success_flag = False
+
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
     attch_tbl = subcat + "_" + str(formid) + "_attch"
@@ -137,11 +144,10 @@ def del_form(category, subcat, formid):
         conn.commit()
         c.execute("DELETE FROM {} WHERE form_id=?".format(subcat), (formid,))
         conn.commit()
+        success_flag = True
         c.close()
-        return "Deleted, 200 - OK"
 
-    else:
-        return "404 - NOT FOUND"
+    return status_code[0] if success_flag else status_code[2]
 
 ######################################################
 # Method Name: alter_form
@@ -302,6 +308,7 @@ def get_subcat(category):
         return lst_fltrd
     else:
         return -1
+
 
 ######################################################
 # Method Name: attach_table
