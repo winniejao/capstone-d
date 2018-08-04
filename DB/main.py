@@ -103,15 +103,17 @@ def rSubcatGet(category):
 
 
 ################## BACKUP / RESTORE DB ########################
-@app.route('/backup/<string:filepath>', methods=['POST'])
-def rBackup(filepath):
-    reqHandle = req.backup_db(filepath)
-    return jsonify(reqHandle)
+@app.route('/backup', methods=['POST'])
+def rBackup():
+    getRequest = json.loads(request.data)
+    reqHandle = req.backup_db(getRequest)
+    return ("Backup Successful ")
 
-@app.route('/restore/<filepath>', methods=['POST'])
+@app.route('/restore', methods=['POST'])
 def rRestore(filepath):
-    reqHandle = req.restore_backup(filepath)
-    return jsonify(reqHandle)
+    getRequest = json.loads(request.data)
+    reqHandle = req.restore_backup(getRequest)
+    return ("Restore Successful")
 
 ################## SEARCH DB on STRING ########################
 @app.route('/search/<string:search_str>', methods=['GET'])

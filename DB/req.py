@@ -199,7 +199,8 @@ def attach_table(category, subcat, formid, dict):
 	conn.commit()
 	conn.close()
 
-def backup_db(filepath):
+def backup_db(flpth):
+    filepath = flpth["path"]
     for filename in os.listdir(".\\"):
         if filename.endswith(".db"):
             head, tail = path.split(filename)
@@ -208,7 +209,8 @@ def backup_db(filepath):
             shutil.copy(filename, dst)
             shutil.copystat(filename, dst)
 
-def restore_backup(filepath):
+def restore_backup(flpth):
+    filepath = flpth["path"]
     for filename in os.listdir(filepath):
         if filename.endswith(".db.bak"):
             src = os.path.join(filepath, filename)
@@ -251,4 +253,4 @@ if __name__ == '__main__':
     # get_all_tables("Equipment.db")
     # backup_db("C:\\Users\\Ben3\\Desktop\\")
     # restore_backup("C:\\Users\\Ben3\\Desktop\\")
-    # print(search("s"))
+    print(search("s"))
