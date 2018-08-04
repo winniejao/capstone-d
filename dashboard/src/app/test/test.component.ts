@@ -38,6 +38,10 @@ export class TestComponent implements OnInit {
     this.service.addSubcategory(this.category, this.subcategory).subscribe();
   }
 
+  getForms(): void {
+    this.service.getAllForms(this.category, this.subcategory).subscribe();
+  }
+
   post(): void {
     var inputForm = new Form(
       Math.floor(Math.random()),
@@ -48,8 +52,6 @@ export class TestComponent implements OnInit {
     this.service.addForm(inputForm).subscribe(val => console.log(val));
 
   }
-
-
 
   ngOnInit() {
   }
