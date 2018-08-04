@@ -102,5 +102,22 @@ def rSubcatGet(category):
     return jsonify(reqHandle)
 
 
+################## BACKUP / RESTORE DB ########################
+@app.route('/backup/<string:filepath>', methods=['POST'])
+def rBackup(filepath):
+    reqHandle = req.backup_db(filepath)
+    return jsonify(reqHandle)
+
+@app.route('/restore/<filepath>', methods=['POST'])
+def rRestore(filepath):
+    reqHandle = req.restore_backup(filepath)
+    return jsonify(reqHandle)
+
+################## SEARCH DB on STRING ########################
+@app.route('/search/<string:search_str>', methods=['GET'])
+def rSearch(search_str):
+    reqHandle = req.search(search_str)
+    return jsonify(reqHandle)
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

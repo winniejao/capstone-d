@@ -217,8 +217,33 @@ def restore_backup(filepath):
             shutil.copy(src, ".\\" + ntpath.basename(src))
             shutil.copystat(src, ".\\" + ntpath.basename(src))
 
+def search(search_str):
+    databases = []
+    json_str = []
+    for filename in os.listdir(".\\"):
+        if filename.endswith(".db"):
+            databases.append(filename)
+
+    for database in databases:
+        conn = sqlite3.connect(database)
+        c = conn.cursor()
+        for tablerow in c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'").fetchall():
+            table = tablerow[0]
+            if '_attch' not in table:
+                c.execute("SELECT * FROM {}".format(table))
+                field_names = [r[0] for r in c.description]
+                for row in c:
+                    row = list(row)
+                    row_srch = list(map(str, row))
+                    if any(search_str in s for s in row_srch):
+                        json_str.append(dict(zip(field_names, row)))
+            else:
+                continue
+        conn.close()
+    return json_str
+
 if __name__ == '__main__':
-	# new_subcat("Equipment", "ArcWelder")
+	# new_subcat("Tools", "Keys")
  	# alter_form(test_data, 1, "Equipment", "AirConditioning")
 	# attach_table("Equipment", "Computer", 2, test_data)
 	# get_subcat("Equipment")
@@ -226,3 +251,4 @@ if __name__ == '__main__':
     # get_all_tables("Equipment.db")
     # backup_db("C:\\Users\\Ben3\\Desktop\\")
     # restore_backup("C:\\Users\\Ben3\\Desktop\\")
+    # print(search("s"))
