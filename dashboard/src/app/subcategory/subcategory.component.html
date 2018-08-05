@@ -1,0 +1,44 @@
+<h1> {{ path | titlecase }}</h1>
+<h2>Selected: {{ selected }}</h2>
+<div>
+    <ul class="alpha-list">
+      <li *ngFor="let character of alphabet" (click)="select(character)" class="alpha-item"> 
+        {{ character }}
+      </li>
+    </ul>
+  </div>
+  <button (click)="clear()">No filter</button>
+----------------
+<div>
+  <ul class="display-list">
+    <li *ngFor="let item of display">
+      <a routerLink="/tabular">{{ item }} </a>
+    </li>
+</ul>
+</div>
+
+<button (click)="addSub()">Add subcategory</button>
+
+<div *ngIf="addBox">
+  Add box:
+  <div>
+    <label>name:
+      <input #add [(ngModel)]="addVal" (keyup.enter)="confirm(add.value)" placeholder="Subcategory name"/>
+    </label>
+    <button (click)="confirm(add.value)">Add</button>
+  </div>
+</div>
+
+<div *ngIf="confirmBox">
+  Confirm box:
+  This should be done with CSS library instead of manually!
+  <div>
+    Are you sure you would like to add a new subcategory? You may only remove subcategories that have no associated forms.
+  <button (click)="addConfirm(addVal)">Yes</button>
+  <button (click)="clear()">No</button>
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,26 @@
+.display-list {
+    max-height: 400px; /*Provide height in pixels or in other units as per your layout*/
+    overflow-y: auto; /*Provide an auto overflow to diaply scroll*/   
+}
+
+.alpha-item {
+    display: block;
+    color: blue;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    float: left;
+}
+
+.alpha-item:hover {
+    background-color: black;
+    color: white;
+}
+
+.alpha-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+

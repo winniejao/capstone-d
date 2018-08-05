@@ -18,6 +18,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { SubcategoryComponent } from './subcategory/subcategory.component';
 
 import { FlatpickrModule } from 'angularx-flatpickr';
 
@@ -33,6 +34,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
     TabularComponent,
     AdditemformComponent,
     CalendarComponent
+    SubcategoryComponent
   ],
   imports: [
     AppRoutingModule,
