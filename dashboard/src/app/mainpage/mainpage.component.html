@@ -4,8 +4,8 @@
       <th rowspan="2">
 	<a routerLink="/equipment">Equipment</a>
 	</th>
-      <td><a routerLink="/sub">sub</a></td>
-      <td><a routerLink="/sub">sub</a></td>
+      <td><a routerLink="/tabular" (click)="callInit()">tabular</a></td>
+      <td><a routerLink="/tabular" (click)="callInit()">tabular</a></td>
     </tr>
     <tr>
       <td><a routerLink="/sub">sub</a></td>
@@ -42,7 +42,7 @@
       <th><a routerLink="/">PDF Forms</a></th> 
     </tr>
     <tr>
-      <th><a routerLink="/">Open Calendar</a></th> 
+      <th><a routerLink="/calendar" (click)=callInit()>Open Calendar</a></th> 
     </tr>
     <tr>
       <div class="dnd" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
@@ -55,8 +55,8 @@
     
   </table>
 
-  
+<app-calendar></app-calendar> 
+ 
 </nav>
-  <a routerLink="/additemform">next page!</a>
 
 

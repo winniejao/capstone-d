@@ -14,3 +14,16 @@
   overflow: auto;
   float: right;
 }
+
+.btns a {
+  width: 100px;
+  font-size: 15px;
+  text-decoration: none;
+  curser: pointer;
+  margin-top: 10px;
+  padding: 20px 0;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
+  text-align: center;
+}

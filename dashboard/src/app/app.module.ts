@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'angular-calendar';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,8 +17,10 @@ import { AdditemformComponent } from './additemform/additemform.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
+import { CalendarComponent } from './calendar/calendar.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,7 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
     TestComponent,
     TabularComponent,
     AdditemformComponent,
+    CalendarComponent
     SubcategoryComponent
   ],
   imports: [
@@ -36,7 +41,10 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule.forRoot(),
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
