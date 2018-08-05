@@ -1,0 +1,29 @@
+h3 {
+  margin: 0 0 10px;
+}
+
+pre {
+  background-color: #F5F5F5;
+  padding: 15px;
+}
+
+.row .col-md-4 h3 {
+  text-align: center;
+}
+
+.row .col-md-4 {
+  display: inline-block;
+}
+
+.row .col-md-4 div {
+  display: inline-block;
+}
+	
+.row .col-md-4 .btn-groupL {
+  float: left;
+}
+
+.row .col-md-4 .btn-group {
+  float: right;
+}
+
