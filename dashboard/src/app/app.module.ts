@@ -16,6 +16,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
 
+import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule } from '@angular/material/';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,10 @@ import { TestComponent } from './test/test.component';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,8 @@
 import { Injectable } from '@angular/core';
 import { SearchResult } from './search-result';
 import { Observable, of } from 'rxjs';
+import { Form, FORM_HEADERS } from './form';
+import { MOCK_FORMS, MOCK_NUMBER } from './mock_forms'
 
 
 @Injectable({
@@ -15,40 +17,37 @@ export class DummyService {
   results: SearchResult[] = [
     { name: 'Boiler 1', url: 'boiler1' },
     { name: 'Boiler 2', url: 'boiler2' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
+    { name: 'Boiler 3', url: 'boiler3' },
     { name: 'Boiler 3', url: 'boiler3' }
   ];
-
-  // For TABULAR
-  // Table based on: https://codeburst.io/display-a-table-using-components-with-angular-4-f13f0971666d
-  table_details: any[] =
-    [
-      {
-        name: 'Earl of Lemongrab',
-        age: 'Unknown',
-        species: 'Lemon Candy',
-        occupation: 'Earl, Heir to the Candy Kingdom Throne'
-      },
-      {
-        name: 'Bonnibel Bubblegum',
-        age: '19',
-        species: 'Gum Person',
-        occupation: 'Returned Ruler of the Candy Kingdom'
-      },
-      {
-        name: 'Phoebe',
-        age: '16',
-        species: 'Flame Person',
-        occupation: 'Ruler of the Fire Kingdom'
-      },
-      {
-        name: 'Lumpy Space Princess',
-        age: '18',
-        species: 'Lumpy Space Person',
-        occupation: 'Babysitter'
-      },
-    ];
-
-  table_columns: string[] = ['name', 'age', 'species', 'occupation'];
 
   constructor() { }
 
@@ -64,17 +63,20 @@ export class DummyService {
   }
 
   // The real service will send+receive from DB
-  // For now return model of parsed JSON string 
   getDetails(search: string): Observable<any[]> {
-    return of(this.table_details);
+    return of(MOCK_FORMS);
+  }
+
+  getNum(search: string): Observable<number> {
+    return of(MOCK_NUMBER);
   }
 
   getColumns(search: string): Observable<string[]> {
-    return of(this.table_columns);
+    return of(FORM_HEADERS);
   }
 
   // Will return results for the scrolling box on the left
-  getSubcat(search: string): Observable<SearchResult[]> {
+  getItems(search: string): Observable<SearchResult[]> {
     return of(this.results);
   }
 }
