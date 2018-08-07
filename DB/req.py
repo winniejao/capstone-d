@@ -13,7 +13,7 @@ test_data = {
     "purpose": "To Burn ",
     "cost": "99.99 ",
     "serial": "122-937-2210 ",
-    "date": "07-13-18 ",
+    "date": "2018-12-18",
     "attach": ["Q.jpg", "A.png", "s.png"],
     "notes": "All of these need to burn"
 }
@@ -129,9 +129,10 @@ def new_subcat(category, subcat):
 	#This is dangerous as someone could SQL Inject
 	#this statement if they new our route. Be cautious
 	query = "CREATE TABLE IF NOT EXISTS {} (\
-	         form_id INTEGER PRIMARY KEY AUTOINCREMENT,\
+	         form_id INTEGER PRIMARY KEY,\
 			 name TEXT, item TEXT, purpose TEXT, cost REAL,\
-	         serial TEXT, date TEXT, attach TEXT,\
+	         serial TEXT, date DATE, maint_date DATE,\
+             repeat INTEGER, attach TEXT,\
 			 notes TEXT)".format(subcat)
 
 	conn = sqlite3.connect(category + '.db')
