@@ -74,6 +74,7 @@ def rToolSub(subcat):
         return 'Added', 201
     except:
         return "Error", 404
+
 ################ DELETE SUBCAT BANK ######################
 @app.route('/deletesubcat/<string:category>/<string:subcat>', methods=['DELETE'])
 def rDeleteSub(category, subcat):

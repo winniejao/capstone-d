@@ -13,7 +13,9 @@ test_data = {
     "purpose": "To Burn ",
     "cost": "99.99 ",
     "serial": "122-937-2210 ",
-    "date": "2018-12-18",
+    "date": "2018-06-18",
+    "maint_date" : '2018-12-18',
+    "repeat": "6",
     "attach": ["Q.jpg", "A.png", "s.png"],
     "notes": "All of these need to burn"
 }
@@ -59,7 +61,7 @@ def add_form(category, subcat, formInfo):
     form_id = datetime.datetime.now()
     form_id = str(form_id).replace("-", "").replace(" ", "").replace(":", "").split(".", 1)[0]
 
-    attachment = subcat + "_" + form_id
+    attachment = subcat + "_" + form_id + "_attch"
     database = category + ".db"
     table_list = get_all_tables(database)
 
@@ -72,7 +74,7 @@ def add_form(category, subcat, formInfo):
     if check_existence(category, subcat, form_id) is None:
         conn = sqlite3.connect(database)
         c = conn.cursor()
-        c.execute("INSERT INTO {}(form_id, name, item, purpose, cost, serial, date, attach, notes) VALUES(?,?,?,?,?,?,?,"
+        c.execute("INSERT INTO {}(form_id, name, item, purpose, cost, serial, date, maint_date, repeat, attach, notes) VALUES(?,?,?,?,?,?,?,?,?,"
               "?,?)".format(subcat),
               (form_id,
                formInfo["name"],
@@ -81,6 +83,8 @@ def add_form(category, subcat, formInfo):
                formInfo["cost"],
                formInfo["serial"],
                formInfo["date"],
+               formInfo["maint_date"],
+               formInfo["repeat"],
                attachment,
                formInfo["notes"]))
         conn.commit()
@@ -145,7 +149,8 @@ def del_form(category, subcat, formid):
 def alter_form(dict, formid, category, subcat):
 	query = "UPDATE {} SET name = ?, item = ?,\
 	 		purpose = ?, cost = ?, serial = ?,\
-			date = ?, attach = ?, notes = ?\
+			date = ?, maint_date = ?, repeat =?\
+            attach = ?, notes = ?\
 			WHERE form_id = ?".format(subcat)
 
 	attch_tbl = subcat + '_' + str(formid) + '_attch'
@@ -156,7 +161,8 @@ def alter_form(dict, formid, category, subcat):
 	c.execute(query, (dict['name'], dict['item'],
 			  dict['purpose'], dict['cost'],\
 			  dict['serial'], dict['date'],\
-			  attch_tbl, dict['notes'], formid))
+			  dict['maint_date'], dict['repeat'],\
+              attch_tbl, dict['notes'], formid))
 	conn.commit()
 	c.execute(query_tbl_reset) #Deletes the existing attachments
 	conn.commit()
