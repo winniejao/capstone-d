@@ -9,13 +9,13 @@ app = Flask(__name__)
 
 @app.route('/form/<string:category>/<string:subcat>', methods=['POST'])
 def rAddForm(category, subcat):
-    try:
+    # try:
         getRequest = request.json
         reqHandle = req.add_form(category, subcat, getRequest)
         return jsonify(reqHandle)
 
-    except:
-        return jsonify("404 - NOT FOUND")
+    # except:
+        # return jsonify("404 - NOT FOUND")
 
 
 @app.route('/form/<string:category>/<string:subcat>/<int:formid>', methods=['GET'])

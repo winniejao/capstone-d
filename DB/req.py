@@ -68,8 +68,7 @@ def add_form(category, subcat, formInfo):
     if subcat not in table_list:
         new_subcat(category, subcat)
 
-    if formInfo["attach"]:
-        attach_table(category, subcat, form_id, formInfo)
+    attach_table(category, subcat, form_id, formInfo)
 
     if check_existence(category, subcat, form_id) is None:
         conn = sqlite3.connect(database)
