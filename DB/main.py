@@ -51,35 +51,36 @@ def rAlterForm(category, subcategory, formid):
 ################ NEW SUBCATEGORY BANK ############
 @app.route('/landscape/sub/<string:subcat>', methods=['POST'])
 def rLandscapeSub(subcat):
-    try:
-        req.new_subcat("Landscape", subcat)
-        return 'Added', 201
-    except:
-        return "Error", 404
-
+    rtrn_hndl = req.new_subcat("Landscape", subcat)
+    if rtrn_hndl == 1:
+        return "Added", 201
+    else:
+        return "Table already exists", 400
 
 @app.route('/equipment/sub/<string:subcat>', methods=['POST'])
 def rEquipmentSub(subcat):
-    try:
-        req.new_subcat("Equipment", subcat)
-        return 'Added', 201
-    except:
-        return "Error", 404
-
+    rtrn_hndl = req.new_subcat("Equipment", subcat)
+    if rtrn_hndl == 1:
+        return "Added", 201
+    else:
+        return "Table already exists", 400
 
 @app.route('/tools/sub/<string:subcat>', methods=['POST'])
 def rToolSub(subcat):
-    try:
-        req.new_subcat("Tools", subcat)
-        return 'Added', 201
-    except:
-        return "Error", 404
+    rtrn_hndl = req.new_subcat("Tools", subcat)
+    if rtrn_hndl == 1:
+        return "Added", 201
+    else:
+        return "Table already exists", 400
 
 ################ DELETE SUBCAT BANK ######################
 @app.route('/deletesubcat/<string:category>/<string:subcat>', methods=['DELETE'])
 def rDeleteSub(category, subcat):
-    req.del_subcat(category, subcat)
-    return 'Added', 201
+    try:
+        req.del_subcat(category, subcat)
+        return 'Added', 201
+    except:
+        return "Not Found", 404
 
 ################ GET SUBCAT FILTER BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
@@ -104,7 +105,10 @@ def rToolsGet(subcat):
 @app.route('/subcatlist/<string:category>', methods=['GET'])
 def rSubcatGet(category):
     reqHandle = req.get_subcat(category)
-    return jsonify(reqHandle)
+    if reqHandle == -1:
+        return "Invalid Category Name", 404
+    else:
+        return jsonify(reqHandle)
 
 
 ################## BACKUP / RESTORE DB ########################

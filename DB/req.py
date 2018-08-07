@@ -185,18 +185,29 @@ def alter_form(category, subcat, formid, dict):
 def new_subcat(category, subcat):
 	#This is dangerous as someone could SQL Inject
 	#this statement if they new our route. Be cautious
-	query = "CREATE TABLE IF NOT EXISTS {} (\
+    query = "CREATE TABLE IF NOT EXISTS {} (\
 	         form_id INTEGER PRIMARY KEY,\
 			 name TEXT, item TEXT, purpose TEXT, cost REAL,\
 	         serial TEXT, date DATE, maint_date DATE,\
              repeat INTEGER, attach TEXT,\
 			 notes TEXT)".format(subcat)
-
-	conn = sqlite3.connect(category + '.db')
-	c = conn.cursor()
-	c.execute(query)
-	conn.commit()
-	conn.close()
+    query_exists = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name= ?"
+    conn = sqlite3.connect(category + '.db')
+    c = conn.cursor()
+    c.execute(query_exists, (subcat,))
+    exists = c.fetchall()
+    if exists == [(0,)]:
+        c.execute(query)
+        conn.commit()
+        conn.close()
+        return 1
+    else:
+        conn.commit()
+        conn.close()
+        return 0
+    # c.execute(query)
+    # conn.commit()
+    # conn.close()
 
 ######################################################
 # Method Name: del_subcat
@@ -261,16 +272,19 @@ def get_filter(category, subcat):
 #              Which represents the list of subcategories
 ######################################################
 def get_subcat(category):
-	query = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
-	conn = sqlite3.connect(category + ".db")
-	c = conn.cursor()
-	c.execute(query)
+    query = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
+    if category == 'Tools' or category == 'Landscape' or category == 'Equipment':
+        conn = sqlite3.connect(category + ".db")
+        c = conn.cursor()
+        c.execute(query)
+        lst_temp = list(c.fetchall())
+        conn.close()
+        lst_to_fltr = [i[0] for i in lst_temp] #Converts from tuple to list#
+        lst_fltrd = list(filter(lambda n: not n.endswith('_attch'), lst_to_fltr)) #removes attachment tables from list#
+        return lst_fltrd
+    else:
+        return -1
 
-	lst_temp = list(c.fetchall())
-	conn.close()
-	lst_to_fltr = [i[0] for i in lst_temp] #Converts from tuple to list#
-	lst_fltrd = list(filter(lambda n: not n.endswith('_attch'), lst_to_fltr)) #removes attachment tables from list#
-	return lst_fltrd
 
 ######################################################
 # Method Name: attach_table
@@ -381,7 +395,7 @@ def search(search_str):
     return json_str
 
 # if __name__ == '__main__':
-	# new_subcat("Tools", "Keys")
+	# new_subcat("Equipment", "Tractor")
  	# alter_form(test_data, 1, "Equipment", "AirConditioning")
 	# attach_table("Equipment", "Computer", 2, test_data)
 	# get_subcat("Equipment")
