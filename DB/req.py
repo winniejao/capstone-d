@@ -208,10 +208,17 @@ def new_subcat(category, subcat):
 ######################################################
 def del_subcat(category, subcat):
     query = "DROP TABLE IF EXISTS {}".format(subcat)
-    query_attch = "DROP TABLE IF EXISTS {}".format(attch_tbl)
-    conn = sqlite3.connect(category + '.db')
+    query_tbl = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
+    conn = sqlite3.connect(category + ".db")
     c = conn.cursor()
-    c.execute(query)
+    c.execute(query_tbl)
+    lst_temp = list(c.fetchall())
+    lst_to_fltr = [i[0] for i in lst_temp] #Converts from tuple to list#
+    for subcats in lst_to_fltr:
+        if subcats.startswith(subcat + '_') and subcats.endswith('_attch'):
+            c.execute("DROP TABLE {}".format(subcats)) #Drops all the attach tables first
+            conn.commit()
+    c.execute(query) #Drops the subcat table
     conn.commit()
     conn.close()
 
@@ -373,7 +380,7 @@ def search(search_str):
         conn.close()
     return json_str
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 	# new_subcat("Tools", "Keys")
  	# alter_form(test_data, 1, "Equipment", "AirConditioning")
 	# attach_table("Equipment", "Computer", 2, test_data)
