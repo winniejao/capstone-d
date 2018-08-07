@@ -7,7 +7,7 @@
 /dashboard-win32-x64
 
 # dependencies
-/node_modules
+**/node_modules
 
 # IDEs and editors
 /.idea
