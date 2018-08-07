@@ -74,7 +74,11 @@ def rToolSub(subcat):
         return 'Added', 201
     except:
         return "Error", 404
-
+################ DELETE SUBCAT BANK ######################
+@app.route('/deletesubcat/<string:category>/<string:subcat>', methods=['DELETE'])
+def rDeleteSub(category, subcat):
+    req.del_subcat(category, subcat)
+    return 'Added', 201
 
 ################ GET SUBCAT FILTER BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
@@ -110,7 +114,7 @@ def rBackup():
     return ("Backup Successful ")
 
 @app.route('/restore', methods=['POST'])
-def rRestore(filepath):
+def rRestore():
     getRequest = json.loads(request.data)
     reqHandle = req.restore_backup(getRequest)
     return ("Restore Successful")
