@@ -205,9 +205,6 @@ def new_subcat(category, subcat):
         conn.commit()
         conn.close()
         return 0
-    # c.execute(query)
-    # conn.commit()
-    # conn.close()
 
 ######################################################
 # Method Name: del_subcat
@@ -394,14 +391,14 @@ def search(search_str):
         conn.close()
     return json_str
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 	# new_subcat("Equipment", "Tractor")
  	# alter_form(test_data, 1, "Equipment", "AirConditioning")
 	# attach_table("Equipment", "Computer", 2, test_data)
-	# get_subcat("Equipment")
+	print(get_subcat("Equipment"))
 	# get_filter("Equipment", "Computer")
     # get_all_tables("Equipment.db")
-    # backup_db("C:\\Users\\Ben3\\Desktop\\")
+    # backup_db({"path": "C:\\Users\\Ben3\\Desktop\\"})
     # restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
     # print(search("s"))
     # del_subcat("Equipment", "Computer")
