@@ -68,8 +68,8 @@ def add_form(category, subcat, formInfo):
     if subcat not in table_list:
         new_subcat(category, subcat)
 
-    # if formInfo["attach"]:
-        # attach_table(category, subcat, form_id, formInfo)
+    if formInfo["attach"]:
+        attach_table(category, subcat, form_id, formInfo)
 
     if check_existence(category, subcat, form_id) is None:
         conn = sqlite3.connect(database)
@@ -146,11 +146,11 @@ def del_form(category, subcat, formid):
 #              formid, with the given fields in the
 #              Dictionary dictself.
 ######################################################
-def alter_form(dict, formid, category, subcat):
+def alter_form(category, subcat, formid, dict):
 	query = "UPDATE {} SET name = ?, item = ?,\
 	 		purpose = ?, cost = ?, serial = ?,\
-			date = ?, maint_date = ?, repeat =?\
-            attach = ?, notes = ?\
+			date = ?, maint_date = ?, repeat =?,\
+            notes = ?\
 			WHERE form_id = ?".format(subcat)
 
 	attch_tbl = subcat + '_' + str(formid) + '_attch'
@@ -162,7 +162,7 @@ def alter_form(dict, formid, category, subcat):
 			  dict['purpose'], dict['cost'],\
 			  dict['serial'], dict['date'],\
 			  dict['maint_date'], dict['repeat'],\
-              attch_tbl, dict['notes'], formid))
+              dict['notes'], formid))
 	conn.commit()
 	c.execute(query_tbl_reset) #Deletes the existing attachments
 	conn.commit()
@@ -380,7 +380,7 @@ def search(search_str):
         conn.close()
     return json_str
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 	# new_subcat("Tools", "Keys")
  	# alter_form(test_data, 1, "Equipment", "AirConditioning")
 	# attach_table("Equipment", "Computer", 2, test_data)

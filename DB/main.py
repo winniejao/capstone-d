@@ -41,7 +41,7 @@ def rDeleteForm(category, subcat, formid):
 @app.route('/form/<string:category>/<string:subcategory>/<int:formid>', methods=['PUT'])
 def rAlterForm(category, subcategory, formid):
     getRequest = json.loads(request.data)
-    responseCode = req.alter_form(getRequest, formid, category, subcategory)
+    responseCode = req.alter_form(category, subcategory, formid, getRequest)
     if responseCode == 1:
         return "Success", 201
     else:
