@@ -42,7 +42,7 @@ def get_all_tables(database):
 # Description:
 ######################################################
 def check_existence(category, subcat, form_id):
-    database = category + ".db"
+    database = ".\\databases\\" + category + ".db"
     conn = sqlite3.connect(database)
     c = conn.cursor()
     c.execute("SELECT * FROM {} WHERE form_id = ?".format(subcat), (form_id,))
@@ -62,7 +62,7 @@ def add_form(category, subcat, formInfo):
     form_id = str(form_id).replace("-", "").replace(" ", "").replace(":", "").split(".", 1)[0]
 
     attachment = subcat + "_" + form_id + "_attch"
-    database = category + ".db"
+    database = ".\\databases\\" + category + ".db"
     table_list = get_all_tables(database)
 
     if subcat not in table_list:
@@ -102,7 +102,7 @@ def add_form(category, subcat, formInfo):
 # Description:
 ######################################################
 def get_form(category, subcat, formid):
-    database = category + ".db"
+    database = ".\\databases\\" + category + ".db"
     conn = sqlite3.connect(database)
     c = conn.cursor()
     c.execute("SELECT * FROM {} WHERE form_id=?".format(subcat), (formid,))
@@ -123,7 +123,7 @@ def get_form(category, subcat, formid):
 def del_form(category, subcat, formid):
 
     if check_existence(category, subcat, formid) is not None:
-        database = category + ".db"
+        database = ".\\databases\\" + category + ".db"
         conn = sqlite3.connect(database)
         c = conn.cursor()
         c.execute("DELETE FROM {} WHERE form_id=?".format(subcat), (formid,))
@@ -155,7 +155,7 @@ def alter_form(category, subcat, formid, dict):
 	attch_tbl = subcat + '_' + str(formid) + '_attch'
 
 	query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
-	conn = sqlite3.connect(category + '.db')
+	conn = sqlite3.connect(".\\databases\\" + category + '.db')
 	c = conn.cursor()
 	c.execute(query, (dict['name'], dict['item'],
 			  dict['purpose'], dict['cost'],\
@@ -191,7 +191,7 @@ def new_subcat(category, subcat):
              repeat INTEGER, attach TEXT,\
 			 notes TEXT)".format(subcat)
     query_exists = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name= ?"
-    conn = sqlite3.connect(category + '.db')
+    conn = sqlite3.connect(".\\databases\\" + category + '.db')
     c = conn.cursor()
     c.execute(query_exists, (subcat,))
     exists = c.fetchall()
@@ -216,7 +216,7 @@ def new_subcat(category, subcat):
 def del_subcat(category, subcat):
     query = "DROP TABLE IF EXISTS {}".format(subcat)
     query_tbl = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
-    conn = sqlite3.connect(category + ".db")
+    conn = sqlite3.connect(".\\databases\\" + category + ".db")
     c = conn.cursor()
     c.execute(query_tbl)
     lst_temp = list(c.fetchall())
@@ -240,7 +240,7 @@ def del_subcat(category, subcat):
 def get_filter(category, subcat):
 	query_row = ("SELECT * FROM {}").format(subcat)
 
-	conn = sqlite3.connect(category + ".db")
+	conn = sqlite3.connect(".\\databases\\" + category + ".db")
 	c = conn.cursor()
 	c.execute(query_row)
 	conn.commit()
@@ -270,7 +270,7 @@ def get_filter(category, subcat):
 def get_subcat(category):
     query = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
     if category == 'Tools' or category == 'Landscape' or category == 'Equipment':
-        conn = sqlite3.connect(category + ".db")
+        conn = sqlite3.connect(".\\databases\\" + category + ".db")
         c = conn.cursor()
         c.execute(query)
         lst_temp = list(c.fetchall())
@@ -305,7 +305,7 @@ def attach_table(category, subcat, formid, dict):
 					FOREIGN KEY (attach_id) REFERENCES\
 					 {}(attach) ON DELETE CASCADE)".format(attch_tbl, subcat)
 
-	conn = sqlite3.connect(category + '.db')
+	conn = sqlite3.connect(".\\databases\\" + category + '.db')
 	c = conn.cursor()
 
 	c.execute(query_create)
@@ -327,14 +327,14 @@ def attach_table(category, subcat, formid, dict):
 #              missions
 ######################################################
 def backup_db(flpth):
+    print("In backup")
     filepath = flpth["path"]
-    for filename in os.listdir(".\\"):
+    for filename in os.listdir(".\\databases\\"):
         if filename.endswith(".db"):
             head, tail = path.split(filename)
             dst = filepath + tail + ".bak" #Adds a .bak to the filepath#
-
-            shutil.copy(filename, dst)
-            shutil.copystat(filename, dst) #Copies file permissions#
+            shutil.copy(".\\databases\\" + filename, dst)
+            shutil.copystat(".\\databases\\" + filename, dst) #Copies file permissions#
 
 ######################################################
 # Method Name: restore_backup
@@ -350,10 +350,9 @@ def restore_backup(flpth):
     for filename in os.listdir(filepath):
         if filename.endswith(".db.bak"):
             src = os.path.join(filepath, filename)
-            src = src[:-4]  #Removes .bak from filename on path #
-
-            shutil.copy(src, ".\\" + ntpath.basename(src))
-            shutil.copystat(src, ".\\" + ntpath.basename(src)) #Copies file permissions#
+            dst_src = src[:-4]  #Removes .bak from filename on path #
+            shutil.copy(src, ".\\databases\\" + ntpath.basename(dst_src))
+            shutil.copystat(src, ".\\databases\\" + ntpath.basename(dst_src)) #Copies file permissions#
 
 ######################################################
 # Method Name: search
@@ -368,12 +367,11 @@ def restore_backup(flpth):
 def search(search_str):
     databases = []
     json_str = []
-    for filename in os.listdir(".\\"): #Gets the database names
+    for filename in os.listdir(".\\databases\\"): #Gets the database names
         if filename.endswith(".db"):
             databases.append(filename)
-
     for database in databases:  #Connects to all three of the DBs one at a time
-        conn = sqlite3.connect(database)
+        conn = sqlite3.connect(".\\databases\\" + database)
         c = conn.cursor()
         for tablerow in c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'").fetchall():
             table = tablerow[0] #Loops through each table
@@ -390,14 +388,14 @@ def search(search_str):
         conn.close()
     return json_str
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 	# new_subcat("Equipment", "Tractor")
  	# alter_form(test_data, 1, "Equipment", "AirConditioning")
 	# attach_table("Equipment", "Computer", 2, test_data)
-	print(get_subcat("Equipment"))
+	# print(get_subcat("Equipment"))
 	# get_filter("Equipment", "Computer")
     # get_all_tables("Equipment.db")
     # backup_db({"path": "C:\\Users\\Ben3\\Desktop\\"})
     # restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
-    # print(search("s"))
+    # print(search("Boiler6"))
     # del_subcat("Equipment", "Computer")
