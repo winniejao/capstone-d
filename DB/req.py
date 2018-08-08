@@ -5,7 +5,6 @@ import datetime
 import shutil
 import os
 import ntpath
-from os import path
 
 test_data = {
     "name": "Boiler1",
@@ -14,7 +13,7 @@ test_data = {
     "cost": "99.99 ",
     "serial": "122-937-2210 ",
     "date": "2018-06-18",
-    "maint_date" : '2018-12-18',
+    "maint_date": "2018-12-18",
     "repeat": "6",
     "attach": ["Q.jpg", "A.png", "s.png"],
     "notes": "All of these need to burn"
@@ -121,7 +120,6 @@ def get_form(category, subcat, formid):
 # Description:
 ######################################################
 def del_form(category, subcat, formid):
-
     if check_existence(category, subcat, formid) is not None:
         database = ".\\databases\\" + category + ".db"
         conn = sqlite3.connect(database)
@@ -225,6 +223,7 @@ def del_subcat(category, subcat):
         if subcats.startswith(subcat + '_') and subcats.endswith('_attch'):
             c.execute("DROP TABLE {}".format(subcats)) #Drops all the attach tables first
             conn.commit()
+
     c.execute(query) #Drops the subcat table
     conn.commit()
     conn.close()
@@ -307,10 +306,8 @@ def attach_table(category, subcat, formid, dict):
 
 	conn = sqlite3.connect(".\\databases\\" + category + '.db')
 	c = conn.cursor()
-
 	c.execute(query_create)
 	conn.commit()
-
 	for item in dict['attach']:  #Inserts all items in the attach sublist into separate rows#
 		c.execute(query_nsrt, (attch_tbl, item))
 
@@ -327,7 +324,6 @@ def attach_table(category, subcat, formid, dict):
 #              missions
 ######################################################
 def backup_db(flpth):
-    print("In backup")
     filepath = flpth["path"]
     for filename in os.listdir(".\\databases\\"):
         if filename.endswith(".db"):
@@ -370,6 +366,7 @@ def search(search_str):
     for filename in os.listdir(".\\databases\\"): #Gets the database names
         if filename.endswith(".db"):
             databases.append(filename)
+
     for database in databases:  #Connects to all three of the DBs one at a time
         conn = sqlite3.connect(".\\databases\\" + database)
         c = conn.cursor()
