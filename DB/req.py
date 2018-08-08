@@ -5,7 +5,7 @@ import datetime
 import shutil
 import os
 import ntpath
-
+from os import path
 test_data = {
     "name": "Boiler1",
     "item": "Exhaust Pipe",
@@ -325,6 +325,7 @@ def attach_table(category, subcat, formid, dict):
 ######################################################
 def backup_db(flpth):
     filepath = flpth["path"]
+    print(filepath)
     for filename in os.listdir(".\\databases\\"):
         if filename.endswith(".db"):
             head, tail = path.split(filename)
