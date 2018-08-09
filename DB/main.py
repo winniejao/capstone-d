@@ -4,18 +4,16 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-
 ################ FORM BANK ##################
-
 @app.route('/form/<string:category>/<string:subcat>', methods=['POST'])
 def rAddForm(category, subcat):
-    # try:
+    try:
         getRequest = request.json
         reqHandle = req.add_form(category, subcat, getRequest)
         return jsonify(reqHandle)
 
-    # except:
-        # return jsonify("404 - NOT FOUND")
+    except:
+        return jsonify("404 - NOT FOUND")
 
 
 @app.route('/form/<string:category>/<string:subcat>/<int:formid>', methods=['GET'])
@@ -51,7 +49,7 @@ def rAlterForm(category, subcategory, formid):
 ################ NEW SUBCATEGORY BANK ############
 @app.route('/landscape/sub/<string:subcat>', methods=['POST'])
 def rLandscapeSub(subcat):
-    rtrn_hndl = req.new_subcat("Landscape", subcat)
+    rtrn_hndl = req.new_subcat("landscape", subcat)
     if rtrn_hndl == 1:
         return "Added", 201
     else:
@@ -59,7 +57,7 @@ def rLandscapeSub(subcat):
 
 @app.route('/equipment/sub/<string:subcat>', methods=['POST'])
 def rEquipmentSub(subcat):
-    rtrn_hndl = req.new_subcat("Equipment", subcat)
+    rtrn_hndl = req.new_subcat("equipment", subcat)
     if rtrn_hndl == 1:
         return "Added", 201
     else:
@@ -67,7 +65,7 @@ def rEquipmentSub(subcat):
 
 @app.route('/tools/sub/<string:subcat>', methods=['POST'])
 def rToolSub(subcat):
-    rtrn_hndl = req.new_subcat("Tools", subcat)
+    rtrn_hndl = req.new_subcat("tools", subcat)
     if rtrn_hndl == 1:
         return "Added", 201
     else:
@@ -85,19 +83,19 @@ def rDeleteSub(category, subcat):
 ################ GET SUBCAT FILTER BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
 def rLandscapeGet(subcat):
-    reqHandle = req.get_filter("Landscape", subcat)
+    reqHandle = req.get_filter("landscape", subcat)
     return jsonify(reqHandle)
 
 
 @app.route('/equipment/<string:subcat>', methods=['GET'])
 def rEquipmentGet(subcat):
-    reqHandle = req.get_filter("Equipment", subcat)
+    reqHandle = req.get_filter("equipment", subcat)
     return jsonify(reqHandle)
 
 
 @app.route('/tools/<string:subcat>', methods=['GET'])
 def rToolsGet(subcat):
-    reqHandle = req.get_filter("Tools", subcat)
+    reqHandle = req.get_filter("tools", subcat)
     return jsonify(reqHandle)
 
 
