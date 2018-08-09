@@ -33,7 +33,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
     TestComponent,
     TabularComponent,
     AdditemformComponent,
-    CalendarComponent
+    CalendarComponent,
     SubcategoryComponent
   ],
   imports: [
