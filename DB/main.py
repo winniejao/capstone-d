@@ -39,6 +39,26 @@ def rDeleteForm(category, subcat, formid):
         return jsonify(req.status_code[2])
 
 
+@app.route("/getevents/<string:start_date>/<string:end_date>")
+def rGetEvents(start_date, end_date):
+    try:
+        reqHandle = req.get_events(start_date, end_date)
+        return jsonify(reqHandle)
+
+    except:
+        return jsonify(req.status_code[2])
+
+
+@app.route("/preventative_maint/<string:category>/<string:subcat>")
+def rGetPreventativeMaint(category, subcat):
+    try:
+        reqHandle = req.get_preventative_maint(category, subcat)
+        return jsonify(reqHandle)
+
+    except:
+        return jsonify(req.status_code[2])
+
+
 @app.route('/form/<string:category>/<string:subcategory>/<int:formid>', methods=['PUT'])
 def rAlterForm(category, subcategory, formid):
     getRequest = json.loads(request.data)
@@ -58,6 +78,7 @@ def rLandscapeSub(subcat):
     else:
         return "Table already exists", 400
 
+
 @app.route('/equipment/sub/<string:subcat>', methods=['POST'])
 def rEquipmentSub(subcat):
     rtrn_hndl = req.new_subcat("equipment", subcat)
@@ -65,6 +86,7 @@ def rEquipmentSub(subcat):
         return "Subcategory Added", 201
     else:
         return "Table already exists", 400
+
 
 @app.route('/tools/sub/<string:subcat>', methods=['POST'])
 def rToolSub(subcat):
@@ -74,6 +96,7 @@ def rToolSub(subcat):
     else:
         return "Table already exists", 400
 
+
 ################ DELETE SUBCAT BANK ######################
 @app.route('/deletesubcat/<string:category>/<string:subcat>', methods=['DELETE'])
 def rDeleteSub(category, subcat):
@@ -82,6 +105,7 @@ def rDeleteSub(category, subcat):
         return 'Subcategory Successfully Deleted', 201
     except:
         return "Form ID Not Found", 404
+
 
 ################ GET SUBCAT FILTER BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
@@ -119,17 +143,20 @@ def rBackup():
     reqHandle = req.backup_db(getRequest)
     return ("Backup Successful ")
 
+
 @app.route('/restore', methods=['POST'])
 def rRestore():
     getRequest = json.loads(request.data)
     reqHandle = req.restore_backup(getRequest)
     return ("Restore Successful")
 
+
 ################## SEARCH DB on STRING ########################
 @app.route('/search/<string:search_str>', methods=['GET'])
 def rSearch(search_str):
     reqHandle = req.search(search_str)
     return jsonify(reqHandle)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -6,6 +6,7 @@ import shutil
 import os
 import ntpath
 from os import path
+
 test_data = {
     "name": "Boiler1",
     "item": "Exhaust Pipe",
@@ -30,10 +31,11 @@ status_code = [200, 201, 404]
 def get_all_tables(database):
     conn = sqlite3.connect(database)
     c = conn.cursor()
-    c.execute("SELECT name FROM sqlite_master WHERE type = \"table\"")
+    c.execute("SELECT name FROM sqlite_master WHERE type = \"table\" AND name != \"sqlite_sequence\"")
     table_list = c.fetchall()
     c.close()
     return table_list
+
 
 ######################################################
 # Method Name: check_existence
@@ -42,9 +44,7 @@ def get_all_tables(database):
 # Returns:
 # Description:
 ######################################################
-def check_existence(category, subcat, form_id):
-    category = category.lower()
-    subcat = subcat.replace(" ", "_").lower()
+def check_form_existence(category, subcat, form_id):
     database = ".\\databases\\" + category + ".db"
     conn = sqlite3.connect(database)
     c = conn.cursor()
@@ -52,6 +52,7 @@ def check_existence(category, subcat, form_id):
     return_query = c.fetchone()
     c.close()
     return return_query
+
 
 ######################################################
 # Method Name: add_form
@@ -67,6 +68,11 @@ def add_form(category, subcat, formInfo):
     form_id = str(form_id).replace("-", "").replace(" ", "").replace(":", "").split(".", 1)[0]
     success_flag = False
 
+    date_storage = []
+    date_storage.append(formInfo["date"].split("-"))
+    date = datetime.date(int(date_storage[0][0]), int(date_storage[0][1]), int(date_storage[0][2]))
+    date_storage.clear()
+
     attachment = subcat + "_" + form_id + "_attch"
     database = ".\\databases\\" + category + ".db"
     table_list = get_all_tables(database)
@@ -74,24 +80,25 @@ def add_form(category, subcat, formInfo):
     if subcat not in table_list:
         new_subcat(category, subcat)
 
-    attach_table(category, subcat, form_id, formInfo)
+    #attach_table(category, subcat, form_id, formInfo)
 
-    if check_existence(category, subcat, form_id) is None:
+    if check_form_existence(category, subcat, form_id) is None:
         conn = sqlite3.connect(database)
         c = conn.cursor()
-        c.execute("INSERT INTO {}(form_id, name, item, purpose, cost, serial, date, maint_date, repeat, attach, notes) VALUES(?,?,?,?,?,?,?,?,?,"
-              "?,?)".format(subcat),
-              (form_id,
-               formInfo["name"],
-               formInfo["item"],
-               formInfo["purpose"],
-               formInfo["cost"],
-               formInfo["serial"],
-               formInfo["date"],
-               formInfo["maint_date"],
-               formInfo["repeat"],
-               attachment,
-               formInfo["notes"]))
+        c.execute(
+            "INSERT INTO {}(form_id, name, item, purpose, cost, serial, date, maint_date, repeat, attach, notes) VALUES(?,?,?,?,?,?,?,?,?,"
+            "?,?)".format(subcat),
+            (form_id,
+             formInfo["name"],
+             formInfo["item"],
+             formInfo["purpose"],
+             formInfo["cost"],
+             formInfo["serial"],
+             date,
+             formInfo["maint_date"],
+             formInfo["repeat"],
+             attachment,
+             formInfo["notes"]))
         conn.commit()
         conn.close()
         success_flag = True
@@ -123,6 +130,7 @@ def get_form(category, subcat, formid):
 
     return query, status_code[0] if query is not None else status_code[2]
 
+
 ######################################################
 # Method Name: del_form
 # Arguments (3): Form ID,  Category Name (Database),
@@ -133,6 +141,7 @@ def get_form(category, subcat, formid):
 def del_form(category, subcat, formid):
     success_flag = False
 
+    if check_form_existence(category, subcat, formid) is not None:
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
     attch_tbl = subcat + "_" + str(formid) + "_attch"
@@ -148,6 +157,88 @@ def del_form(category, subcat, formid):
         c.close()
 
     return status_code[0] if success_flag else status_code[2]
+
+
+######################################################
+# Method Name: get_events
+# Arguments (2): Start Date, End Date,
+#                Subcategory Name (Table)
+# Returns: Python dictionary
+# Description: Gives specific form information within a given date range from all Categories
+######################################################
+def get_events(start_date, end_date):
+    response_dict = {"Equipment":[], "Landscape":[], "Tools":[]}
+    success_flag = False
+
+    event_list = []
+    date_list = []
+    date_list.append(start_date.split("-"))
+    start = datetime.date(int(date_list[0][0]), int(date_list[0][1]), int(date_list[0][2]))
+    date_list.clear()
+    date_list.append(end_date.split("-"))
+    end = datetime.date(int(date_list[0][0]), int(date_list[0][1]), int(date_list[0][2]))
+    date_list.clear()
+
+
+    all_databases = ["Equipment.db", "Landscape.db", "Tools.db"]
+
+    for database in all_databases:
+        formatted_database = ".\\databases\\" + database
+        print(database)
+        list_of_tables = get_all_tables(formatted_database)
+        list_of_tables = [x[0] for x in list_of_tables]
+        conn = sqlite3.connect(formatted_database)
+        c = conn.cursor()
+        for table in list_of_tables:
+            if "_attch" not in table:
+                print(table)
+                c.execute("SELECT * FROM {}".format(table))
+                all_rows = c.fetchall()
+                for row in all_rows:
+                    saver = []
+                    if str(start) <= row[6] <= str(end):
+                        saver.append(row[0])
+                        saver.append(row[1])
+                        saver.append(row[2])
+                        saver.append(row[6])
+                        saver.append(row[10])
+                    if saver:
+                        #event_list.append(saver)
+                        response_dict[database.strip(".db")].append(saver)
+                        success_flag = True
+
+        #response_dict[database.strip(".db")] = event_list
+        event_list.clear()
+        c.close()
+
+    print(response_dict)
+    return response_dict, status_code[0] if success_flag else status_code[2]
+
+
+######################################################
+# Method Name: get_preventative_maint
+# Arguments (3): Category Name (Database),
+#                Subcategory Name (Table)
+# Returns: Python List
+# Description: Gets form name, maint_date, and repeat of forms within a subcategory
+######################################################
+def get_preventative_maint(category, subcat):
+    database = ".\\databases\\" + category + ".db"
+    table_list = get_all_tables(database)
+    table_list = [x[0] for x in table_list]
+    success_flag = False
+
+    if subcat in table_list:
+        conn = sqlite3.connect(database)
+        c = conn.cursor()
+        query = "SELECT name, maint_date, repeat FROM {} WHERE maint_date <> \"\"".format(subcat)
+        c.execute(query)
+        prev_maint_forms = c.fetchall()
+        success_flag = True
+
+    return prev_maint_forms, status_code[0] if success_flag else status_code[2]
+
+
 
 ######################################################
 # Method Name: alter_form
