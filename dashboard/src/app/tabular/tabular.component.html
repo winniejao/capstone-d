@@ -27,6 +27,11 @@
         <td mat-cell *matCellDef="let row"> {{row.formid}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="subcat">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Subcategory </th>
         <td mat-cell *matCellDef="let row"> {{row.subcat}} </td>
@@ -62,7 +67,17 @@
         <td mat-cell *matCellDef="let row"> {{row.date}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="attach">
+      <ng-container matColumnDef="maint_date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> PM </th>
+        <td mat-cell *matCellDef="let row"> {{row.maint_date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="repeat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Repeating </th>
+        <td mat-cell *matCellDef="let row"> {{row.repeat}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="attachment">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Attachments </th>
         <td mat-cell *matCellDef="let row"> {{row.formid}} </td>
       </ng-container>
