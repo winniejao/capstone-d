@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'angular-calendar';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 import { AppComponent } from './app.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
@@ -52,6 +53,7 @@ import { DummyService } from './dummy.service';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    NgbModule.forRoot()
   ],
   providers: [ {provide: DashService, useClass: DummyService }],
   bootstrap: [AppComponent]

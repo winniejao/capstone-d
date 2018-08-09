@@ -8,7 +8,6 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
 
-
 const routes: Routes = [
   { path: '', redirectTo: '/mainpage', pathMatch: 'full' },
   { path: 'mainpage', component: MainpageComponent },
