@@ -280,7 +280,6 @@ def get_subcat(category):
     else:
         return -1
 
-
 ######################################################
 # Method Name: attach_table
 # Arguments (4): JSON Dictionary, Form ID,
@@ -377,7 +376,6 @@ def search(search_str):
                 c.execute("SELECT * FROM {}".format(table))
                 field_names = [r[0] for r in c.description] #gets the table schema
                 for row in c: #Goes through every row
-                    row = list(row)
                     row_srch = list(map(str, row))
                     if any(search_str in s for s in row_srch): #If match was found in the row
                         json_str.append(dict(zip(field_names, row))) #writes the entire row to a dictionary
@@ -387,7 +385,7 @@ def search(search_str):
     return json_str
 
 if __name__ == '__main__':
-	# new_subcat("equipment", "Tractor")
+	# print(new_subcat("equipment", "boiler"))
  	# alter_form(test_data, 1, "equipment", "AirConditioning")
 	# attach_table("equipment", "Computer", 2, test_data)
 	# print(get_subcat("equipment"))

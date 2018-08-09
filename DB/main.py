@@ -43,7 +43,7 @@ def rAlterForm(category, subcategory, formid):
     if responseCode == 1:
         return "Success", 201
     else:
-        return "Form ID not found", 400
+        return "Form ID not found", 404
 
 
 ################ NEW SUBCATEGORY BANK ############
@@ -78,7 +78,7 @@ def rDeleteSub(category, subcat):
         req.del_subcat(category, subcat)
         return 'Added', 201
     except:
-        return "Not Found", 404
+        return "Form ID Not Found", 404
 
 ################ GET SUBCAT FILTER BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
