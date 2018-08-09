@@ -1,18 +1,52 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li:hover{
+  background-color: dodgerblue;
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px solid black;
+  background-color: #eee;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: left;
+  overflow: hidden;
+}
+
+.content:hover{
+  background-color: dodgerblue;
+}
+
 .scrollbox{
-  background-color: lightgrey;
-  width: 30%;
+  background-color: #eee;
+  width: 200px;
+  height: 400px;
   border: 1px solid dodgerblue;
-  overflow: auto;
+  overflow-y: auto;
   float: left;
 }
 
 .table{
-  background-color: lightgrey;
   width: 60%;
   height: 75%;
-  border: 1px solid dodgerblue;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   float: right;
+
+}
+
+.button{
+  float: left;
+  clear: left;
 }
 
 .btns a {

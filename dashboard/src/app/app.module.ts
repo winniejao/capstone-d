@@ -21,6 +21,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule } from '@angular/material/';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,10 @@ import { FlatpickrModule } from 'angularx-flatpickr';
     HttpClientModule,
     NgbModule.forRoot(),
     FlatpickrModule.forRoot(),
-    CalendarModule.forRoot()
+    CalendarModule.forRoot(),
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
