@@ -9,6 +9,8 @@ export class Form {
           this.cost = 3.14;
           this.serial = "ATES-TSER-IAL1";
           this.date = "11/22/2018";
+          this.maint_date = "2018-10-10";
+          this.repeat = 2;
           this.attachment = "C:/testpath";
           this.notes = "TestNote";
     }
@@ -21,6 +23,8 @@ export class Form {
     cost: number;
     serial: string;
     date: string;
+    maint_date: string;
+    repeat: number;
     attachment: string;
     notes: string;
 }
