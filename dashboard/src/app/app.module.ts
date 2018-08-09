@@ -22,6 +22,9 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule } from '@angular/material/';
+import { DashService } from './dash.service'
+import { DummyService } from './dummy.service';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +53,7 @@ import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule }
     MatSortModule,
     MatPaginatorModule,
   ],
-  providers: [],
+  providers: [ {provide: DashService, useClass: DummyService }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

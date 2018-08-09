@@ -6,6 +6,8 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { AdditemformComponent } from './additemform/additemform.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { TabularComponent } from './tabular/tabular.component';
+import { TestComponent } from './test/test.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/mainpage', pathMatch: 'full' },
@@ -15,7 +17,8 @@ const routes: Routes = [
   { path: 'equipment', component: SubcategoryComponent},
   { path: 'tool', component: SubcategoryComponent},
   { path: 'landscape', component: SubcategoryComponent},
-  { path: 'sub/tabular', component: TabularComponent }
+  { path: 'sub/tabular', component: TabularComponent },
+  { path: 'test', component: TestComponent}
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

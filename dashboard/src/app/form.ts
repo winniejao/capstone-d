@@ -1,15 +1,32 @@
+export const FORM_HEADERS: string[] = ['formid', 'subcat', 'name', 'item', 'purpose', 'cost', 'serial', 'date', 'maint', 'repeat', 'attach', 'notes'];
+
 export class Form {
-  formid: number;
-  subcat: string;
-  name:   string;
-  item:   string;
-  purpose: string;
-  cost:   number; // TS numbers are floats
-  serial: string;
-  date:   string;
-  attach: string[];
-  notes: string;
-
+    constructor(id: number, cat: string, scat: string){
+          this.formid = id;
+          this.category = cat;
+          this.subcat = scat;
+          this.name = "TestName";
+          this.item = "TestItem";
+          this.purpose = "TestPurpose";
+          this.cost = 3.14;
+          this.serial = "ATES-TSER-IAL1";
+          this.date = "11/22/2018";
+          this.maint_date = "2018-10-10";
+          this.repeat = 2;
+          this.attachment = "C:/testpath";
+          this.notes = "TestNote";
+    }
+    formid: number;
+    category: string;
+    subcat: string;
+    name: string;
+    item: string;
+    purpose: string;
+    cost: number;
+    serial: string;
+    date: string;
+    maint_date: string;
+    repeat: number;
+    attachment: string;
+    notes: string;
 }
-
-export const FORM_HEADERS: string[] = ['formid', 'subcat', 'name', 'item', 'purpose', 'cost', 'serial', 'date', 'attach', 'notes'];

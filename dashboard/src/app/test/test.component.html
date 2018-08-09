@@ -1,7 +1,40 @@
 <div>
   <h3> Dashboard Service Test Component </h3>
   <div *ngIf="result"> {{result}}</div>
-  <p> Please don't hit Postman too much, I have a limited API quota!</p>
-  <button (click)="testWeb()">Hit postman API</button>
-  <button (click)="testPython()">Python</button>
+  <div>
+      <input [(ngModel)]="category" placeholder="Category name"/>
+      <input [(ngModel)]="subcategory" placeholder="subcategory name"/>
+      <div> 
+        <button (click)="post()"> Click to post a random form</button>
+      </div>
+
+  </div>
+  <div *ngIf="resultsArr">
+    <li *ngFor="let item of resultsArr"> {{item}} </li>
+  </div>
+
+  <div>
+    <h3>Getting array of strings for subcategories</h3>
+    <button (click)="getTool()"> Tool</button>
+    <button (click)="getEquip()"> Equipment</button>
+    <button (click)="getLand()"> Landscape</button>
+  </div>
+
+  <div>
+    <h3> Adding a new subcategory</h3>
+    <button (click)="addSub()"> Add subcategory</button>
+  </div>
+
+  <div>
+    <h3> Getting all forms </h3>
+    <button (click)="getForms()"> Get all form information </button>
+  </div>
+
+  <div>
+    <h3>Getting specific form information</h3>
+    <input #fid [(ngModel)]="formNumber" placeholder="Form ID">
+    <button (click)="getForm(fid.value)"> Get this form information </button>
+  </div>
+  
+
 </div>
