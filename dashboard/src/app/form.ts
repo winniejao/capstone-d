@@ -1,4 +1,4 @@
-export const FORM_HEADERS: string[] = ['formid', 'subcat', 'name', 'item', 'purpose', 'cost', 'serial', 'date', 'maint', 'repeat', 'attach', 'notes'];
+export const FORM_HEADERS: string[] = ['formid', 'category', 'subcat', 'name', 'item', 'purpose', 'cost', 'serial', 'date', 'maint_date', 'repeat', 'attachment', 'notes'];
 
 export class Form {
     constructor(id: number, cat: string, scat: string){
