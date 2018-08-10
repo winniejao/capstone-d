@@ -6,6 +6,7 @@ import shutil
 import os
 import ntpath
 from os import path
+from collections import Counter
 
 test_data = {
     "name": "Boiler1",
@@ -141,11 +142,10 @@ def get_form(category, subcat, formid):
 def del_form(category, subcat, formid):
     success_flag = False
 
-    if check_form_existence(category, subcat, formid) is not None:
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
     attch_tbl = subcat + "_" + str(formid) + "_attch"
-    if check_existence(category, subcat, formid) is not None:
+    if check_form_existence(category, subcat, formid) is not None:
         database = ".\\databases\\" + category + ".db"
         conn = sqlite3.connect(database)
         c = conn.cursor()
@@ -238,6 +238,30 @@ def get_preventative_maint(category, subcat):
 
     return prev_maint_forms, status_code[0] if success_flag else status_code[2]
 
+
+def write_quick_access(category, subcat):
+    if os.path.isfile(category + ".txt"):
+        with open(os.path.join(os.getcwd(), category + ".txt"), "a") as file:
+            file.write(" " + subcat)
+
+    else:
+        with open(os.path.join(os.getcwd(), category + ".txt"), "w") as file:
+            file.write(subcat)
+
+    #os.remove(category + ".txt")
+
+
+def read_quick_access(category):
+    success_flag = False
+
+    if os.path.isfile(category + ".txt"):
+        with open(os.path.join(os.getcwd(), category + ".txt"), "r") as file:
+            subcat_list = file.read().split(" ")
+            success_flag = True
+            count = Counter(subcat_list)
+            mostcommon = count.most_common(4)
+
+    return [x[0] for x in mostcommon], status_code[0] if success_flag else status_code[2]
 
 
 ######################################################
