@@ -41,6 +41,8 @@ def get_all_tables(database):
 # Description:
 ######################################################
 def check_existence(category, subcat, form_id):
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
     database = ".\\databases\\" + category + ".db"
     conn = sqlite3.connect(database)
     c = conn.cursor()
@@ -57,6 +59,8 @@ def check_existence(category, subcat, form_id):
 # Description:
 ######################################################
 def add_form(category, subcat, formInfo):
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
     form_id = datetime.datetime.now()
     form_id = str(form_id).replace("-", "").replace(" ", "").replace(":", "").split(".", 1)[0]
 
@@ -101,6 +105,8 @@ def add_form(category, subcat, formInfo):
 # Description:
 ######################################################
 def get_form(category, subcat, formid):
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
     database = ".\\databases\\" + category + ".db"
     conn = sqlite3.connect(database)
     c = conn.cursor()
@@ -120,6 +126,8 @@ def get_form(category, subcat, formid):
 # Description:
 ######################################################
 def del_form(category, subcat, formid):
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
     if check_existence(category, subcat, formid) is not None:
         database = ".\\databases\\" + category + ".db"
         conn = sqlite3.connect(database)
@@ -144,32 +152,33 @@ def del_form(category, subcat, formid):
 #              Dictionary dictself.
 ######################################################
 def alter_form(category, subcat, formid, dict):
-	query = "UPDATE {} SET name = ?, item = ?,\
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
+
+    query = "UPDATE {} SET name = ?, item = ?,\
 	 		purpose = ?, cost = ?, serial = ?,\
 			date = ?, maint_date = ?, repeat =?,\
             notes = ?\
 			WHERE form_id = ?".format(subcat)
-
-	attch_tbl = subcat + '_' + str(formid) + '_attch'
-
-	query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
-	conn = sqlite3.connect(".\\databases\\" + category + '.db')
-	c = conn.cursor()
-	c.execute(query, (dict['name'], dict['item'],
+    attch_tbl = subcat + '_' + str(formid) + '_attch'
+    query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
+    conn = sqlite3.connect(".\\databases\\" + category + '.db')
+    c = conn.cursor()
+    c.execute(query, (dict['name'], dict['item'],
 			  dict['purpose'], dict['cost'],\
 			  dict['serial'], dict['date'],\
 			  dict['maint_date'], dict['repeat'],\
               dict['notes'], formid))
-	conn.commit()
-	c.execute(query_tbl_reset) #Deletes the existing attachments
-	conn.commit()
-	conn.close()
-	attach_table(category, subcat, formid, dict) #Adds the new attachments
+    conn.commit()
+    c.execute(query_tbl_reset) #Deletes the existing attachments
+    conn.commit()
+    conn.close()
+    attach_table(category, subcat, formid, dict) #Adds the new attachments
 
-	if c.rowcount == 0:
-		return 0
-	else:
-		return 1
+    if c.rowcount == 0:
+        return 0
+    else:
+        return 1
 
 ######################################################
 # Method Name: new_subcat
@@ -182,6 +191,8 @@ def alter_form(category, subcat, formid, dict):
 def new_subcat(category, subcat):
 	#This is dangerous as someone could SQL Inject
 	#this statement if they new our route. Be cautious
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
     query = "CREATE TABLE IF NOT EXISTS {} (\
 	         form_id INTEGER PRIMARY KEY,\
 			 name TEXT, item TEXT, purpose TEXT, cost REAL,\
@@ -189,6 +200,7 @@ def new_subcat(category, subcat):
              repeat INTEGER, attach TEXT,\
 			 notes TEXT)".format(subcat)
     query_exists = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name= ?"
+
     conn = sqlite3.connect(".\\databases\\" + category + '.db')
     c = conn.cursor()
     c.execute(query_exists, (subcat,))
@@ -212,8 +224,13 @@ def new_subcat(category, subcat):
 #              given database (Category)
 ######################################################
 def del_subcat(category, subcat):
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
+
     query = "DROP TABLE IF EXISTS {}".format(subcat)
     query_tbl = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
+
+
     conn = sqlite3.connect(".\\databases\\" + category + ".db")
     c = conn.cursor()
     c.execute(query_tbl)
@@ -268,7 +285,8 @@ def get_filter(category, subcat):
 ######################################################
 def get_subcat(category):
     query = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
-    if category == 'Tools' or category == 'Landscape' or category == 'Equipment':
+    category = category.lower()
+    if category == 'tools' or category == 'landscape' or category == 'equipment':
         conn = sqlite3.connect(".\\databases\\" + category + ".db")
         c = conn.cursor()
         c.execute(query)
@@ -276,6 +294,8 @@ def get_subcat(category):
         conn.close()
         lst_to_fltr = [i[0] for i in lst_temp] #Converts from tuple to list#
         lst_fltrd = list(filter(lambda n: not n.endswith('_attch'), lst_to_fltr)) #removes attachment tables from list#
+        lst_fltrd = [x.replace("_", " ").title() for x in lst_fltrd] #Replaces "_" with spaces and capitalizes the first letter in a word
+
         return lst_fltrd
     else:
         return -1
@@ -292,26 +312,25 @@ def get_subcat(category):
 #              values of the filepaths of attachments
 ######################################################
 def attach_table(category, subcat, formid, dict):
-	attch_tbl = subcat + '_' + str(formid) + '_attch'
-	query_nsrt = "INSERT OR REPLACE INTO {} \
+    attch_tbl = subcat + '_' + str(formid) + '_attch'
+    query_nsrt = "INSERT OR REPLACE INTO {} \
                   (attach_id, attach_path) \
                   VALUES(?, ?)".format(attch_tbl)
-
-	query_create = "CREATE TABLE IF NOT EXISTS {} (\
+    query_create = "CREATE TABLE IF NOT EXISTS {} (\
 					attach_id TEXT,\
 					attach_path TEXT UNIQUE,\
 					FOREIGN KEY (attach_id) REFERENCES\
 					 {}(attach) ON DELETE CASCADE)".format(attch_tbl, subcat)
 
-	conn = sqlite3.connect(".\\databases\\" + category + '.db')
-	c = conn.cursor()
-	c.execute(query_create)
-	conn.commit()
-	for item in dict['attach']:  #Inserts all items in the attach sublist into separate rows#
-		c.execute(query_nsrt, (attch_tbl, item))
+    conn = sqlite3.connect(".\\databases\\" + category + '.db')
+    c = conn.cursor()
+    c.execute(query_create)
+    conn.commit()
+    for item in dict['attach']:  #Inserts all items in the attach sublist into separate rows#
+        c.execute(query_nsrt, (attch_tbl, item))
 
-	conn.commit()
-	conn.close()
+    conn.commit()
+    conn.close()
 
 ######################################################
 # Method Name: backup_db
@@ -388,10 +407,10 @@ if __name__ == '__main__':
 	# print(new_subcat("equipment", "boiler"))
  	# alter_form(test_data, 1, "equipment", "AirConditioning")
 	# attach_table("equipment", "Computer", 2, test_data)
-	# print(get_subcat("equipment"))
+	print(get_subcat("equipment"))
 	# get_filter("equipment", "Computer")
     # get_all_tables("equipment.db")
     # backup_db({"path": "C:\\Users\\Ben3\\Desktop\\"})
     # restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
-    print(search("West"))
+    # print(search("Laptop"))
     # del_subcat("Equipment", "Computer")

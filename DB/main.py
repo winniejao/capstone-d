@@ -41,7 +41,7 @@ def rAlterForm(category, subcategory, formid):
     getRequest = json.loads(request.data)
     responseCode = req.alter_form(category, subcategory, formid, getRequest)
     if responseCode == 1:
-        return "Success", 201
+        return "Successfully Altered", 201
     else:
         return "Form ID not found", 404
 
@@ -51,7 +51,7 @@ def rAlterForm(category, subcategory, formid):
 def rLandscapeSub(subcat):
     rtrn_hndl = req.new_subcat("landscape", subcat)
     if rtrn_hndl == 1:
-        return "Added", 201
+        return "Subcategory Added", 201
     else:
         return "Table already exists", 400
 
@@ -59,7 +59,7 @@ def rLandscapeSub(subcat):
 def rEquipmentSub(subcat):
     rtrn_hndl = req.new_subcat("equipment", subcat)
     if rtrn_hndl == 1:
-        return "Added", 201
+        return "Subcategory Added", 201
     else:
         return "Table already exists", 400
 
@@ -67,7 +67,7 @@ def rEquipmentSub(subcat):
 def rToolSub(subcat):
     rtrn_hndl = req.new_subcat("tools", subcat)
     if rtrn_hndl == 1:
-        return "Added", 201
+        return "Subcategory Added", 201
     else:
         return "Table already exists", 400
 
@@ -76,7 +76,7 @@ def rToolSub(subcat):
 def rDeleteSub(category, subcat):
     try:
         req.del_subcat(category, subcat)
-        return 'Added', 201
+        return 'Subcategory Successfully Deleted', 201
     except:
         return "Form ID Not Found", 404
 
