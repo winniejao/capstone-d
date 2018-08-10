@@ -28,12 +28,12 @@ def rGetForm(category, subcat, formid):
 
 @app.route('/form/<string:category>/<string:subcat>/<int:formid>', methods=['DELETE'])
 def rDeleteForm(category, subcat, formid):
-    try:
+    # try:
         reqHandle = req.del_form(category, subcat, formid)
         return jsonify(reqHandle)
 
-    except:
-        return jsonify("404 - NOT FOUND")
+    # except:
+        # return jsonify("404 - NOT FOUND")
 
 
 @app.route('/form/<string:category>/<string:subcategory>/<int:formid>', methods=['PUT'])

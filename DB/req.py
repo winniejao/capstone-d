@@ -128,10 +128,13 @@ def get_form(category, subcat, formid):
 def del_form(category, subcat, formid):
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
+    attch_tbl = subcat + "_" + str(formid) + "_attch"
     if check_existence(category, subcat, formid) is not None:
         database = ".\\databases\\" + category + ".db"
         conn = sqlite3.connect(database)
         c = conn.cursor()
+        c.execute("DROP TABLE {}".format(attch_tbl)) #Deletes the attachment table first
+        conn.commit()
         c.execute("DELETE FROM {} WHERE form_id=?".format(subcat), (formid,))
         conn.commit()
         c.close()
