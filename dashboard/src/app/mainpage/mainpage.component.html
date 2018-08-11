@@ -33,18 +33,16 @@
       <td><a routerLink="/sub">sub</a></td>
       <td><a routerLink="/sub">sub</a></td>
     </tr>
-  </table>
-  <table class="floatright">
     <tr>
       <th><a routerLink="/">Backup</a></th> 
+      <th colspan="2"><a routerLink="/calendar" (click)=callInit()>Open Calendar</a></th> 
+    </tr>
+<!--
+    <tr>
+      <th><a routerLink="/additemform">Add Forms</a></th> 
     </tr>
     <tr>
-      <th><a routerLink="/">PDF Forms</a></th> 
-    </tr>
-    <tr>
-      <th><a routerLink="/calendar" (click)=callInit()>Open Calendar</a></th> 
-    </tr>
-    <tr>
+	  <input type="file" id="files" multiple accept="pdf"> 
       <div class="dnd" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
 	<form>
           <p> Drag a file here to upload </p>
@@ -52,6 +50,7 @@
 	</form>
       </div>
     </tr>
+-->
     
   </table>
 
