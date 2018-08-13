@@ -25,6 +25,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule } from '@angular/material/';
 import { DashService } from './dash.service'
 import { DummyService } from './dummy.service';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { DummyService } from './dummy.service';
     TabularComponent,
     AdditemformComponent,
     CalendarComponent,
-    SubcategoryComponent
+    SubcategoryComponent,
+    BreadcrumbComponent
   ],
   imports: [
     AppRoutingModule,

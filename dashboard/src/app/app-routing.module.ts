@@ -17,7 +17,13 @@ const routes: Routes = [
   { path: 'tool', component: SubcategoryComponent},
   { path: 'landscape', component: SubcategoryComponent},
   { path: 'sub/tabular', component: TabularComponent },
-  { path: 'test', component: TestComponent}
+  { path: 'test', component: TestComponent},
+  {   path: 'foo', 
+      component: TestComponent,
+      children: [
+        { path: 'bar/baz', component: TestComponent }
+      ]
+  }
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

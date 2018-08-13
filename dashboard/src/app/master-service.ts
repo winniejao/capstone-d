@@ -15,7 +15,13 @@ export interface MasterService {
     
     getLandscape(): Observable<string[]> 
 
-    addForm(input: Form): Observable<number>   
+    addForm(input: Form): Observable<number>
+    
+    deleteForm(input: Form): Observable<any>
 
-    addSubcategory(cat: string, input: string): Observable<Object>
+    addSubcategory(cat: string, input: string): Observable<any>
+
+    updateForm(input: Form): Observable<any>
+    
+    deleteSubcategory(cat: string, sub: string): Observable<any>
 }

@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
 import { MasterService } from './master-service';
+import { HttpResponse } from '@angular/common/http';
 
 const pythonURL = 'http://127.0.0.1:5000';
 
@@ -27,11 +28,11 @@ export class DashService implements MasterService {
   getFormFromRoute(route: ActivatedRouteSnapshot, id: number): Observable<Form> {
     var routeUrl = route.url;
     var category = routeUrl[0];
-    var subcategory = routeUrl[1];   
+    var subcategory = routeUrl[1];
     return this.http.get<Form>(pythonURL + category + subcategory).pipe(
       catchError(this.handleError('getForm', undefined)),
       tap(data => console.log(data)
-    )); 
+      ));
   }
 
   /**
@@ -44,7 +45,7 @@ export class DashService implements MasterService {
     return this.http.get<Form>(pythonURL + '/form/' + cat + '/' + sub + '/' + id).pipe(
       catchError(this.handleError('getForm', undefined)),
       tap(data => console.log(data)
-    )); 
+      ));
   }
 
   /**
@@ -57,7 +58,7 @@ export class DashService implements MasterService {
     return this.http.get<Form>(pythonURL + '/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
       catchError(this.handleError('getAllForms', null)),
       tap(data => console.log(data)
-    ));
+      ));
   }
 
   /**
@@ -68,7 +69,7 @@ export class DashService implements MasterService {
     return this.http.get<string[]>(pythonURL + '/subcatlist/tools').pipe(
       catchError(this.handleError('getForm', [''])),
       tap(data => console.log(data)
-    )); 
+      ));
   }
 
   /**
@@ -79,7 +80,7 @@ export class DashService implements MasterService {
     return this.http.get<string[]>(pythonURL + '/subcatlist/equipment').pipe(
       catchError(this.handleError('getForm', [''])),
       tap(data => console.log(data)
-    )); 
+      ));
   }
 
   /**
@@ -90,7 +91,7 @@ export class DashService implements MasterService {
     return this.http.get<string[]>(pythonURL + '/subcatlist/landscape').pipe(
       catchError(this.handleError('getForm', [''])),
       tap(data => console.log(data)
-    )); 
+      ));
   }
 
   /**
@@ -103,8 +104,24 @@ export class DashService implements MasterService {
     return this.http.post<number>(route, input).pipe(
       catchError(this.handleError('addForm', 0)),
       tap(data => console.log(data)
-    ));
+      ));
   }
+
+  /**
+   * Delete the form
+   * @param input The form to be deleted
+   */
+  deleteForm(input: Form): Observable<any> {
+    var route = pythonURL + '/form/' +
+      input.category + '/' +
+      input.subcat + '/' +
+      input.formid;
+    return this.http.delete(route).pipe(
+      catchError(this.handleError('deleteForm')),
+      tap(data => console.log(data)
+      ));
+  }
+
 
   /**
    * Adds a new subcategory to the database under a parent category
@@ -116,20 +133,55 @@ export class DashService implements MasterService {
     return this.http.post(route, {}, { responseType: "text" }).pipe(
       catchError(this.handleError('addSubcateogry')),
       tap(data => console.log(data)
-    ));    
+      ));
   }
 
-/**
- * Handle Http operation that failed.
- * Let the app continue.
- * @param operation - name of the operation that failed
- * @param result - optional value to return as the observable result
- */
-  private handleError<T> (operation = 'operation', result?: T) {
+  /**
+   * replaces the DB version of the provided form based on form id.
+   * @param input - The updated form, this form's FID will be extracted and all fields updated
+   */
+  updateForm(input: Form): Observable<any> {
+    var route = pythonURL + '/form/' +
+      input.category + '/' +
+      input.subcat + '/' +
+      input.formid;
+    return this.http.put(route, input).pipe(
+      catchError(this.handleError('updateForm')),
+      tap(data => console.log(data)
+      ));
+  }
+
+  /**
+   * Deletes the subcategory according to this path. ASSUMES frontend did check
+   * Very destructive, be careful
+   * @param cat The category
+   * @param sub The subcategory to be deleted
+   */
+  deleteSubcategory(cat: string, sub: string): Observable<any> {
+    var route = pythonURL 
+    + '/deletesubcat/' +
+    cat + '/' +
+    sub;
+
+    return this.http.delete(route).pipe(
+      catchError(this.handleError('deleteSubcategory')),
+      tap(data => console.log(data)
+    ));
+      
+  }
+
+
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
- 
-    console.log(`${operation} failed: ${error.message}`);
-    return of(result as T);
+
+      console.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
 
     };
   }

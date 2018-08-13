@@ -1,0 +1,22 @@
+<div>  
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a routerLink="/mainpage">
+              Mainpage
+            </a>
+          </li>
+      <ng-container *ngIf="crumbtrail.length > 0">
+        <li class="breadcrumb-item" *ngFor="let item of crumbtrail">
+            <a routerLink="{{reconstruct(item)}}">
+              {{ item | titlecase }} 
+            </a> 
+          </li>
+      </ng-container>
+
+      <li class="breadcrumb-item active" aria-current="page">
+          {{ crumtrailActive | titlecase }} 
+      </li>
+    </ol>
+  </nav>
+</div>
