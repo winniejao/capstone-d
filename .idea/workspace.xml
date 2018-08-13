@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2378ccb6-f6fc-4382-b159-418275e9616d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/DB/Equipment.db" beforeDir="false" afterPath="$PROJECT_DIR$/DB/Equipment.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/databases/Equipment.db" beforeDir="false" afterPath="$PROJECT_DIR$/DB/databases/Equipment.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/req.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB/req.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,8 +19,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DB/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+            <state relative-caret-position="-85">
+              <caret line="64" column="28" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -28,8 +31,11 @@
       <file leaf-file-name="req.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DB/req.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-238">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="-3026">
+              <caret line="152" column="11" selection-start-line="152" selection-start-column="11" selection-end-line="152" selection-end-column="11" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -57,14 +63,14 @@
         <option value="$PROJECT_DIR$/DB/sample.json" />
         <option value="$PROJECT_DIR$/DB/ClientSide.py" />
         <option value="$PROJECT_DIR$/DB/get-file.py" />
-        <option value="$PROJECT_DIR$/DB/req.py" />
+        <option value="$PROJECT_DIR$/DB/test_req.py" />
         <option value="$PROJECT_DIR$/DB/main.py" />
+        <option value="$PROJECT_DIR$/DB/req.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="15" />
-    <option name="y" value="30" />
+    <option name="x" value="39" />
     <option name="width" value="1890" />
     <option name="height" value="930" />
   </component>
@@ -84,6 +90,12 @@
               <item name="capstone-d" type="b2602c69:ProjectViewProjectNode" />
               <item name="capstone-d" type="462c0819:PsiDirectoryNode" />
               <item name="DB" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="capstone-d" type="b2602c69:ProjectViewProjectNode" />
+              <item name="capstone-d" type="462c0819:PsiDirectoryNode" />
+              <item name="DB" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -145,13 +157,48 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="req" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="capstone-d" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DB" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DB/req.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="Unittests in test_req.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="capstone-d" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DB" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/DB/test_req.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
     <list>
       <item itemvalue="Python.main" />
       <item itemvalue="Python.get-file" />
+      <item itemvalue="Python tests.Unittests in test_req.py" />
+      <item itemvalue="Python.req" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.req" />
+        <item itemvalue="Python tests.Unittests in test_req.py" />
         <item itemvalue="Python.get-file" />
       </list>
     </recent_temporary>
@@ -169,94 +216,51 @@
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Unittests_in_test_req_py - 2018.07.29 at 23h 11m 06s.xml">
+      <configuration name="Unittests in test_req.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_req_py - 2018.07.29 at 23h 11m 41s.xml">
+      <configuration name="Unittests in test_req.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_req_py - 2018.07.29 at 23h 12m 42s.xml">
+      <configuration name="Unittests in test_req.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_req_py - 2018.07.29 at 23h 14m 08s.xml">
+      <configuration name="Unittests in test_req.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_req_py - 2018.07.29 at 23h 17m 36s.xml">
+      <configuration name="Unittests in test_req.py" configurationId="tests" />
+    </history-entry>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18282989" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22337043" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" weight="0.3283582" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50397456" side_tool="true" visible="true" weight="0.3283582" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49602544" weight="0.3432836" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.45389506" side_tool="true" weight="0.33768657" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49523053" visible="true" weight="0.31902984" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3283582" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.3283582" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49602544" visible="true" weight="0.3283582" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.5461049" weight="0.33768657" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49602544" visible="true" weight="0.3432836" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18282989" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3283582" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.3283582" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50397456" side_tool="true" visible="true" weight="0.3432836" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49682036" weight="0.3283582" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.3283582" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49920508" weight="0.3283582" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/DB/req.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DB/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DB/req.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="58" column="9" lean-forward="true" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DB/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DB/req.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="95" column="19" selection-start-line="95" selection-start-column="19" selection-end-line="95" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DB/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DB/req.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -423,20 +427,43 @@
     <entry file="file://$PROJECT_DIR$/DB/ClientSide.py" />
     <entry file="file://$PROJECT_DIR$/DB/get-file.py" />
     <entry file="file://$PROJECT_DIR$/DB/Form.py" />
+    <entry file="file://$PROJECT_DIR$/DB/test_req.py" />
+    <entry file="file://$PROJECT_DIR$/DB/test_main.py" />
+    <entry file="file://$PROJECT_DIR$/DB/tests/test_req.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DB/tests/test_main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-203" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DB/attachments/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/DB/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+        <state relative-caret-position="-85">
+          <caret line="64" column="28" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DB/assets/equipment.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/DB/req.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-238">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="-3026">
+          <caret line="152" column="11" selection-start-line="152" selection-start-column="11" selection-end-line="152" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

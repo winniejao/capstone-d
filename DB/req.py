@@ -6,6 +6,8 @@ import shutil
 import os
 import ntpath
 from os import path
+from collections import Counter
+
 test_data = {
     "name": "Boiler1",
     "item": "Exhaust Pipe",
@@ -19,6 +21,9 @@ test_data = {
     "notes": "All of these need to burn"
 }
 
+status_code = [200, 201, 404]
+
+
 ######################################################
 # Method Name: get_all_tables
 # Arguments (1): Category Name (Database),
@@ -28,10 +33,11 @@ test_data = {
 def get_all_tables(database):
     conn = sqlite3.connect(database)
     c = conn.cursor()
-    c.execute("SELECT name FROM sqlite_master WHERE type = \"table\"")
+    c.execute("SELECT name FROM sqlite_master WHERE type = \"table\" AND name != \"sqlite_sequence\"")
     table_list = c.fetchall()
     c.close()
     return table_list
+
 
 ######################################################
 # Method Name: check_existence
@@ -40,9 +46,7 @@ def get_all_tables(database):
 # Returns:
 # Description:
 ######################################################
-def check_existence(category, subcat, form_id):
-    category = category.lower()
-    subcat = subcat.replace(" ", "_").lower()
+def check_form_existence(category, subcat, form_id):
     database = ".\\databases\\" + category + ".db"
     conn = sqlite3.connect(database)
     c = conn.cursor()
@@ -51,58 +55,98 @@ def check_existence(category, subcat, form_id):
     c.close()
     return return_query
 
+
+######################################################
+# Method Name: get_all_attachment
+# Arguments (2): Category Name (Database),
+#                Subcategory Name (Table)
+# Returns: list
+# Description: Returns a query list of all paths that are in the specified table
+######################################################
+def get_all_attachment(database, table):
+    conn = sqlite3.connect(database)
+    c = conn.cursor()
+    c.execute("SELECT attach_path from {}".format(table))
+    query = c.fetchall()
+    c.close()
+    return query if query else ""
+
+
 ######################################################
 # Method Name: add_form
 # Arguments (3): Form ID,  Category Name (Database),
 #                Subcategory Name (Table)
-# Returns:
-# Description:
+# Returns: form id
+# Description: function that adds the form to a SQL database
 ######################################################
 def add_form(category, subcat, formInfo):
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
+
+    # writes the subcat to a file -- used for quick-access
+    write_quick_access(category, subcat)
+
+    # generate unique form_ids
     form_id = datetime.datetime.now()
     form_id = str(form_id).replace("-", "").replace(" ", "").replace(":", "").split(".", 1)[0]
+    success_flag = False
 
+    # convert date into a date object
+    date_storage = []
+    date_storage.append(formInfo["date"].split("-"))
+    date = datetime.date(int(date_storage[0][0]), int(date_storage[0][1]), int(date_storage[0][2]))
+    date_storage.clear()
+
+    # get the database name ready
     attachment = subcat + "_" + form_id + "_attch"
     database = ".\\databases\\" + category + ".db"
-    table_list = get_all_tables(database)
+    # table_list = get_all_tables(database)
 
-    if subcat not in table_list:
-        new_subcat(category, subcat)
+    # if subcat not in table_list:
+    # new_subcat(category, subcat)
 
-    attach_table(category, subcat, form_id, formInfo)
+    # create a separate table with the information about attachment
+    # attach_table(category, subcat, form_id, formInfo)
 
-    if check_existence(category, subcat, form_id) is None:
+    # save the file to an attachment folder (in-case the file is deleted later)
+    # TODO: needs actual path location as raw string
+    # if formInfo["attach"]:
+    # attachment_list = formInfo["attach"]
+    # print(attachment_list)
+    # for path_to_copy in attachment_list:
+    # shutil.copy2(path_to_copy, ".\\attachments\\")
+
+    if check_form_existence(category, subcat, form_id) is None:
         conn = sqlite3.connect(database)
         c = conn.cursor()
-        c.execute("INSERT INTO {}(form_id, name, item, purpose, cost, serial, date, maint_date, repeat, attach, notes) VALUES(?,?,?,?,?,?,?,?,?,"
-              "?,?)".format(subcat),
-              (form_id,
-               formInfo["name"],
-               formInfo["item"],
-               formInfo["purpose"],
-               formInfo["cost"],
-               formInfo["serial"],
-               formInfo["date"],
-               formInfo["maint_date"],
-               formInfo["repeat"],
-               attachment,
-               formInfo["notes"]))
+        c.execute(
+            "INSERT INTO {}(form_id, name, item, purpose, cost, serial, date, maint_date, repeat, attach, "
+            "notes) VALUES(?,?,?,?,?,?,?,?,?, "
+            "?,?)".format(subcat),
+            (form_id,
+             formInfo["name"],
+             formInfo["item"],
+             formInfo["purpose"],
+             formInfo["cost"],
+             formInfo["serial"],
+             date,
+             formInfo["maint_date"],
+             formInfo["repeat"],
+             attachment,
+             formInfo["notes"]))
         conn.commit()
         conn.close()
-        return form_id + ", 201 - CREATED"
-    else:
-        return "405 - NOT FOUND"
+        success_flag = True
 
-    # return data
+    return form_id, status_code[1] if success_flag else status_code[2]
+
 
 ######################################################
 # Method Name: get_form
 # Arguments (3): Form ID,  Category Name (Database),
 #                Subcategory Name (Table)
-# Returns:
-# Description:
+# Returns: form list by id, or all forms
+# Description: Returns all forms if no form id given, else returns specific form
 ######################################################
 def get_form(category, subcat, formid):
     category = category.lower()
@@ -110,38 +154,190 @@ def get_form(category, subcat, formid):
     database = ".\\databases\\" + category + ".db"
     conn = sqlite3.connect(database)
     c = conn.cursor()
-    c.execute("SELECT * FROM {} WHERE form_id=?".format(subcat), (formid,))
-    query = c.fetchone()
-    c.close()
-    if query is not None:
-        return query
+    final_query_list = []
+    if formid is None:
+        c.execute("SELECT * FROM {}".format(subcat))
+        all_rows = c.fetchall()
+        table_list = get_all_tables(database)
+        table_list = [x[0] for x in table_list]
+        for row in all_rows:
+            row_list = []
+            for item in row:
+                row_list.append(item)
+            if row_list[9] in table_list:
+                row_list[9] = get_all_attachment(database, row_list[9])
+            final_query_list.append(row_list)
     else:
-        return "404 - NOT FOUND"
+        attach_table = subcat + '_' + str(formid) + '_attch'
+        c.execute("SELECT * FROM {} WHERE form_id=?".format(subcat), (formid,))
+        query = c.fetchone()
+        table_list = get_all_tables(database)
+        table_list = [x[0] for x in table_list]
+
+        for item in query:
+            final_query_list.append(item)
+        if attach_table in table_list:
+            final_query_list[9] = get_all_attachment(database, attach_table)
+    c.close()
+    return final_query_list, status_code[0] if final_query_list is not None else status_code[2]
+
 
 ######################################################
 # Method Name: del_form
 # Arguments (3): Form ID,  Category Name (Database),
 #                Subcategory Name (Table)
-# Returns:
-# Description:
+# Returns: returns status code
+# Description: Deletes a form from the database along with it's attachment table
 ######################################################
 def del_form(category, subcat, formid):
+    success_flag = False
+
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
     attch_tbl = subcat + "_" + str(formid) + "_attch"
-    if check_existence(category, subcat, formid) is not None:
+
+    if check_form_existence(category, subcat, formid) is not None:
         database = ".\\databases\\" + category + ".db"
         conn = sqlite3.connect(database)
         c = conn.cursor()
-        c.execute("DROP TABLE {}".format(attch_tbl)) #Deletes the attachment table first
-        conn.commit()
+
+        table_list = get_all_tables(database)
+        table_list = [x[0] for x in table_list]
+        if attch_tbl in table_list:
+            c.execute("DROP TABLE {}".format(attch_tbl))  # Deletes the attachment table first
+            conn.commit()
         c.execute("DELETE FROM {} WHERE form_id=?".format(subcat), (formid,))
         conn.commit()
+        success_flag = True
         c.close()
-        return "Deleted, 200 - OK"
 
+    return status_code[0] if success_flag else status_code[2]
+
+
+######################################################
+# Method Name: get_events
+# Arguments (2): Start Date, End Date,
+#                Subcategory Name (Table)
+# Returns: Python dictionary
+# Description: Gives specific form information within a given date range from all Categories
+######################################################
+def get_events(start_date, end_date):
+    response_dict = {"Equipment": [], "Landscape": [], "Tools": []}
+    success_flag = False
+
+    event_list = []
+    date_list = []
+    date_list.append(start_date.split("-"))
+    start = datetime.date(int(date_list[0][0]), int(date_list[0][1]), int(date_list[0][2]))
+    date_list.clear()
+    date_list.append(end_date.split("-"))
+    end = datetime.date(int(date_list[0][0]), int(date_list[0][1]), int(date_list[0][2]))
+    date_list.clear()
+
+    all_databases = ["Equipment.db", "Landscape.db", "Tools.db"]
+
+    for database in all_databases:
+        formatted_database = ".\\databases\\" + database
+        list_of_tables = get_all_tables(formatted_database)
+        list_of_tables = [x[0] for x in list_of_tables]
+        conn = sqlite3.connect(formatted_database)
+        c = conn.cursor()
+        for table in list_of_tables:
+            if "_attch" not in table:
+                c.execute("SELECT * FROM {}".format(table))
+                all_rows = c.fetchall()
+                for row in all_rows:
+                    saver = []
+                    if str(start) <= row[6] <= str(end):
+                        saver.append(row[0])
+                        saver.append(row[1])
+                        saver.append(row[2])
+                        saver.append(row[6])
+                        saver.append(row[10])
+                    if saver:
+                        response_dict[database.strip(".db")].append(saver)
+                        success_flag = True
+
+        event_list.clear()
+        c.close()
+
+    return response_dict, status_code[0] if success_flag else status_code[2]
+
+
+######################################################
+# Method Name: get_preventative_maint
+# Arguments (2): Category Name (Database),
+#                Subcategory Name (Table)
+# Returns: Python List
+# Description: Gets form name, maint_date, and repeat of forms within a subcategory
+######################################################
+def get_preventative_maint(category, subcat):
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
+
+    database = ".\\databases\\" + category + ".db"
+    table_list = get_all_tables(database)
+    table_list = [x[0] for x in table_list]
+    success_flag = False
+
+    if subcat in table_list:
+        conn = sqlite3.connect(database)
+        c = conn.cursor()
+        query = "SELECT form_id, name, maint_date, repeat FROM {} WHERE maint_date <> \"\"".format(subcat)
+        c.execute(query)
+        prev_maint_forms = c.fetchall()
+        success_flag = True
+
+    return prev_maint_forms, status_code[0] if success_flag else status_code[2]
+
+
+######################################################
+# Method Name: write_quick_access
+# Arguments (2): Category Name (Database),
+#                Subcategory Name (Table)
+# Returns: Nothing
+# Description: File that writes subcat to a file to later get 4 subcats
+######################################################
+def write_quick_access(category, subcat):
+    add_to_file = category + ".txt"
+    path_to_add = ".\\assets\\"
+    file_list = os.listdir(path_to_add)
+    if add_to_file in file_list:
+        with open(os.path.join(path_to_add, add_to_file), "a") as file:
+            file.write(" " + subcat)
+
+        file.close()
     else:
-        return "404 - NOT FOUND"
+        with open(os.path.join(path_to_add, add_to_file), "w") as file:
+            file.write(subcat)
+
+        file.close()
+
+
+   # os.unlink(path_to_add + add_to_file)
+
+######################################################
+# Method Name: read_quick_access
+# Arguments (1): Category (Database)
+# Returns: a list
+# Description: returns list of 4 most commonly occurring subcategories
+######################################################
+def read_quick_access(category):
+    success_flag = False
+    category = category.lower()
+
+    filename = category + ".txt"
+    path = ".\\assets\\"
+    filelist = os.listdir(path)
+    if filename in filelist:
+        with open(os.path.join(path, filename), "r") as file:
+            subcat_list = file.read().split(" ")
+            success_flag = True
+            count = Counter(subcat_list)
+            mostcommon = count.most_common(4)
+
+    return [x[0] for x in mostcommon], status_code[0] if success_flag else status_code[2]
+
 
 ######################################################
 # Method Name: alter_form
@@ -168,20 +364,21 @@ def alter_form(category, subcat, formid, dict):
     conn = sqlite3.connect(".\\databases\\" + category + '.db')
     c = conn.cursor()
     c.execute(query, (dict['name'], dict['item'],
-			  dict['purpose'], dict['cost'],\
-			  dict['serial'], dict['date'],\
-			  dict['maint_date'], dict['repeat'],\
-              dict['notes'], formid))
+                      dict['purpose'], dict['cost'], \
+                      dict['serial'], dict['date'], \
+                      dict['maint_date'], dict['repeat'], \
+                      dict['notes'], formid))
     conn.commit()
-    c.execute(query_tbl_reset) #Deletes the existing attachments
+    c.execute(query_tbl_reset)  # Deletes the existing attachments
     conn.commit()
     conn.close()
-    attach_table(category, subcat, formid, dict) #Adds the new attachments
+    attach_table(category, subcat, formid, dict)  # Adds the new attachments
 
     if c.rowcount == 0:
         return 0
     else:
         return 1
+
 
 ######################################################
 # Method Name: new_subcat
@@ -192,8 +389,8 @@ def alter_form(category, subcat, formid, dict):
 #              Database.
 ######################################################
 def new_subcat(category, subcat):
-	#This is dangerous as someone could SQL Inject
-	#this statement if they new our route. Be cautious
+    # This is dangerous as someone could SQL Inject
+    # this statement if they new our route. Be cautious
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
     query = "CREATE TABLE IF NOT EXISTS {} (\
@@ -218,6 +415,7 @@ def new_subcat(category, subcat):
         conn.close()
         return 0
 
+
 ######################################################
 # Method Name: del_subcat
 # Arguments (2): Category Name (Database),
@@ -233,20 +431,20 @@ def del_subcat(category, subcat):
     query = "DROP TABLE IF EXISTS {}".format(subcat)
     query_tbl = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
 
-
     conn = sqlite3.connect(".\\databases\\" + category + ".db")
     c = conn.cursor()
     c.execute(query_tbl)
     lst_temp = list(c.fetchall())
-    lst_to_fltr = [i[0] for i in lst_temp] #Converts from tuple to list#
+    lst_to_fltr = [i[0] for i in lst_temp]  # Converts from tuple to list#
     for subcats in lst_to_fltr:
         if subcats.startswith(subcat + '_') and subcats.endswith('_attch'):
-            c.execute("DROP TABLE {}".format(subcats)) #Drops all the attach tables first
+            c.execute("DROP TABLE {}".format(subcats))  # Drops all the attach tables first
             conn.commit()
 
-    c.execute(query) #Drops the subcat table
+    c.execute(query)  # Drops the subcat table
     conn.commit()
     conn.close()
+
 
 ######################################################
 # Method Name: get_filter
@@ -257,27 +455,29 @@ def del_subcat(category, subcat):
 #              and appends those rows to a Python Dictionary
 ######################################################
 def get_filter(category, subcat):
-	query_row = ("SELECT * FROM {}").format(subcat)
+    query_row = ("SELECT * FROM {}").format(subcat)
 
-	conn = sqlite3.connect(".\\databases\\" + category + ".db")
-	c = conn.cursor()
-	c.execute(query_row)
-	conn.commit()
-	rs = list(c.fetchall())
-	field_names = [r[0] for r in c.description] #Gets the table schema#
-	json_data = []
-	for results in rs:
-		json_data.append(dict(zip(field_names, results)))
+    conn = sqlite3.connect(".\\databases\\" + category + ".db")
+    c = conn.cursor()
+    c.execute(query_row)
+    conn.commit()
+    rs = list(c.fetchall())
+    field_names = [r[0] for r in c.description]  # Gets the table schema#
+    json_data = []
+    for results in rs:
+        json_data.append(dict(zip(field_names, results)))
 
-	for item in json_data:
-		frm_id = item['form_id']
-		attch_tbl = subcat + '_' + str(frm_id) + '_attch'
-		attch_lst = list(c.execute(("SELECT attach_path FROM {}").format(attch_tbl))) #gets attachments from attachment table#
-		lst_to_fltr = [i[0] for i in attch_lst] #Converts tuple to list#
-		item.update({'attach': lst_to_fltr})
+    for item in json_data:
+        frm_id = item['form_id']
+        attch_tbl = subcat + '_' + str(frm_id) + '_attch'
+        attch_lst = list(
+            c.execute(("SELECT attach_path FROM {}").format(attch_tbl)))  # gets attachments from attachment table#
+        lst_to_fltr = [i[0] for i in attch_lst]  # Converts tuple to list#
+        item.update({'attach': lst_to_fltr})
 
-	conn.close()
-	return json_data
+    conn.close()
+    return json_data
+
 
 ######################################################
 # Method Name: get_subcat
@@ -295,13 +495,16 @@ def get_subcat(category):
         c.execute(query)
         lst_temp = list(c.fetchall())
         conn.close()
-        lst_to_fltr = [i[0] for i in lst_temp] #Converts from tuple to list#
-        lst_fltrd = list(filter(lambda n: not n.endswith('_attch'), lst_to_fltr)) #removes attachment tables from list#
-        lst_fltrd = [x.replace("_", " ").title() for x in lst_fltrd] #Replaces "_" with spaces and capitalizes the first letter in a word
+        lst_to_fltr = [i[0] for i in lst_temp]  # Converts from tuple to list#
+        lst_fltrd = list(
+            filter(lambda n: not n.endswith('_attch'), lst_to_fltr))  # removes attachment tables from list#
+        lst_fltrd = [x.replace("_", " ").title() for x in
+                     lst_fltrd]  # Replaces "_" with spaces and capitalizes the first letter in a word
 
         return lst_fltrd
     else:
         return -1
+
 
 ######################################################
 # Method Name: attach_table
@@ -329,11 +532,12 @@ def attach_table(category, subcat, formid, dict):
     c = conn.cursor()
     c.execute(query_create)
     conn.commit()
-    for item in dict['attach']:  #Inserts all items in the attach sublist into separate rows#
+    for item in dict['attach']:  # Inserts all items in the attach sublist into separate rows#
         c.execute(query_nsrt, (attch_tbl, item))
 
     conn.commit()
     conn.close()
+
 
 ######################################################
 # Method Name: backup_db
@@ -350,9 +554,10 @@ def backup_db(flpth):
     for filename in os.listdir(".\\databases\\"):
         if filename.endswith(".db"):
             head, tail = path.split(filename)
-            dst = filepath + tail + ".bak" #Adds a .bak to the filepath#
+            dst = filepath + tail + ".bak"  # Adds a .bak to the filepath#
             shutil.copy(".\\databases\\" + filename, dst)
-            shutil.copystat(".\\databases\\" + filename, dst) #Copies file permissions#
+            shutil.copystat(".\\databases\\" + filename, dst)  # Copies file permissions#
+
 
 ######################################################
 # Method Name: restore_backup
@@ -368,9 +573,10 @@ def restore_backup(flpth):
     for filename in os.listdir(filepath):
         if filename.endswith(".db.bak"):
             src = os.path.join(filepath, filename)
-            dst_src = src[:-4]  #Removes .bak from filename on path #
+            dst_src = src[:-4]  # Removes .bak from filename on path #
             shutil.copy(src, ".\\databases\\" + ntpath.basename(dst_src))
-            shutil.copystat(src, ".\\databases\\" + ntpath.basename(dst_src)) #Copies file permissions#
+            shutil.copystat(src, ".\\databases\\" + ntpath.basename(dst_src))  # Copies file permissions#
+
 
 ######################################################
 # Method Name: search
@@ -385,35 +591,37 @@ def restore_backup(flpth):
 def search(search_str):
     databases = []
     json_str = []
-    for filename in os.listdir(".\\databases\\"): #Gets the database names
+    for filename in os.listdir(".\\databases\\"):  # Gets the database names
         if filename.endswith(".db"):
             databases.append(filename)
 
-    for database in databases:  #Connects to all three of the DBs one at a time
+    for database in databases:  # Connects to all three of the DBs one at a time
         conn = sqlite3.connect(".\\databases\\" + database)
         c = conn.cursor()
-        for tablerow in c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'").fetchall():
-            table = tablerow[0] #Loops through each table
-            if '_attch' not in table: #Filters the attachment tables
+        for tablerow in c.execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'").fetchall():
+            table = tablerow[0]  # Loops through each table
+            if '_attch' not in table:  # Filters the attachment tables
                 c.execute("SELECT * FROM {}".format(table))
-                field_names = [r[0] for r in c.description] #gets the table schema
-                for row in c: #Goes through every row
+                field_names = [r[0] for r in c.description]  # gets the table schema
+                for row in c:  # Goes through every row
                     row_srch = list(map(str, row))
-                    if any(search_str in s for s in row_srch): #If match was found in the row
-                        json_str.append(dict(zip(field_names, row))) #writes the entire row to a dictionary
+                    if any(search_str in s for s in row_srch):  # If match was found in the row
+                        json_str.append(dict(zip(field_names, row)))  # writes the entire row to a dictionary
             else:
                 continue
         conn.close()
     return json_str
 
+
 if __name__ == '__main__':
-	# print(new_subcat("equipment", "boiler"))
- 	# alter_form(test_data, 1, "equipment", "AirConditioning")
-	# attach_table("equipment", "Computer", 2, test_data)
-	print(get_subcat("equipment"))
-	# get_filter("equipment", "Computer")
-    # get_all_tables("equipment.db")
-    # backup_db({"path": "C:\\Users\\Ben3\\Desktop\\"})
-    # restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
-    # print(search("Laptop"))
-    # del_subcat("Equipment", "Computer")
+    # print(new_subcat("equipment", "boiler"))
+    # alter_form(test_data, 1, "equipment", "AirConditioning")
+    # attach_table("equipment", "Computer", 2, test_data)
+    print(get_subcat("equipment"))
+# get_filter("equipment", "Computer")
+# get_all_tables("equipment.db")
+# backup_db({"path": "C:\\Users\\Ben3\\Desktop\\"})
+# restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
+# print(search("Laptop"))
+# del_subcat("Equipment", "Computer")
