@@ -59,17 +59,8 @@ def rGetPreventativeMaint(category, subcat):
         return jsonify(req.status_code[2])
 
 
-@app.route("/quickaccess/<string:category>/<string:subcat>", methods=['GET'])
-def rQuickAccess(category, subcat):
-    try:
-        reqHandle = req.write_quick_access(category, subcat)
-        return jsonify(reqHandle)
-
-    except:
-        return jsonify(req.status_code[2])
-
 @app.route("/quickaccess/<string:category>", methods=['GET'])
-def rAccess(category):
+def rQuickAccess(category):
     try:
         reqHandle = req.read_quick_access(category)
         return jsonify(reqHandle)
