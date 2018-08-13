@@ -34,6 +34,17 @@
     <h3>Getting specific form information</h3>
     <input #fid placeholder="Form ID">
     <button (click)="getForm(fid.value)"> Get this form information </button>
+    <br>
+    <h3> Updating a form with PUT</h3>
+    <button (click)="updateForm(fid.value)">Update this form with new random info</button>
+    <br>
+    <h3> Deleting a specific form </h3>
+    <button (click)="deleteForm(fid.value)"> Delete this form</button>
+  </div>
+
+  <div>
+    <h3> Deleting a subcategory</h3>
+    <button (click)="deleteSub()"> Delete this subcategory </button>
   </div>
   
 
@@ -63,6 +74,7 @@
     </ol>
   </nav>
 </div>
+
 
 <div>
   And here we have ngbootstrap objects from

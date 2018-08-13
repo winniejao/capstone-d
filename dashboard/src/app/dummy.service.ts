@@ -7,6 +7,8 @@ import { Form, FORM_HEADERS } from './form';
 import { MOCK_FORMS, MOCK_NUMBER } from './mock_forms'
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { MasterService } from './master-service';
+import { HttpResponse } from '@angular/common/http';
+
 
 
 @Injectable({
@@ -153,7 +155,24 @@ export class DummyService implements MasterService {
    * @param id - The form ID number
    */
   getForm(cat: string, sub: string, id: number): Observable<Form> {
-    return of(this.dummyForm);
+    switch(cat.toLowerCase()){
+      case 'equipment': {
+        return of(this.dummyEquipmentList.find(x => x.formid == id));
+      }
+
+      case 'tool': {
+        return of(this.dummyToolList.find(x => x.formid == id));
+      }
+
+      case 'landscape': {
+        return of(this.dummyLandscapeList.find(x => x.formid == id));
+      }
+
+      default: {
+        console.log('Incorrectly formatted call to single form dummy service! returning dummy form');
+      }
+      return of( this.dummyForm);
+    }
   }
 
   /**
@@ -240,6 +259,46 @@ export class DummyService implements MasterService {
   }
 
   /**
+   * Delete the form
+   * @param input The form to be deleted
+   */
+  deleteForm(input: Form): Observable<any> {
+    switch(input.category.toLowerCase()){
+      case 'equipment': {
+        var found = this.dummyEquipmentList.findIndex( x => x.formid == input.formid)
+        if( found === -1){
+          return of(new HttpResponse({status: 404}))
+        }
+        this.dummyEquipmentList.splice(found, 1);
+        return of(new HttpResponse({status: 200}));
+      }
+
+      case 'tool': {
+        var found = this.dummyToolList.findIndex( x => x.formid == input.formid)
+        if( found === -1){
+          return of(new HttpResponse({status: 404}))
+        }
+        this.dummyToolList.splice(found, 1);
+        return of(new HttpResponse({status: 200}));
+      }
+
+      case 'landscape': {
+        var found = this.dummyLandscapeList.findIndex( x => x.formid == input.formid)
+        if( found === -1){
+          return of(new HttpResponse({status: 404}))
+        }
+        this.dummyLandscapeList.splice(found, 1);
+        return of(new HttpResponse({status: 200}));
+      }
+        default: {
+          console.log('Incorrectly formatted DELETE form');
+        }
+    }
+    return of(new HttpResponse({status: 404}))
+  }
+
+
+  /**
    * Adds a new subcategory to the database under a parent category
    * @param cat - The category to be placed under
    * @param input - The name of the category
@@ -269,5 +328,86 @@ export class DummyService implements MasterService {
     }
     return of('Added');
   }
+
+  /**
+   * replaces the DB version of the provided form based on form id.
+   * @param input - The updated form, this form's FID will be extracted and all fields updated
+   */
+  updateForm(input: Form): Observable<any> {
+    switch(input.category.toLowerCase()){
+      case 'equipment': {
+        var found = this.dummyEquipmentList.findIndex( x => x.formid == input.formid)
+        if( found === -1){
+          return of(new HttpResponse({status: 404}))
+        }
+        this.dummyEquipmentList[found] = input;
+        return of(new HttpResponse({status: 200}));
+      }
+
+      case 'tool': {
+        var found = this.dummyToolList.findIndex( x => x.formid == input.formid)
+        if( found === -1){
+          return of(new HttpResponse({status: 404}))
+        }
+        this.dummyToolList[found] = input;
+        return of(new HttpResponse({status: 200}));
+      }
+
+      case 'landscape': {
+        var found = this.dummyLandscapeList.findIndex( x => x.formid == input.formid)
+        if( found === -1){
+          return of(new HttpResponse({status: 404}))
+        }
+        this.dummyLandscapeList[found] = input;
+        return of(new HttpResponse({status: 200}));
+      }
+        default: {
+          console.log('Incorrectly formatted PUT');
+        }
+    }
+    return of(new HttpResponse({status: 404}))
+  }
+
+  /**
+   * Deletes the subcategory according to this path. ASSUMES frontend did check
+   * Very destructive, be careful
+   * @param cat The category
+   * @param sub The subcategory to be deleted
+   */
+  deleteSubcategory(cat: string, sub: string): Observable<any> {
+    switch(cat.toLowerCase()){
+      case 'equipment': {
+        var found = this.equipSub.findIndex( x => x === sub)
+        if( found === -1){
+          return of(new HttpResponse({status: 404}))
+        }
+        this.equipSub.splice(found, 1);
+        return of(new HttpResponse({status: 200}));
+      }
+
+      case 'tool': {
+        var found = this.toolSub.findIndex( x => x === sub)
+        if( found === -1){
+          return of(new HttpResponse({status: 404}))
+        }
+        this.toolSub.splice(found, 1);
+        return of(new HttpResponse({status: 200}));
+      }
+
+      case 'landscape': {
+        var found = this.landSub.findIndex( x => x === sub)
+        if( found === -1){
+          return of(new HttpResponse({status: 404}))
+        }
+        this.landSub.splice(found, 1);
+        return of(new HttpResponse({status: 200}));
+      }
+        default: {
+          console.log('Incorrectly formatted Delete');
+        }
+    }
+
+  }
+
 
 }
