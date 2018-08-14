@@ -6,7 +6,8 @@ import { CalendarModule } from 'angular-calendar';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { CommonModule } from '@angular/common';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 
 import { AppComponent } from './app.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
@@ -45,9 +46,11 @@ import { DummyService } from './dummy.service';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
+    NgbModalModule.forRoot(),
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot(),
     MatTableModule,
