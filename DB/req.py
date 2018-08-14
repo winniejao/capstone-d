@@ -299,12 +299,14 @@ def get_preventative_maint(category, subcat):
 # Description: File that writes subcat to a file to later get 4 subcats
 ######################################################
 def write_quick_access(category, subcat):
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
     add_to_file = category + ".txt"
     path_to_add = ".\\assets\\"
     file_list = os.listdir(path_to_add)
     if add_to_file in file_list:
         with open(os.path.join(path_to_add, add_to_file), "a") as file:
-            file.write(" " + subcat)
+            file.write('\n' + subcat)
 
         file.close()
     else:
@@ -314,7 +316,7 @@ def write_quick_access(category, subcat):
         file.close()
 
 
-   # os.unlink(path_to_add + add_to_file)
+# os.unlink(path_to_add + add_to_file)
 
 ######################################################
 # Method Name: read_quick_access
@@ -325,18 +327,37 @@ def write_quick_access(category, subcat):
 def read_quick_access(category):
     success_flag = False
     category = category.lower()
-
     filename = category + ".txt"
     path = ".\\assets\\"
     filelist = os.listdir(path)
     if filename in filelist:
         with open(os.path.join(path, filename), "r") as file:
-            subcat_list = file.read().split(" ")
+            subcat_list = file.read().split('\n')
             success_flag = True
             count = Counter(subcat_list)
             mostcommon = count.most_common(4)
 
     return [x[0] for x in mostcommon], status_code[0] if success_flag else status_code[2]
+
+
+######################################################
+# Method Name: delete_from_quick_access
+# Arguments (1): Category (Database), Subcategory(table)
+# Returns: nothing
+# Description: deletes subcategory from quick access and overwrites file
+######################################################
+def delete_from_quick_access(category, subcat):
+    path = ".\\assets\\"
+    filename = category + ".txt"
+    filelist = os.listdir(path)
+    if filename in filelist:
+        with open(os.path.join(path, filename), "r") as file:
+            subcat_list = file.read().split('\n')
+            subcat_list = [x for x in subcat_list if x != subcat]
+            with open(os.path.join(path, filename), "w") as over_write_file:
+                for item in range(len(subcat_list) - 1):
+                    over_write_file.write(subcat_list[item] + '\n')
+                over_write_file.write(subcat_list[-1])
 
 
 ######################################################
@@ -427,6 +448,9 @@ def new_subcat(category, subcat):
 def del_subcat(category, subcat):
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
+
+    # delete from quick access
+    delete_from_quick_access(category, subcat)
 
     query = "DROP TABLE IF EXISTS {}".format(subcat)
     query_tbl = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")

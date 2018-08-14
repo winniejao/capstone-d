@@ -60,7 +60,7 @@ def rGetPreventativeMaint(category, subcat):
 
 
 @app.route("/quickaccess/<string:category>", methods=['GET'])
-def rQuickAccess(category):
+def rQuickAccess(category, subcat):
     try:
         reqHandle = req.read_quick_access(category)
         return jsonify(reqHandle)

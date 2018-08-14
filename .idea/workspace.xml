@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2378ccb6-f6fc-4382-b159-418275e9616d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/databases/Equipment.db" beforeDir="false" afterPath="$PROJECT_DIR$/DB/databases/Equipment.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB/req.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB/req.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,12 +16,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DB/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="64" column="28" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
+            <state relative-caret-position="68">
+              <caret line="64" column="49" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -31,8 +32,8 @@
       <file leaf-file-name="req.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DB/req.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3026">
-              <caret line="152" column="11" selection-start-line="152" selection-start-column="11" selection-end-line="152" selection-end-column="11" />
+            <state relative-caret-position="306">
+              <caret line="300" column="19" selection-start-line="300" selection-start-column="19" selection-end-line="300" selection-end-column="19" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -64,8 +65,8 @@
         <option value="$PROJECT_DIR$/DB/ClientSide.py" />
         <option value="$PROJECT_DIR$/DB/get-file.py" />
         <option value="$PROJECT_DIR$/DB/test_req.py" />
-        <option value="$PROJECT_DIR$/DB/main.py" />
         <option value="$PROJECT_DIR$/DB/req.py" />
+        <option value="$PROJECT_DIR$/DB/main.py" />
       </list>
     </option>
   </component>
@@ -105,6 +106,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="wa&#9;null&#9;null" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../first" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -237,16 +239,16 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22337043" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22337043" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.45389506" side_tool="true" weight="0.33768657" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49523053" visible="true" weight="0.31902984" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3283582" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.3283582" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49523053" visible="true" weight="0.31902984" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.5461049" weight="0.33768657" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.5461049" weight="0.1977612" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -261,6 +263,13 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/DB/req.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-238">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DB/req.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -441,26 +450,23 @@
         <state relative-caret-position="-203" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DB/attachments/__init__.py">
+    <entry file="file://$PROJECT_DIR$/DB/assets/equipment.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/DB/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="64" column="28" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
+        <state relative-caret-position="68">
+          <caret line="64" column="49" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DB/assets/equipment.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/DB/req.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3026">
-          <caret line="152" column="11" selection-start-line="152" selection-start-column="11" selection-end-line="152" selection-end-column="11" />
+        <state relative-caret-position="306">
+          <caret line="300" column="19" selection-start-line="300" selection-start-column="19" selection-end-line="300" selection-end-column="19" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
