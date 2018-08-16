@@ -39,7 +39,7 @@ def rDeleteForm(category, subcat, formid):
         return jsonify(req.status_code[2])
 
 
-@app.route("/getevents/<string:start_date>/<string:end_date>")
+@app.route("/getevents/<string:start_date>/<string:end_date>", methods=['GET'])
 def rGetEvents(start_date, end_date):
     try:
         reqHandle = req.get_events(start_date, end_date)
@@ -49,7 +49,7 @@ def rGetEvents(start_date, end_date):
         return jsonify(req.status_code[2])
 
 
-@app.route("/preventative_maint/<string:category>/<string:subcat>")
+@app.route("/preventative_maint/<string:category>/<string:subcat>", methods=['GET'])
 def rGetPreventativeMaint(category, subcat):
     try:
         reqHandle = req.get_preventative_maint(category, subcat)
@@ -63,6 +63,16 @@ def rGetPreventativeMaint(category, subcat):
 def rQuickAccess(category):
     try:
         reqHandle = req.read_quick_access(category)
+        return jsonify(reqHandle)
+
+    except:
+        return jsonify(req.status_code[2])
+
+
+@app.route("/openfile/<string:category>/<string:subcat>/<int:formid>/<string:filename>", methods=['GET'])
+def rOpenFile(category, subcat, formid, filename):
+    try:
+        reqHandle = req.open_file(category, subcat, formid, filename)
         return jsonify(reqHandle)
 
     except:
