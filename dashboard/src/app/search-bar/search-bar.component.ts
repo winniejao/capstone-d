@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SearchResult } from '../search-result';
 import { DummyService } from '../dummy.service';
 // TODO: use real service
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -33,6 +33,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   runSearch(search_text: string): void {
-    this.router.navigate(['searchresult', { search_text: search_text }]);
+    this.router.navigate(['/searchresult', { search_term: search_text }] );
   }
 }

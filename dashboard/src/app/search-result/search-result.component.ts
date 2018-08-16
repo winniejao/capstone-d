@@ -4,6 +4,7 @@ import { DummyService } from '../dummy.service';
 // TODO: use real service
 import { Form } from '../form';
 import { MatTableModule, MatTableDataSource, MatSort, MatPaginator } from '@angular/material/';
+import { ActivatedRoute } from '@angular/router';
 import { MOCK_FORMS } from '../mock_forms';
 
 @Component({
@@ -21,13 +22,18 @@ export class SearchResultComponent implements OnInit {
   pageSize = 1;
   pageSizeOptions: number[] = [1, 2, 3, 4, 5];
   num_results: number;
+  search_term: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private dummyService: DummyService) { }
+  constructor(
+    private dummyService: DummyService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.search_term = this.route.snapshot.paramMap.get('search_term');
     this.dummyService.getDetails(this.search).subscribe(table_details => this.table_details = table_details);
     this.dummyService.getColumns(this.search).subscribe(table_columns => this.table_columns = table_columns);
     this.dummyService.getItems(this.search).subscribe(items => this.items = items);

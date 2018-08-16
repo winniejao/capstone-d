@@ -25,7 +25,7 @@ const routes: Routes = [
       children: [
         { path: 'bar/baz', component: TestComponent }
       ]
-  }
+  },
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
