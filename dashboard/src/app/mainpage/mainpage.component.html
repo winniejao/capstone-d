@@ -4,12 +4,12 @@
       <th rowspan="2">
 	<a routerLink="/equipment">Equipment</a>
 	</th>
-      <td><a routerLink="/sub/tabular" (click)="callInit()">Tabular</a></td>
-      <td><a routerLink="/sub" (click)="callInit()">sub</a></td>
+      <td><a routerLink="/sub/tabular" onclick="getSub1()"><button mat-raised-button="">Sub</button></a></td>
+      <td><a routerLink="/sub" (click)="callInit()">Sub</a></td>
     </tr>
     <tr>
-      <td><a routerLink="/foo/bar/baz">long test</a></td>
-      <td><a routerLink="/sub">sub</a></td>
+      <td><a routerLink="/foo/bar/baz">Sub</a></td>
+      <td><a routerLink="/sub">Sub</a></td>
     </tr>
     <tr>
       <th rowspan="2">
@@ -34,28 +34,28 @@
       <td><a routerLink="/sub">sub</a></td>
     </tr>
     <tr>
-      <th><a routerLink="/">Backup</a></th> 
-      <th colspan="2"><a routerLink="/calendar" (click)=callInit()>Open Calendar</a></th> 
+      <th><a routerLink="/">Backup</a></th>
+      <th colspan="2"><a routerLink="/calendar" (click)=callInit()>Open Calendar</a></th>
     </tr>
 <!--
     <tr>
-      <th><a routerLink="/additemform">Add Forms</a></th> 
+      <th><a routerLink="/additemform">Add Forms</a></th>
     </tr>
     <tr>
-	  <input type="file" id="files" multiple accept="pdf"> 
+	  <input type="file" id="files" multiple accept="pdf">
       <div class="dnd" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
 	<form>
           <p> Drag a file here to upload </p>
-	  <input type="file" id="files" multiple accept="pdf"> 
+	  <input type="file" id="files" multiple accept="pdf">
 	</form>
       </div>
     </tr>
 -->
-    
+
   </table>
 
-<app-calendar></app-calendar> 
- 
+<app-calendar></app-calendar>
+
 </nav>
 
   <a routerLink="/additemform">next page!</a>

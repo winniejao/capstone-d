@@ -105,17 +105,19 @@ def add_form(category, subcat, formInfo):
     # if subcat not in table_list:
     # new_subcat(category, subcat)
 
-    # create a separate table with the information about attachment
-    # attach_table(category, subcat, form_id, formInfo)
-
     # save the file to an attachment folder (in-case the file is deleted later)
-    # TODO: needs actual path location as raw string
-    # if formInfo["attach"]:
-    # attachment_list = formInfo["attach"]
-    # print(attachment_list)
-    # for path_to_copy in attachment_list:
-    # shutil.copy2(path_to_copy, ".\\attachments\\")
+    new_path_list = []
+    if formInfo["attach"]:
+        attachment_list = formInfo["attach"]
+        path_to_directory = ".\\attachments\\"
+        for path_to_copy in attachment_list:
+            shutil.copy2(path_to_copy, path_to_directory)
+            relative_path = path_to_copy.split("/")
+            new_path_list.append(relative_path[-1])
+        print(new_path_list)
+        formInfo["attach"] = new_path_list
 
+    #attach_table(category, subcat, form_id, formInfo)
     if check_form_existence(category, subcat, form_id) is None:
         conn = sqlite3.connect(database)
         c = conn.cursor()
@@ -316,7 +318,7 @@ def write_quick_access(category, subcat):
         file.close()
 
 
-# os.unlink(path_to_add + add_to_file)
+    #os.unlink(path_to_add + add_to_file)
 
 ######################################################
 # Method Name: read_quick_access
@@ -358,6 +360,40 @@ def delete_from_quick_access(category, subcat):
                 for item in range(len(subcat_list) - 1):
                     over_write_file.write(subcat_list[item] + '\n')
                 over_write_file.write(subcat_list[-1])
+
+
+######################################################
+# Method Name: open_file
+# Arguments (4): Category (Database), Subcategory(table), formid, filename
+# Returns: httpstatus code
+# Description: opens specific file
+######################################################
+def open_file(category, subcat, formid, filename):
+    success_flag = False
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
+    database = ".\\databases\\" + category + ".db"
+    result = None;
+    conn = sqlite3.connect(database)
+    c = conn.cursor()
+    table_to_search = subcat + '_' + str(formid) + '_attch'
+    table_list = get_all_tables(database)
+    table_list = [x[0] for x in table_list]
+    if table_to_search in table_list:
+        c.execute("SELECT * FROM {}".format(table_to_search))
+        result = c.fetchall()
+    c.close()
+
+    if result:
+        result = [x[1] for x in result]
+        print(result)
+        list_dir = os.listdir(".\\attachments\\")
+        for file in result:
+            if file == filename and file in list_dir:
+                success_flag = True
+                os.startfile(".\\attachments\\" + filename)
+
+    return status_code[0] if success_flag else status_code[2]
 
 
 ######################################################
