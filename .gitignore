@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/DB/__pycache__/main.cpython-36.pyc
+/DB/.idea/DB.iml
+/DB/.idea/misc.xml
+/DB/.idea/modules.xml
+/DB/.idea/workspace.xml

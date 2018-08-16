@@ -22,6 +22,10 @@ th, td {
   overflow: hidden;
 }
 
+.tabular{
+  margin: 25px;
+}
+
 .content:hover{
   background-color: dodgerblue;
 }
