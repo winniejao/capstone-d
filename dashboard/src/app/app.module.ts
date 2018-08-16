@@ -26,6 +26,7 @@ import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule }
 import { DashService } from './dash.service'
 import { DummyService } from './dummy.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     AdditemformComponent,
     CalendarComponent,
     SubcategoryComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    SearchResultComponent
   ],
   imports: [
     AppRoutingModule,
