@@ -1,0 +1,17 @@
+.search-bar {
+  margin: 25px;
+  width:100%;
+  display:table;
+}
+
+.category{
+  width:20%;
+  float:left;
+  display:table-cell;
+}
+
+.search-box{
+  float:left;
+  width: 80%;
+  display:table-cell;
+}

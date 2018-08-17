@@ -1,11 +1,7 @@
-<div class="tabular">
-  <!-- All of these will need to be anchors -->
-  <div class="scrollbox">
-    <ul>
-      <li class="scrollboxline" *ngFor="let itm of items"><a routerLink="/link">{{itm.name}}</a></li>
-    </ul>
-  </div>
-  
+<div class="searchResults">
+
+  <h1>Search Results</h1>
+  <p>The search_term is {{search_term}}</p>
   <div class="table">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="formid">
@@ -78,22 +74,9 @@
 
     </table>
 
-    <mat-paginator
-                   [length]="num_results"
+    <mat-paginator [length]="num_results"
                    [pageSize]="pageSize"
-                   [pageSizeOptions]="pageSizeOptions"
-                   ></mat-paginator>
+                   [pageSizeOptions]="pageSizeOptions"></mat-paginator>
 
   </div>
-</div>
-
-<br>  <br>  <br> 
-<br>  <br>  <br> 
-
-<div class="btns"> 
-  <a routerLink="/" > PM </a> <br>
-  <a routerLink="/" > Manual </a> <br>
-  <a routerLink="/additemform" > Add Form </a> <br>
-<div class="button">
-  <button>Add Item</button>
 </div>
