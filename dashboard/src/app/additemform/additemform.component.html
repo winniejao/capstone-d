@@ -1,41 +1,52 @@
 <table>
   <tr>
     <th> Parent </th>
-    <td> <input type="text" id="parent"> </td>
+    <td> <input type="text" id="parent" > </td>
   </tr>
   <tr>
     <th> Name </th>
-    <td> <input type="text" id="name"> </td>
+    <td> <input type="text" id="name" #name > </td>
   </tr>
   <tr>
     <th> Purpose </th>
-    <td> <input type="text" id="purpose"> </td>
+    <td> <input type="text" id="purpose" #purpose> </td>
   </tr>
   <tr>
     <th> Cost </th>
-    <td> <input type="text" id="cost"> </td>
+    <td> <input type="text" id="cost" #cost> </td>
   </tr>
   <tr>
     <th> Serial </th>
-    <td> <input type="text" id="serial"> </td>
+    <td> <input type="text" id="serial" #serial> </td>
   </tr>
   <tr>
     <th> Date </th>
-    <td> <input type="date" id="date"> </td>
+    <td> <input type="date" id="date" #date> </td>
+  </tr>
+  <tr>
+    <th><input type="checkbox" id="check" style="width:20px" #check>Repeat </th>
+    <td> FROM <input type="date" id="startdate" #startdate></td>
+    <td> TO <input type="date" id="enddate" #enddate> </td>
+    <td> Every <input type="text" style="width:40px; padding: 0; margin:0;" id="every" #every></td> 
+    <td id="dwm" style="padding:0" #dwm> <select>
+	  <option value="days" selected="dwm==days"> days </option>
+	  <option value="weeks" selected="dwm==weeks"> weeks </option>
+	  <option value="months" selected="dwm==months"> months </option>
+ 	</select>
+    </td>
   </tr>
   <tr>
     <th> Attachments </th>
-    <td> <input type="file" id="attachments"> </td>
+    <td> <input type="file" id="attachments" #attach> </td>
   </tr>
   <tr>
     <th> Notes </th>
   </tr>
   <tr>
-    <td colspan="2"> <input type="text" id="note"> </td>
+    <td colspan="2"> <input type="text" id="note" #note> </td>
   </tr>
   <tr>
-    <td> <button id="save">save</button> </td>
-    <td> <button id="cancel">cancel</button> </td>
+    <td> <button id="save" (click)="passData(name.value, purpose.value, cost.value, serial.value, date.value, startdate.value, enddate.value, check.value, every.value, dwm.selected, note.value, attach.value); passName=name.value; passPurpose=purpose.value; passCost=cost.value; passSerial=serial.value; passDate=date.value; passFromDate=startdate.value; passToDate=enddate.value; passCheck=check.value; passEvery=every.value; passDwm=dwm.selected; passNote=note.value; passAttach=attach.value;" [routerLink]="['/viewitemform']">save </button> </td>
+    <td> <button id="cancel" (click)="alertCancel()">cancel</button> </td>
   </tr>
-
 </table>

@@ -82,11 +82,11 @@ export class CalendarComponent {
 // this has to be sent to the specific view form with its id
   }
 
-  addEvent(): void {
+  addEvent({title, start, end}): void {
       this.events.push({
-      	  title: 'New event',
-      	  start: startOfDay(new Date()),
-    	  end: endOfDay(new Date()),
+      	  title: title,
+      	  start: start,
+    	  end: end,
           color: colors.red,
           draggable: true,
       	  resizable: {

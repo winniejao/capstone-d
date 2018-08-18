@@ -1,0 +1,49 @@
+<table>
+  <tr>
+    <th> Parent </th>
+    <td> <input type="text" id="parent"> </td>
+  </tr>
+  <tr>
+    <th> Name </th>
+    <td> {{iService.getName()}} </td>
+  </tr>
+  <tr>
+    <th> Purpose </th>
+    <td> {{iService.getPurpose()}} </td>
+  </tr>
+  <tr>
+    <th> Cost </th>
+    <td> {{iService.getCost()}} </td>
+  </tr>
+  <tr>
+    <th> Serial </th>
+    <td> {{iService.getSerial()}} </td>
+  </tr>
+  <tr>
+    <th> Date </th>
+    <td> {{iService.getDate()}} </td>
+  </tr>
+  <tr>
+    <th>{{iService.getCheck()}} Repeat </th>
+    <td> FROM {{iService.getFromDate()}} </td>
+    <td> TO {{iService.getToDate()}} </td>
+    <td> Every {{iService.getEvery()}}</td> 
+    <td id="dwm" style="padding:0"> {{iService.getDwm()}}
+    </td>
+  </tr>
+  <tr>
+    <th> Attachments </th>
+    <td> {{iService.getAttach()}}</td>
+  </tr>
+  <tr>
+    <th> Notes </th>
+  </tr>
+  <tr>
+    <td colspan="2"> {{iService.getNote()}} </td>
+  </tr>
+  <tr>
+    <td> <button id="edit" >edit</button> </td>
+    <td> <button id="delete" >delete</button> </td>
+    <td> <button id="back" [routerLink]="['../sub/tabular']">back</button> </td>
+  </tr>
+</table>

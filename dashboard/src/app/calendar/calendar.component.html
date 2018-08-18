@@ -1,25 +1,3 @@
-<ng-template #modalContent let-close="close">
-  <div class="modal-header">
-    <h5 class="modal-title">Event action occurred</h5>
-    <button type="button" class="close" (click)="close()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div>
-      Action:
-      <pre>{{ modalData?.action }}</pre>
-    </div>
-    <div>
-      Event:
-      <pre>{{ modalData?.event | json }}</pre>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
-  </div>
-</ng-template>
-
 <div class="row text-center">
   <div class="col-md-4">
     <div class="btn-group">
@@ -65,6 +43,7 @@
   </mwl-calendar-month-view>
 </div>
 
+<!--
 <br><br><br>
 
 <h3>
@@ -121,23 +100,4 @@
         <input
           class="form-control"
           type="text"
-          mwlFlatpickr
-          [(ngModel)]="event.end"
-          (ngModelChange)="refresh.next()"
-          [altInput]="true"
-          [convertModelValue]="true"
-          [enableTime]="true"
-          dateFormat="Y-m-dTH:i"
-          altFormat="F j, Y H:i"
-          placeholder="Not set">
-      </td>
-      <td>
-        <button
-          class="btn btn-danger"
-          (click)="events.splice(index, 1); refresh.next()">
-          Delete
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+-->
