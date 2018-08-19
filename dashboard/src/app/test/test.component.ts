@@ -50,6 +50,14 @@ export class TestComponent implements OnInit {
  
   }
 
+  search(input: string): void {
+    var output: Form[];
+    this.service.search(input).subscribe(x => output = x );
+    output.forEach(element => {
+      this.resultsArr.push('Form: ' + element.name + ' ' + element.formid + '| ' + element.purpose);
+    });
+  }
+
   deleteForm(fid: number): void {
     this.service.deleteForm(new Form(fid, this.category, this.subcategory )).subscribe( () => console.log("Deleting form", fid));
   }

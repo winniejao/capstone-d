@@ -175,6 +175,17 @@ export class DummyService implements MasterService {
     }
   }
 
+  /** 
+   * Search the database for all fields
+   * @param target - The search string
+   */
+  search(target: string): Observable<Form[]> {
+    var data = this.dummyEquipmentList.concat(this.dummyLandscapeList, this.dummyToolList);
+    return(of(data.filter( x => 
+      x.notes.toLowerCase().includes(target.toLowerCase()) || x.name.toLowerCase().includes(target)
+    )));
+  }
+
   /**
    * Gets all forms for a category and subcategory
    * @param cat - The category of the form dump
