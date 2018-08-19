@@ -32,10 +32,4 @@ export class Form {
     attachment: string;
     notes: string;
 
-  public getNum(): number {
-    var ret = 0;
-    
-
-    return 0;
-  }
 }
