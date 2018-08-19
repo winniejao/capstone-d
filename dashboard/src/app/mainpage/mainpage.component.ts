@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class MainpageComponent implements OnInit{
   private equip: string = 'Equipment';
-  private tool: string = 'Tools';
+  private tool: string = 'Tool';
   private land: string = 'Landscape';
   private equipSub1: string = 'Boiler';
   private equipSub2: string;

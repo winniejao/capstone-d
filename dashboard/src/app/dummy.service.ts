@@ -93,7 +93,19 @@ export class DummyService implements MasterService {
 
   // Will return results for the scrolling box on the left
   getItems(cat: string, subcat: string): Observable<string[]> {
-    return this.getEquipment();
+    if (cat == 'Equipment') {
+      return this.getEquipment();
+    }
+    else if (cat == 'Tool') {
+      return this.getTools();
+    }
+    else if (cat == 'Landscape') {
+      return this.getLandscape();
+    }
+    else {
+      console.log(cat + ' is not a defined category.');
+      return null;
+    }
   }
 
   // For MOCKING DASH.SERVICE CLASS
