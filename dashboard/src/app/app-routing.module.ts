@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'equipment', component: SubcategoryComponent},
   { path: 'tool', component: SubcategoryComponent},
   { path: 'landscape', component: SubcategoryComponent},
-  { path: 'sub/tabular', component: TabularComponent },
+  { path: 'tabular', component: TabularComponent },
   { path: 'searchresult', component: SearchResultComponent },
   { path: 'test', component: TestComponent},
   {   path: 'foo', 

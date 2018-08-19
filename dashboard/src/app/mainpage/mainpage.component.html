@@ -4,7 +4,7 @@
       <th rowspan="2">
 	<a routerLink="/equipment">Equipment</a>
 	</th>
-      <td><a routerLink="/sub/tabular" onclick="getSub1()"><button mat-raised-button="">Sub</button></a></td>
+      <td><a [routerLink]="['/tabular', { cat: equip, subcat: equipSub1 }]" >{{equipSub1}}</a></td>
       <td><a routerLink="/sub" (click)="callInit()">Sub</a></td>
     </tr>
     <tr>
@@ -13,9 +13,9 @@
     </tr>
     <tr>
       <th rowspan="2">
-	<a routerLink="/tool">Tools</a>
-	</th>
-      <td><a routerLink="/sub">sub</a></td>
+        <a routerLink="/tool">Tools</a>
+      </th>
+      <td><a [routerLink]="['/tabular', { cat: tool, subcat: toolSub1 }]">{{toolSub1}}</a></td>
       <td><a routerLink="/sub">sub</a></td>
     </tr>
     <tr>
@@ -24,9 +24,9 @@
     </tr>
     <tr>
       <th rowspan="2">
-	<a routerLink="/landscape">Landscape</a>
-	</th>
-      <td><a routerLink="/sub">sub</a></td>
+        <a routerLink="/landscape">Landscape</a>
+      </th>
+      <td><a [routerLink]="['/tabular', { cat: land, subcat: landSub1 }]">{{landSub1}}</a></td>
       <td><a routerLink="/sub">sub</a></td>
     </tr>
     <tr>
