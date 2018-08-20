@@ -228,6 +228,35 @@ export class DummyService implements MasterService {
   }
 
   /**
+   * Gets a variable list of subcategories 
+   * @param path The extracted path, ie equipment or tool
+   */
+  getSubCat(path: string): Observable<string[]> {
+    switch(path.toLowerCase()){
+      case 'equipment': {
+        return this.getEquipment();
+        break;
+      }
+
+      case 'tool': {
+        return this.getTools();
+        break;
+      }
+
+      case 'landscape': {
+        return this.getLandscape();
+        break;
+      }
+
+      default: {
+        console.log('Incorrectly formatted call to getsubcat dummy service!');
+        return of(this.toolSub);
+      }
+    }
+  }
+
+
+  /**
    * Gets a list of all possible Tool subcategories
    * @returns string[] of subcategories
    */

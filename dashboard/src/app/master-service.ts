@@ -10,6 +10,8 @@ export interface MasterService {
     getAllForms(cat: string, sub: string): Observable<Form[]> 
 
     getTools(): Observable<string[]> 
+
+    getSubCat(path: string): Observable<string[]>
     
     getEquipment(): Observable<string[]> 
     

@@ -17,21 +17,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./mainpage.component.css']
 })
 export class MainpageComponent implements OnInit{
-  private equip: string = 'Equipment';
-  private tool: string = 'Tool';
-  private land: string = 'Landscape';
-  private equipSub1: string = 'Boiler';
-  private equipSub2: string = "Boiler2";
-  private equipSub3: string;
-  private equipSub4: string;
-  private toolSub1: string = 'Hammer';
-  private toolSub2: string;
-  private toolSub3: string;
-  private toolSub4: string;
-  private landSub1: string = 'Trail';
-  private landSub2: string;
-  private landSub3: string;
-  private landSub4: string;
+  equip: string = 'Equipment';
+  tool: string = 'Tool';
+  land: string = 'Landscape';
+  equipSub1: string = 'Boiler';
+  equipSub2: string = "Boiler2";
+  equipSub3: string;
+  equipSub4: string;
+  toolSub1: string = 'Hammer';
+  toolSub2: string;
+  toolSub3: string;
+  toolSub4: string;
+  landSub1: string = 'Trail';
+  landSub2: string;
+  landSub3: string;
+  landSub4: string;
 
 
   constructor(

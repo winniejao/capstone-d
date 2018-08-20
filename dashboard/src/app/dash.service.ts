@@ -55,8 +55,19 @@ export class DashService implements MasterService {
    * 
    */
   getAllForms(cat: string, sub: string): Observable<Form[]> {
-    return this.http.get<Form>(pythonURL + '/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
+    return this.http.get<Form>(pythonURL + '/form/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
       catchError(this.handleError('getAllForms', null)),
+      tap(data => console.log(data)
+      ));
+  }
+
+  /**
+   * Gets a variable list of subcategories 
+   * @param path The extracted path, ie equipment or tool
+   */
+  getSubCat(path: string): Observable<string[]> {
+    return this.http.get<string[]>(pythonURL + '/subcatlist/' + path).pipe(
+      catchError(this.handleError('getSubCat', [''])),
       tap(data => console.log(data)
       ));
   }
@@ -67,7 +78,7 @@ export class DashService implements MasterService {
    */
   getTools(): Observable<string[]> {
     return this.http.get<string[]>(pythonURL + '/subcatlist/tools').pipe(
-      catchError(this.handleError('getForm', [''])),
+      catchError(this.handleError('getTools', [''])),
       tap(data => console.log(data)
       ));
   }
@@ -78,7 +89,7 @@ export class DashService implements MasterService {
    */
   getEquipment(): Observable<string[]> {
     return this.http.get<string[]>(pythonURL + '/subcatlist/equipment').pipe(
-      catchError(this.handleError('getForm', [''])),
+      catchError(this.handleError('getEquipment', [''])),
       tap(data => console.log(data)
       ));
   }
@@ -89,7 +100,7 @@ export class DashService implements MasterService {
    */
   getLandscape(): Observable<string[]> {
     return this.http.get<string[]>(pythonURL + '/subcatlist/landscape').pipe(
-      catchError(this.handleError('getForm', [''])),
+      catchError(this.handleError('getLandscape', [''])),
       tap(data => console.log(data)
       ));
   }
@@ -164,9 +175,8 @@ export class DashService implements MasterService {
     sub;
 
     return this.http.delete(route).pipe(
-      catchError(this.handleError('deleteSubcategory')),
-      tap(data => console.log(data)
-    ));
+      catchError(this.handleError('deleteSubcategory'))
+    );
       
   }
 
