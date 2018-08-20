@@ -121,7 +121,7 @@ def add_form(category, subcat, formInfo):
     # os.unlink(".\\attachments\\" + "somefile.txt")
     # os.unlink(".\\attachments\\" + "file1.txt")
     # os.unlink(".\\attachments\\" + "file2.txt")
-    os.unlink(".\\assets\\" + "equipment.txt")
+    # os.unlink(".\\assets\\" + "equipment.txt")
     new_path_list = []
     if formInfo["attach"]:
         formInfo["attach"] = get_path_list(formInfo, new_path_list)
@@ -331,8 +331,6 @@ def get_preventative_maint(category, subcat):
 # Description: File that writes subcat to a file to later get 4 subcats
 ######################################################
 def write_quick_access(category, subcat):
-    category = category.lower()
-    subcat = subcat.replace(" ", "_").lower()
     add_to_file = category + ".txt"
     path_to_add = ".\\assets\\"
     file_list = os.listdir(path_to_add)
@@ -546,6 +544,8 @@ def del_subcat(category, subcat):
 #              and appends those rows to a Python Dictionary
 ######################################################
 def get_filter(category, subcat):
+    category = category.lower()
+    subcat = subcat.replace(" ", "_").lower()
     query_row = ("SELECT * FROM {}").format(subcat)
 
     conn = sqlite3.connect(".\\databases\\" + category + ".db")
@@ -561,8 +561,14 @@ def get_filter(category, subcat):
     for item in json_data:
         frm_id = item['form_id']
         attch_tbl = subcat + '_' + str(frm_id) + '_attch'
-        attch_lst = list(
-            c.execute(("SELECT attach_path FROM {}").format(attch_tbl)))  # gets attachments from attachment table#
+        query_create = "CREATE TABLE IF NOT EXISTS {} (\
+                		attach_id TEXT,\
+                		attach_path TEXT UNIQUE,\
+                		FOREIGN KEY (attach_id) REFERENCES\
+                		{}(attach) ON DELETE CASCADE)".format(attch_tbl, subcat)
+        c.execute(query_create)
+        c.execute(("SELECT attach_path FROM {}").format(attch_tbl))  # gets attachments from attachment table#
+        attch_lst = list(c.fetchall())
         lst_to_fltr = [i[0] for i in attch_lst]  # Converts tuple to list#
         item.update({'attach': lst_to_fltr})
 
@@ -708,12 +714,12 @@ def search(search_str):
     return json_str
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # print(new_subcat("equipment", "boiler"))
     # alter_form(test_data, 1, "equipment", "AirConditioning")
     # attach_table("equipment", "Computer", 2, test_data)
-    print(get_subcat("equipment"))
-# get_filter("equipment", "Computer")
+    # print(get_subcat("equipment"))
+    # print(get_filter("equipment", "air conditioning unit"))
 # get_all_tables("equipment.db")
 # backup_db({"path": "C:\\Users\\Ben3\\Desktop\\"})
 # restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
