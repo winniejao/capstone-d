@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DashService } from '../dash.service';
 
 
 @Component({
@@ -60,7 +61,8 @@ export class SubcategoryComponent implements OnInit {
     'Mike'
   ];
 
-  display: string[] = this.theList;
+  //display: string[] = this.theList;
+  display: string[] = [];
   alphabet: string[] = [];
   selected = "";
   path: string = "";
@@ -111,16 +113,20 @@ export class SubcategoryComponent implements OnInit {
     this.closeBoxes();
   }
   
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private service: DashService) { }
 
   ngOnInit() {
+    this.path = this.route.snapshot.url.toString();
+    
     //Naive way to get an array of A-Z
     for(var i = 0; i < 26; i++){
       this.alphabet.push(String.fromCharCode(65+i));
     }
 
-    this.path = this.route.snapshot.url.toString();
- 
+    this.service.getSubCat(this.path).subscribe( x => {
+      this.theList = x;
+      this.clear();
+    }); 
   }
 
 }

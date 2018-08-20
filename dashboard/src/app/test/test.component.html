@@ -46,8 +46,12 @@
     <h3> Deleting a subcategory</h3>
     <button (click)="deleteSub()"> Delete this subcategory </button>
   </div>
-  
+</div>
 
+<div>
+  <h3> Searching </h3>
+  <input #sea placeholder="Search Value">
+  <button (click)="search(sea.value)"> Search feature</button>
 </div>
 
 <div>

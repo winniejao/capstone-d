@@ -2,10 +2,12 @@
   <!-- All of these will need to be anchors -->
   <div class="scrollbox">
     <ul>
-      <li class="scrollboxline" *ngFor="let itm of items"><a routerLink="/link">{{itm}}</a></li>
+      <li class="scrollboxline" *ngFor="let itm of items">
+        <a routerLink="/link">{{itm}}</a>
+      </li>
     </ul>
   </div>
-  
+
   <div class="table">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="formid">
@@ -78,22 +80,26 @@
 
     </table>
 
-    <mat-paginator
-                   [length]="num_results"
-                   [pageSize]="pageSize"
-                   [pageSizeOptions]="pageSizeOptions"
-                   ></mat-paginator>
+    <mat-paginator [length]="num_results" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
 
   </div>
 </div>
 
-<br>  <br>  <br> 
-<br>  <br>  <br> 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<div class="btns"> 
-  <a routerLink="/" > PM </a> <br>
-  <a routerLink="/" > Manual </a> <br>
-  <a routerLink="/additemform" > Add Form </a> <br>
-<div class="button">
-  <button>Add Item</button>
-</div>
+<div class="btns">
+  <a routerLink="/"> PM </a>
+  <br>
+  <a routerLink="/"> Manual </a>
+  <br>
+  <a routerLink="/additemform"> Add Form </a>
+  <br>
+  <div class="button">
+    <button>Add Item</button>
+  </div>
+
