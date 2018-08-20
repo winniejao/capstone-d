@@ -3,7 +3,7 @@
   <div class="scrollbox">
     <ul>
       <li class="scrollboxline" *ngFor="let itm of items">
-        <a routerLink="/link">{{itm}}</a>
+        <a [routerLink]="['/tabular', { cat: cat, subcat: itm }]">{{itm}}</a>
       </li>
     </ul>
   </div>
