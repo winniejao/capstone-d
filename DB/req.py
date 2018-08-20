@@ -121,7 +121,7 @@ def add_form(category, subcat, formInfo):
     # os.unlink(".\\attachments\\" + "somefile.txt")
     # os.unlink(".\\attachments\\" + "file1.txt")
     # os.unlink(".\\attachments\\" + "file2.txt")
-    os.unlink(".\\assets\\" + "equipment.txt")
+    # os.unlink(".\\assets\\" + "equipment.txt")
     new_path_list = []
     if formInfo["attach"]:
         formInfo["attach"] = get_path_list(formInfo, new_path_list)
@@ -331,8 +331,6 @@ def get_preventative_maint(category, subcat):
 # Description: File that writes subcat to a file to later get 4 subcats
 ######################################################
 def write_quick_access(category, subcat):
-    category = category.lower()
-    subcat = subcat.replace(" ", "_").lower()
     add_to_file = category + ".txt"
     path_to_add = ".\\assets\\"
     file_list = os.listdir(path_to_add)
