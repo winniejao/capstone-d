@@ -22,7 +22,8 @@
     <div class="col">
       <ul class="display-list jumbotron jumbotron-fluid" >
         <li *ngFor="let item of display">
-          <a routerLink="{{item | lowercase}}">{{ item }} </a>
+         <!-- <a routerLink="{{item | lowercase}}">{{ item }} </a>  { cat: land, subcat: landSub1 }] -->
+         <a [routerLink]="['/tabular', { cat: path | lowercase, subcat: item | lowercase}]">{{ item }}</a>
         </li>
     </ul>
     </div>
