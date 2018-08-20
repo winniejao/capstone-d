@@ -48,6 +48,18 @@ export class DashService implements MasterService {
       ));
   }
 
+  /** 
+   * Search the database for all fields
+   * @param target - The search string
+   */
+  search(target: string): Observable<Form[]> {
+    return this.http.get<Form[]>(pythonURL + '/search/' + target).pipe(
+      catchError(this.handleError('search', [])),
+      tap(data => console.log(data)
+    ));
+  }
+
+
   /**
    * Gets all forms for a category and subcategory
    * @param cat - The category of the form dump

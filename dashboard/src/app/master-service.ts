@@ -1,9 +1,12 @@
 import { Observable } from 'rxjs';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 export interface MasterService {
     getFormFromRoute(route: ActivatedRouteSnapshot, id: number): Observable<Form>
+
+    search(target: string): Observable<Form[]>
 
     getForm(cat: string, sub: string, id: number): Observable<Form>
 
