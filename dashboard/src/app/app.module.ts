@@ -6,7 +6,8 @@ import { CalendarModule } from 'angular-calendar';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { CommonModule } from '@angular/common';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 
 import { AppComponent } from './app.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
@@ -23,10 +24,15 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule } from '@angular/material/';
+import { ItemfieldsService } from './itemfields.service'
 import { DashService } from './dash.service'
 import { DummyService } from './dummy.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+<<<<<<< HEAD
 import { SearchResultComponent } from './search-result/search-result.component';
+=======
+import { ViewitemformComponent } from './viewitemform/viewitemform.component';
+>>>>>>> 31ff6ffb783a081f49a3df560463d8e03d8bb6b7
 
 
 @NgModule({
@@ -43,23 +49,28 @@ import { SearchResultComponent } from './search-result/search-result.component';
     CalendarComponent,
     SubcategoryComponent,
     BreadcrumbComponent,
+<<<<<<< HEAD
     SearchResultComponent
+=======
+    ViewitemformComponent
+>>>>>>> 31ff6ffb783a081f49a3df560463d8e03d8bb6b7
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
+    NgbModalModule.forRoot(),
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot(),
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule,
-    NgbModule.forRoot()
+    MatPaginatorModule
   ],
-  providers: [ {provide: DashService, useClass: DummyService }],
+  providers: [ {provide: DashService, useClass: DummyService }, ItemfieldsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
