@@ -55,6 +55,10 @@ export class DummyService implements MasterService {
 
   constructor() { }
 
+  querySearch(search_term: string): Observable<Form[]>{
+    return of(MOCK_FORMS);
+  }
+
   getCategories(): Observable<string[]> {
     return of(this.categories);
   }
@@ -67,21 +71,41 @@ export class DummyService implements MasterService {
   }
 
   // The real service will send+receive from DB
-  getDetails(search: string): Observable<any[]> {
-    return of(MOCK_FORMS);
+  getDetails(cat:string, subcat: string): Observable<Form[]> {
+    if (cat == 'test') {
+      return of(MOCK_FORMS);
+    }
+    else {
+      return this.getAllForms(cat, subcat);
+    }
   }
 
-  getNum(search: string): Observable<number> {
+  getNum(cat: string, subcat: string): Observable<number> {
+    if (cat == 'test') {
+      return of(MOCK_NUMBER);
+    }
     return of(MOCK_NUMBER);
   }
 
-  getColumns(search: string): Observable<string[]> {
+  getColumns(cat: string, subcat: string): Observable<string[]> {
     return of(FORM_HEADERS);
   }
 
   // Will return results for the scrolling box on the left
-  getItems(search: string): Observable<SearchResult[]> {
-    return of(this.results);
+  getItems(cat: string, subcat: string): Observable<string[]> {
+    if (cat == 'Equipment') {
+      return this.getEquipment();
+    }
+    else if (cat == 'Tool') {
+      return this.getTools();
+    }
+    else if (cat == 'Landscape') {
+      return this.getLandscape();
+    }
+    else {
+      console.log(cat + ' is not a defined category.');
+      return null;
+    }
   }
 
   // For MOCKING DASH.SERVICE CLASS
