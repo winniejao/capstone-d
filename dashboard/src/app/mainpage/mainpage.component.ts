@@ -21,7 +21,7 @@ export class MainpageComponent implements OnInit{
   private tool: string = 'Tool';
   private land: string = 'Landscape';
   private equipSub1: string = 'Boiler';
-  private equipSub2: string;
+  private equipSub2: string = "Boiler2";
   private equipSub3: string;
   private equipSub4: string;
   private toolSub1: string = 'Hammer';
