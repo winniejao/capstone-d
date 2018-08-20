@@ -96,6 +96,8 @@ def add_form(category, subcat, formInfo):
     # writes the subcat to a file -- used for quick-access
     write_quick_access(category, subcat)
 
+    dict_to_return = {}
+
     # generate unique form_ids
     form_id = datetime.datetime.now()
     form_id = str(form_id).replace("-", "").replace(" ", "").replace(":", "").split(".", 1)[0]
@@ -147,8 +149,9 @@ def add_form(category, subcat, formInfo):
         conn.commit()
         conn.close()
         success_flag = True
+        dict_to_return["form_id"] = form_id
 
-    return form_id, status_code[1] if success_flag else status_code[2]
+    return dict_to_return, status_code[1] if success_flag else status_code[2]
 
 
 ######################################################
@@ -165,6 +168,15 @@ def get_form(category, subcat, formid):
     conn = sqlite3.connect(database)
     c = conn.cursor()
     final_query_list = []
+
+    #get the field names to map to key,value to json
+    query_row = ("SELECT * FROM {}").format(subcat)
+    conn = sqlite3.connect(".\\databases\\" + category + ".db")
+    d = conn.cursor()
+    d.execute(query_row)
+    conn.commit()
+    rs = list(d.fetchall())
+    field_names = [r[0] for r in d.description]
     if formid is None:
         c.execute("SELECT * FROM {}".format(subcat))
         all_rows = c.fetchall()
@@ -176,7 +188,7 @@ def get_form(category, subcat, formid):
                 row_list.append(item)
             if row_list[9] in table_list:
                 row_list[9] = get_all_attachment(database, row_list[9])
-            final_query_list.append(row_list)
+            final_query_list.append(dict(zip(field_names, row_list)))
     else:
         attach_table = subcat + '_' + str(formid) + '_attch'
         c.execute("SELECT * FROM {} WHERE form_id=?".format(subcat), (formid,))
@@ -188,6 +200,8 @@ def get_form(category, subcat, formid):
             final_query_list.append(item)
         if attach_table in table_list:
             final_query_list[9] = get_all_attachment(database, attach_table)
+        final_query_list = dict(zip(field_names, final_query_list))
+
     c.close()
     return final_query_list, status_code[0] if final_query_list is not None else status_code[2]
 
@@ -246,6 +260,9 @@ def get_events(start_date, end_date):
 
     all_databases = ["Equipment.db", "Landscape.db", "Tools.db"]
 
+    #get all fields necessary from one database
+    field_names = ["form_id", "name", "item", "date", "notes"]
+
     for database in all_databases:
         formatted_database = ".\\databases\\" + database
         list_of_tables = get_all_tables(formatted_database)
@@ -265,7 +282,7 @@ def get_events(start_date, end_date):
                         saver.append(row[6])
                         saver.append(row[10])
                     if saver:
-                        response_dict[database.strip(".db")].append(saver)
+                        response_dict[database.strip(".db")].append(dict(zip(field_names,saver)))
                         success_flag = True
 
         event_list.clear()
@@ -285,6 +302,8 @@ def get_preventative_maint(category, subcat):
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
 
+    field_names = ['form_id', 'name', 'main_date', 'repeat']
+    final_data = []
     database = ".\\databases\\" + category + ".db"
     table_list = get_all_tables(database)
     table_list = [x[0] for x in table_list]
@@ -296,9 +315,12 @@ def get_preventative_maint(category, subcat):
         query = "SELECT form_id, name, maint_date, repeat FROM {} WHERE maint_date <> \"\"".format(subcat)
         c.execute(query)
         prev_maint_forms = c.fetchall()
+        prev_maint_forms = [list(x) for x in prev_maint_forms]
+        for item in prev_maint_forms:
+            final_data.append(dict(zip(field_names, item)))
         success_flag = True
 
-    return prev_maint_forms, status_code[0] if success_flag else status_code[2]
+    return final_data, status_code[0] if success_flag else status_code[2]
 
 
 ######################################################
