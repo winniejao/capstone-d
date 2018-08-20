@@ -3,6 +3,7 @@ import { SearchResult } from '../search-result';
 import { DummyService } from '../dummy.service';
 // TODO: use real service
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar',
@@ -10,7 +11,7 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
-  search_text: string;
+  selectedCategory: string;
   categories: string[];
   results: SearchResult[];
 
@@ -22,6 +23,7 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+    this.selectedCategory = this.categories[0];
   }
 
   getResults(category: string, query: string): void {
@@ -32,7 +34,7 @@ export class SearchBarComponent implements OnInit {
     this.dummyService.getCategories().subscribe(categories => this.categories = categories);
   }
 
-  runSearch(search_text: string): void {
-    this.router.navigate(['/searchresult', { search_term: search_text }] );
+  runSearch(cat: string, search_text: string): void {
+    this.router.navigate(['/searchresult', { category: cat, search_term: search_text }]);
   }
 }

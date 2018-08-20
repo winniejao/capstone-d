@@ -5,24 +5,26 @@
     <div class="category">
       <div class="form-group">
         <label for="category"></label>
-        <select class="form-control" id="category" required>
-          <option [ngValue]="undefined" disabled selected>Select Category</option>
+        <select class="form-control" id="category" [(ngModel)]="selectedCategory" name="category" required>
           <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
         </select>
       </div>
     </div>
 
     <div class="search-box">
-      <div class="form-group">
-        <label for="search-text"></label>
-        <input type="text" class="form-control" id="search-text"
-               [(ngModel)]="search_text"
-               (keyup.enter)="runSearch(search_text)"
-               name="search-text"
-               placeholder="Type here to search..." />
-        <!-- TODO: Change to a search result page -->
+      <label for="search-text"></label>
+      <input type="text" class="form-control" id="search-text"
+             [(ngModel)]="search_text"
+             name="search-text"
+             placeholder="Type here to search..." />
+
+      <div class="submit">
+        <button type="submit"
+                (click)="runSearch(selectedCategory, search_text)"
+                class="btn btn-primary ">
+          Search
+        </button>
       </div>
     </div>
   </form>
-
 </div>

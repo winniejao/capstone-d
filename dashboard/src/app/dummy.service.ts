@@ -60,7 +60,7 @@ export class DummyService implements MasterService {
   }
 
   getCategories(): Observable<string[]> {
-    return of(this.categories);
+    return of(this.dashCategories);
   }
 
   // getResults(string): SearchResult[]

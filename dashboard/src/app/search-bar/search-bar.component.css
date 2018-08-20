@@ -1,17 +1,21 @@
 .search-bar {
   margin: 25px;
-  width:100%;
-  display:table;
+  width: 100%;
+  display: table;
 }
 
-.category{
-  width:20%;
-  float:left;
-  display:table-cell;
+.category {
+  width: 20%;
+  float: left;
+  display: table-cell;
 }
 
-.search-box{
-  float:left;
-  width: 80%;
-  display:table-cell;
+.search-box {
+  float: left;
+  width: 60%;
+  display: table-cell;
+}
+
+.submit {
+  float: left;
 }
