@@ -177,23 +177,6 @@ def rSearch(search_str):
     reqHandle = req.search(search_str)
     return jsonify(reqHandle)
 
-@app.route('/testget', methods=['GET'])
-def rTestGet():
-    test_data = {
-        "category": "Equipment",
-        "subcat": "Boiler",
-        "name": "Boiler1",
-        "item": "Exhaust Pipe",
-        "purpose": "To Burn ",
-        "cost": "99.99 ",
-        "serial": "122-937-2210 ",
-        "date": "2018-06-18",
-        "maint_date": "2018-12-18",
-        "repeat": "6",
-        "attach": ["Q.jpg", "A.png", "s.png"],
-        "notes": "All of these need to burn"
-    }
-    return jsonify(test_data)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
