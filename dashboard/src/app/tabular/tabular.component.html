@@ -12,17 +12,17 @@
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="formid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> FormID </th>
-        <td mat-cell *matCellDef="let row"> {{row.formid}} </td>
+        <td mat-cell *matCellDef="let row" > {{row.formid}} </td>
       </ng-container>
 
       <ng-container matColumnDef="category">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+        <td mat-cell *matCellDef="let row" #row.category> {{row.category}} </td>
       </ng-container>
 
       <ng-container matColumnDef="subcat">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Subcategory </th>
-        <td mat-cell *matCellDef="let row"> {{row.subcat}} </td>
+        <td mat-cell *matCellDef="let row" > {{row.subcat}} </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
@@ -97,5 +97,6 @@
   <br>
   <a routerLink="/"> Manual </a>
   <br>
-  <a routerLink="/additemform"> Add Form </a>
+  <button id="addform" (click)="passData(cat, subcat); passCat=cat; passSubcat=subcat;" [routerLink]="['../additemform']"> Add Form </button>
   <br>
+</div>

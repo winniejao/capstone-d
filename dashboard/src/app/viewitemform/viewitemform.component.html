@@ -1,7 +1,15 @@
 <table>
   <tr>
-    <th> Parent </th>
-    <td> <input type="text" id="parent"> </td>
+    <th> FormID </th>
+    <td> {{iService.getID()}} </td>
+  </tr>
+  <tr>
+    <th> Category </th>
+    <td> {{iService.getCat()}} </td>
+  </tr>
+  <tr>
+    <th> Subcategory </th>
+    <td> {{iService.getSubcat()}} </td>
   </tr>
   <tr>
     <th> Name </th>
@@ -13,7 +21,7 @@
   </tr>
   <tr>
     <th> Cost </th>
-    <td> {{iService.getCost()}} </td>
+    <td> ${{iService.getCost()}} </td>
   </tr>
   <tr>
     <th> Serial </th>
@@ -43,7 +51,7 @@
   </tr>
   <tr>
     <td> <button id="edit" (click)="editData()" >edit</button> </td>
-    <td> <button id="delete" [routerLink]="['../sub/tabular']">delete</button> </td>
-    <td> <button id="back" [routerLink]="['../sub/tabular']">back</button> </td>
+    <td> <button id="delete" [routerLink]="['/tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">delete</button> </td>
+    <td> <button id="back" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">back</button> </td>
   </tr>
 </table>

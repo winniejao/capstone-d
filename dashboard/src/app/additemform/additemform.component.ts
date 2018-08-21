@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ItemfieldsService } from '../itemfields.service';
+import { PassServiceService } from '../pass-service.service';
+import { Form } from '../form'
 
 @Component({
   selector: 'app-additemform',
@@ -8,6 +10,9 @@ import { ItemfieldsService } from '../itemfields.service';
   styleUrls: ['./additemform.component.css']
 })
 export class AdditemformComponent implements OnInit {
+  passID: string;
+  passCat: string;
+  passSubcat: string;
   passName: string;
   passPurpose: string;
   passCost: string;
@@ -24,13 +29,15 @@ export class AdditemformComponent implements OnInit {
   ngOnInit() {
   }
 
-  constructor(private location: Location, private iService: ItemfieldsService) {console.log(this.iService.getName());}
+  constructor(private location: Location, private iService: ItemfieldsService, private pService: PassServiceService) {console.log(this.iService.getName());}
 
   alertCancel() {
     this.location.back();
   }
 
-  passData(name, purpose, cost, serial, date, from, to, check, every, dwm, note, attach) {
-    this.iService.setData(name, purpose,cost,serial,date, from,to,check,every,dwm,note,attach);
+  passData(id, cat, sub, name, purpose, cost, serial, date, from, to, check, every, dwm, note, attach) {
+    this.iService.setData(id, cat, sub,name, purpose,cost,serial,date, from,to,check,every,dwm,note,attach);
+
   }
+  
 }

@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ItemfieldsService {
+  public passId:string;
+  public passCat:string;
+  public passSubcat:string;
   public passName:string;
   public passPurpose:string;
   public passCost:number;
@@ -18,6 +21,9 @@ export class ItemfieldsService {
   public passNote:string;
 
   constructor() {
+    this.passId='';
+    this.passCat='';
+    this.passSubcat='';
     this.passName='';
     this.passPurpose='';
     this.passCost=0;
@@ -32,7 +38,10 @@ export class ItemfieldsService {
     this.passNote='';
   }
 
-  setData(name, purpose, cost, serial, date, from, to, check, every, dwm, attach, note) {
+  setData(id, cat, subcat,name, purpose, cost, serial, date, from, to, check, every, dwm, attach, note) {
+    this.passId = id;
+    this.passCat = cat;
+    this.passSubcat = subcat;
     this.passName = name;
     this.passPurpose = purpose;
     this.passCost = cost;
@@ -47,6 +56,9 @@ export class ItemfieldsService {
     this.passNote = note;
   }
 
+  getID(){return this.passId;}
+  getCat(){return this.passCat;}
+  getSubcat(){return this.passSubcat;}
   getName(){return this.passName;}
   getPurpose(){return this.passPurpose;}
   getCost(){return this.passCost;}
