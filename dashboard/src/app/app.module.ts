@@ -25,6 +25,7 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule } from '@angular/material/';
 import { ItemfieldsService } from './itemfields.service'
+import { PassServiceService } from './pass-service.service'
 import { DashService } from './dash.service'
 import { DummyService } from './dummy.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
@@ -64,7 +65,7 @@ import { ViewitemformComponent } from './viewitemform/viewitemform.component';
     MatSortModule,
     MatPaginatorModule
   ],
-  providers: [ {provide: DashService, useClass: DummyService }, ItemfieldsService],
+  providers: [ {provide: DashService, useClass: DummyService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

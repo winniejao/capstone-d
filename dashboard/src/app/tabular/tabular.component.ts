@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { SearchResult } from '../search-result';
+import { Component, OnInit, Input, ViewChild } from '@angular/core'; import { SearchResult } from '../search-result';
 import { DashService } from '../dash.service';
 // TODO: use real service
 import { Form, FORM_HEADERS } from '../form';
@@ -7,6 +6,7 @@ import { MatTableModule, MatTableDataSource, MatSort, MatPaginator } from '@angu
 import { Router, ActivatedRoute } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { MOCK_FORMS } from '../mock_forms';
+import { PassServiceService } from '../pass-service.service';
 
 
 @Component({
@@ -28,8 +28,12 @@ export class TabularComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  passCat: string;
+  passSubcat: string;
+
   constructor(
     private service: DashService,
+    private pService: PassServiceService,
     private router: Router,
     private route: ActivatedRoute,
     private modalService: NgbModal
@@ -51,5 +55,11 @@ export class TabularComponent implements OnInit {
     this.dataSource.sort = this.sort;
     
   }
+  
+  passData(cat,sub){
+console.log(cat);
+   this.pService.setData(cat,sub);
+  }
+ 
 
 }
