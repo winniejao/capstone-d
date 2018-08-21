@@ -28,11 +28,8 @@ import { ItemfieldsService } from './itemfields.service'
 import { DashService } from './dash.service'
 import { DummyService } from './dummy.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-<<<<<<< HEAD
 import { SearchResultComponent } from './search-result/search-result.component';
-=======
 import { ViewitemformComponent } from './viewitemform/viewitemform.component';
->>>>>>> 31ff6ffb783a081f49a3df560463d8e03d8bb6b7
 
 
 @NgModule({
@@ -49,11 +46,8 @@ import { ViewitemformComponent } from './viewitemform/viewitemform.component';
     CalendarComponent,
     SubcategoryComponent,
     BreadcrumbComponent,
-<<<<<<< HEAD
-    SearchResultComponent
-=======
+    SearchResultComponent,
     ViewitemformComponent
->>>>>>> 31ff6ffb783a081f49a3df560463d8e03d8bb6b7
   ],
   imports: [
     AppRoutingModule,
