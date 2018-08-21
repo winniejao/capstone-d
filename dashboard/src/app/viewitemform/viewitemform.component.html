@@ -42,8 +42,8 @@
     <td colspan="2"> {{iService.getNote()}} </td>
   </tr>
   <tr>
-    <td> <button id="edit" >edit</button> </td>
-    <td> <button id="delete" >delete</button> </td>
+    <td> <button id="edit" (click)="editData()" >edit</button> </td>
+    <td> <button id="delete" [routerLink]="['../sub/tabular']">delete</button> </td>
     <td> <button id="back" [routerLink]="['../sub/tabular']">back</button> </td>
   </tr>
 </table>

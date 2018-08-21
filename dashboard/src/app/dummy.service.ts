@@ -246,17 +246,17 @@ export class DummyService implements MasterService {
     switch(path.toLowerCase()){
       case 'equipment': {
         return this.getEquipment();
-        break;
+        //break;
       }
 
       case 'tool': {
         return this.getTools();
-        break;
+        //break;
       }
 
       case 'landscape': {
         return this.getLandscape();
-        break;
+        //break;
       }
 
       default: {

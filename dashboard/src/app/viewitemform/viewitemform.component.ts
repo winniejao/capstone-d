@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemfieldsService } from '../itemfields.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-viewitemform',
@@ -8,9 +9,12 @@ import { ItemfieldsService } from '../itemfields.service';
 })
 export class ViewitemformComponent implements OnInit {
 
-  constructor(private iService: ItemfieldsService) { }
+  constructor(private iService: ItemfieldsService, private location: Location) { }
 
   ngOnInit() {
   }
 
+  editData(){
+    this.location.back();    
+  }
 }
