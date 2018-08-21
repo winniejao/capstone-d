@@ -133,8 +133,8 @@ def add_form(category, subcat, formInfo):
         c = conn.cursor()
         c.execute(
             "INSERT INTO {}(form_id, name, item, purpose, cost, serial, date, maint_date, repeat, attach, "
-            "notes) VALUES(?,?,?,?,?,?,?,?,?, "
-            "?,?)".format(subcat),
+            "notes, category, subcat) VALUES(?,?,?,?,?,?,?,?,?, "
+            "?,?,?,?)".format(subcat),
             (form_id,
              formInfo["name"],
              formInfo["item"],
@@ -145,7 +145,9 @@ def add_form(category, subcat, formInfo):
              formInfo["maint_date"],
              formInfo["repeat"],
              attachment,
-             formInfo["notes"]))
+             formInfo["notes"],
+             category,
+             subcat))
         conn.commit()
         conn.close()
         success_flag = True
@@ -443,7 +445,7 @@ def alter_form(category, subcat, formid, dict):
     query = "UPDATE {} SET name = ?, item = ?,\
 	 		purpose = ?, cost = ?, serial = ?,\
 			date = ?, maint_date = ?, repeat =?,\
-            notes = ?\
+            notes = ?, category =?, subcat = ?\
 			WHERE form_id = ?".format(subcat)
     attch_tbl = subcat + '_' + str(formid) + '_attch'
     query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
@@ -453,7 +455,7 @@ def alter_form(category, subcat, formid, dict):
                       dict['purpose'], dict['cost'], \
                       dict['serial'], dict['date'], \
                       dict['maint_date'], dict['repeat'], \
-                      dict['notes'], formid))
+                      dict['notes'], category, subcat, formid))
     conn.commit()
     c.execute(query_tbl_reset)  # Deletes the existing attachments
     conn.commit()
@@ -484,7 +486,7 @@ def new_subcat(category, subcat):
 			 name TEXT, item TEXT, purpose TEXT, cost REAL,\
 	         serial TEXT, date DATE, maint_date DATE,\
              repeat INTEGER, attach TEXT,\
-			 notes TEXT)".format(subcat)
+			 notes TEXT, category TEXT, subcat TEXT)".format(subcat)
     query_exists = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name= ?"
 
     conn = sqlite3.connect(".\\databases\\" + category + '.db')
