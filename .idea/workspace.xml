@@ -77,8 +77,9 @@
       <path value="$PROJECT_DIR$/dashboard/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="39" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="7" />
+    <option name="y" value="322" />
     <option name="width" value="1890" />
     <option name="height" value="930" />
   </component>
@@ -146,7 +147,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Unknown.Unittests in test_req.py9970308">
+  <component name="RunManager" selected="Python tests.Unittests in test_req.py">
     <configuration name="get-file" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="capstone-d" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -214,6 +215,12 @@
       <option name="_new_target" value="&quot;$PROJECT_DIR$/DB/test_req.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
+    <list>
+      <item itemvalue="Python tests.Unittests in test_req.py" />
+      <item itemvalue="Python.get-file" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.req" />
+    </list>
   </component>
   <component name="SvnConfiguration">
     <configuration />
