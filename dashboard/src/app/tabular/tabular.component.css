@@ -53,7 +53,7 @@ th, td {
   clear: left;
 }
 
-.btns a {
+.btns a, .btns button {
   width: 100px;
   font-size: 15px;
   text-decoration: none;

@@ -16,6 +16,10 @@
     <td> {{iService.getName()}} </td>
   </tr>
   <tr>
+    <th> Item </th>
+    <td> {{iService.getItem()}} </td>
+  </tr>
+  <tr>
     <th> Purpose </th>
     <td> {{iService.getPurpose()}} </td>
   </tr>
@@ -32,26 +36,23 @@
     <td> {{iService.getDate()}} </td>
   </tr>
   <tr>
-    <th>{{iService.getCheck()}} Repeat </th>
-    <td> FROM {{iService.getFromDate()}} </td>
-    <td> TO {{iService.getToDate()}} </td>
+    <th> Maintenance Date </th>
+    <td> {{iService.getFromDate()}} </td>
     <td> Every {{iService.getEvery()}}</td> 
     <td id="dwm" style="padding:0"> {{iService.getDwm()}}
     </td>
   </tr>
   <tr>
     <th> Attachments </th>
-    <td> {{iService.getAttach()}}</td>
+    <td > {{iService.getNote()}} </td>
   </tr>
   <tr>
     <th> Notes </th>
+    <td> {{iService.getAttach()}}</td>
   </tr>
   <tr>
-    <td colspan="2"> {{iService.getNote()}} </td>
-  </tr>
-  <tr>
-    <td> <button id="edit" (click)="editData()" >edit</button> </td>
-    <td> <button id="delete" [routerLink]="['/tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">delete</button> </td>
+    <td> <button id="edit" [routerLink]="['../additemform', {formid: iService.getID()}]" >edit</button> </td>
+    <td> <button id="delete" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">delete</button> </td>
     <td> <button id="back" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">back</button> </td>
   </tr>
 </table>

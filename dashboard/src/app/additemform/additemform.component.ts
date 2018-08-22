@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ItemfieldsService } from '../itemfields.service';
 import { PassServiceService } from '../pass-service.service';
-import { Form } from '../form'
+import { DashService } from '../dash.service';
+import { Form } from '../form';
 
 @Component({
   selector: 'app-additemform',
@@ -10,34 +11,27 @@ import { Form } from '../form'
   styleUrls: ['./additemform.component.css']
 })
 export class AdditemformComponent implements OnInit {
-  passID: string;
-  passCat: string;
-  passSubcat: string;
-  passName: string;
-  passPurpose: string;
-  passCost: string;
-  passSerial: string;
-  passDate: string;
-  passFromDate: string;
-  passToDate: string;
-  passCheck: string;
-  passEvery: string;
-  passDwm: string;
-  passNote: string;
-  passAttach: string;
+
+  table_details: Form
+  constructor(
+	private location: Location, 
+	private iService: ItemfieldsService,
+	private pService: PassServiceService,
+	private dService: DashService
+  ) { }
 
   ngOnInit() {
   }
-
-  constructor(private location: Location, private iService: ItemfieldsService, private pService: PassServiceService) {console.log(this.iService.getName());}
 
   alertCancel() {
     this.location.back();
   }
 
-  passData(id, cat, sub, name, purpose, cost, serial, date, from, to, check, every, dwm, note, attach) {
-    this.iService.setData(id, cat, sub,name, purpose,cost,serial,date, from,to,check,every,dwm,note,attach);
+  passData(id, cat, sub, name, item, purpose, cost, serial, date, from,  every, dwm, note, attach) {
+    this.iService.setData(id, cat, sub,name, item, purpose,cost,serial,date, from,every,dwm,note,attach);
+    this.table_details={formid:id, category:cat, subcat:sub, name:name, item:item, purpose:purpose, cost:cost, serial:serial, date:date, maint_date:from, repeat:every, attachment:attach, notes:note};
 
+    this.dService.addForm(this.table_details);
   }
   
 }
