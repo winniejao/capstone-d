@@ -17,11 +17,24 @@ export class BreadcrumbComponent implements OnInit {
   routerEvent: any; //if I need to unsubscribe
 
   parseTrail(input: string): void {
-    this.crumbtrail = input.trim()
+
+    if( input.includes(';')){
+      this.crumbtrail = input.trim()
+        .replace('/tabular', '')
+        .replace('cat=', '')
+        .replace('subcat=', '')
+        .split(';')
+        .filter(x => x != '')
+        .filter(x => x != 'mainpage');
+        this.crumtrailActive = this.crumbtrail.pop();
+    } else {
+      this.crumbtrail = input.trim()
       .split('/')
       .filter( x => x != '')
       .filter(x => x != 'mainpage');
-    this.crumtrailActive = this.crumbtrail.pop();
+      this.crumtrailActive = this.crumbtrail.pop();
+    }
+
   }
 
   
@@ -44,3 +57,28 @@ export class BreadcrumbComponent implements OnInit {
 
 
 }
+
+/*
+this.routerEvent = this.router.events
+.pipe(
+  filter( (event:NavigationEnd) => event instanceof NavigationEnd))
+  .subscribe( event => {
+    this.parseTrail(event.urlAfterRedirects);
+  });
+
+
+    parseTrail(input: string): void {
+    this.crumbtrail = input.trim()
+      .split('/')
+      .filter( x => x != '')
+      .filter(x => x != 'mainpage');
+    this.crumtrailActive = this.crumbtrail.pop();
+  }
+
+  
+  reconstruct(input): string {
+    const indexOf = this.crumbtrail.findIndex(v => v === input);
+    if (indexOf === -1) { return ''; }
+    return this.crumbtrail.slice(0, indexOf+1).join('/');    
+}
+  */

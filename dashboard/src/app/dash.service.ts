@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
-import { MasterService } from './master-service';
+import { MasterService, ArrayResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 import { del } from '../../node_modules/@types/selenium-webdriver/http';
 
@@ -15,12 +15,9 @@ const pythonURL = 'http://127.0.0.1:5000';
   providedIn: 'root'
 })
 
-export interface ArrayResponse {
-  data: Form[];
-  code: number;
-}
-
 export class DashService implements MasterService {
+
+  
 
   constructor(private http: HttpClient) { }
 
@@ -85,8 +82,8 @@ export class DashService implements MasterService {
    * @param sub - The subcategory of the form dump
    * 
    */
-  getAllForms(cat: string, sub: string): Observable<any> {
-    return this.http.get(pythonURL + '/form/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
+  getAllForms(cat: string, sub: string): Observable<ArrayResponse> {
+    return this.http.get<ArrayResponse>(pythonURL + '/form/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
       catchError(this.handleError('getAllForms', null)),
       tap(data => console.log('I am the tapped data',data)
       ));
@@ -156,10 +153,10 @@ export class DashService implements MasterService {
     purpose: 'asdasdasd', 
     repeat: '6', 
     serial: 'asdasd', 
-    attach: []};
+    attach: []
+  };
 
     var sillyForm = {
-      form_id: 3333333,
       category: input.category,
       cost: input.cost,
       date: input.date,
@@ -170,10 +167,10 @@ export class DashService implements MasterService {
       purpose: input.purpose,
       repeat: input.repeat,
       serial: input.serial,
-      attach: input.attach
+      attach: []
     }
 
-    return this.http.post(route, sillyForm).pipe(
+    return this.http.post(route, input).pipe(
       catchError(this.handleError('addForm', 0)),
       tap(data => console.log(data)
       ));
@@ -270,3 +267,4 @@ export class DashService implements MasterService {
 
 
 }
+

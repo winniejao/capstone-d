@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { Form, FORM_HEADERS } from './form';
 import { MOCK_FORMS, MOCK_NUMBER } from './mock_forms'
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
-import { MasterService } from './master-service';
+import { MasterService, ArrayResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 
 
@@ -76,7 +76,7 @@ export class DummyService implements MasterService {
       return of(MOCK_FORMS);
     }
     else {
-      return this.getAllForms(cat, subcat);
+      return this.getAllForms(cat, subcat)[0];
     }
   }
 
@@ -215,27 +215,24 @@ export class DummyService implements MasterService {
    * @param cat - The category of the form dump
    * @param sub - The subcategory of the form dump
    */
-  getAllForms(cat: string, sub: string): Observable<Form[]> {
+  getAllForms(cat: string, sub: string): Observable<ArrayResponse> {
     console.log('Cat is: ' + cat + ' sub is: ' + sub);
     switch(cat.toLowerCase()){
       case 'equipment': {
-        return of(this.dummyEquipmentList);
+        return of( { 0: this.dummyEquipmentList, 1: 200});
       }
 
       case 'tool': {
-        return of(this.dummyToolList);
-      }
+        return of( { 0: this.dummyToolList, 1: 200});      }
 
       case 'landscape': {
-        return of(this.dummyLandscapeList);
-      }
+        return of( { 0: this.dummyLandscapeList, 1: 200});      }
 
       default: {
         console.log('Incorrectly formatted call to getAllForms dummy service! Returning equipment list');
       }
 
-      return of(this.dummyEquipmentList);
-    }
+      return of( { 0: this.dummyEquipmentList, 1: 200});    }
   }
 
   /**
