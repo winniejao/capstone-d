@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashService } from '../dash.service';
+import { ArrayResponse, SingleResponse } from '../master-service';
 import { Form } from '../form'
 
 @Component({
@@ -30,8 +31,13 @@ export class TestComponent implements OnInit {
   }
 
   getForm(fid: number): void {
-    this.service.getForm(this.category, this.subcategory, fid).subscribe(v => {
-      this.resultsArr.push('Single get form: ' + v.name + ' ' + v.form_id + '| ' + v.purpose);
+    this.service.getForm(this.category, this.subcategory, fid).subscribe( (v: SingleResponse) => {
+      console.log('first value',v[0]);
+      console.log('second value',v[1]);
+
+      var output = v[0];
+      console.log('inside', output);
+      this.resultsArr.push('Single get form: ' + output.name + ' ' + output.form_id + '| ' + output.purpose);
     })
   }
 
@@ -45,7 +51,6 @@ export class TestComponent implements OnInit {
 
       console.log('first value',v[0]);
       console.log('second value',v[1]);
-
 
       output = v[0];
       console.log('inside', output);

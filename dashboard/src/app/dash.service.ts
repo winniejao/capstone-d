@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
-import { MasterService, ArrayResponse } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 import { del } from '../../node_modules/@types/selenium-webdriver/http';
 
@@ -44,7 +44,7 @@ export class DashService implements MasterService {
    * @param sub - The subcategory of the form
    * @param id - The form ID number
    */
-  getForm(cat: string, sub: string, id: number): Observable<Form> {
+  getForm(cat: string, sub: string, id: number): Observable<SingleResponse> {
     return this.http.get<Form>(pythonURL + '/form/' + cat + '/' + sub + '/' + id).pipe(
       catchError(this.handleError('getForm', undefined)),
       tap(data => console.log(data)

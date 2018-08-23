@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { Form, FORM_HEADERS } from './form';
 import { MOCK_FORMS, MOCK_NUMBER } from './mock_forms'
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
-import { MasterService, ArrayResponse } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 
 
@@ -178,24 +178,24 @@ export class DummyService implements MasterService {
    * @param sub - The subcategory of the form
    * @param id - The form ID number
    */
-  getForm(cat: string, sub: string, id: number): Observable<Form> {
+  getForm(cat: string, sub: string, id: number): Observable<SingleResponse> {
     switch(cat.toLowerCase()){
       case 'equipment': {
-        return of(this.dummyEquipmentList.find(x => x.form_id == id));
+        return of( { 0:this.dummyEquipmentList.find(x => x.form_id == id), 1:200 });
       }
 
       case 'tool': {
-        return of(this.dummyToolList.find(x => x.form_id == id));
+        return of( { 0:this.dummyToolList.find(x => x.form_id == id), 1:200 });
       }
 
       case 'landscape': {
-        return of(this.dummyLandscapeList.find(x => x.form_id == id));
+        return of( { 0:this.dummyLandscapeList.find(x => x.form_id == id), 1:200 });
       }
 
       default: {
         console.log('Incorrectly formatted call to single form dummy service! returning dummy form');
       }
-      return of( this.dummyForm);
+      return of( { 0: this.dummyForm,  1: 404 } );
     }
   }
 

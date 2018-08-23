@@ -57,28 +57,3 @@ export class BreadcrumbComponent implements OnInit {
 
 
 }
-
-/*
-this.routerEvent = this.router.events
-.pipe(
-  filter( (event:NavigationEnd) => event instanceof NavigationEnd))
-  .subscribe( event => {
-    this.parseTrail(event.urlAfterRedirects);
-  });
-
-
-    parseTrail(input: string): void {
-    this.crumbtrail = input.trim()
-      .split('/')
-      .filter( x => x != '')
-      .filter(x => x != 'mainpage');
-    this.crumtrailActive = this.crumbtrail.pop();
-  }
-
-  
-  reconstruct(input): string {
-    const indexOf = this.crumbtrail.findIndex(v => v === input);
-    if (indexOf === -1) { return ''; }
-    return this.crumbtrail.slice(0, indexOf+1).join('/');    
-}
-  */
