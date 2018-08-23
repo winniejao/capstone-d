@@ -31,7 +31,7 @@ export class TestComponent implements OnInit {
 
   getForm(fid: number): void {
     this.service.getForm(this.category, this.subcategory, fid).subscribe(v => {
-      this.resultsArr.push('Single get form: ' + v.name + ' ' + v.formid + '| ' + v.purpose);
+      this.resultsArr.push('Single get form: ' + v.name + ' ' + v.form_id + '| ' + v.purpose);
     })
   }
 
@@ -52,7 +52,7 @@ export class TestComponent implements OnInit {
       //console.log('Type',output[0][0] instanceof Form, form);
       
       output.forEach(element => {
-        this.resultsArr.push('Form: ' + element.name + ' ' + element.formid + '| ' + element.purpose);
+        this.resultsArr.push('Form: ' + element.name + ' ' + element.form_id + '| ' + element.purpose);
       });
     });
     console.log('outside', output);
@@ -65,7 +65,7 @@ export class TestComponent implements OnInit {
     var output: Form[];
     this.service.search(input).subscribe(x => output = x );
     output.forEach(element => {
-      this.resultsArr.push('Form: ' + element.name + ' ' + element.formid + '| ' + element.purpose);
+      this.resultsArr.push('Form: ' + element.name + ' ' + element.form_id + '| ' + element.purpose);
     });
   }
 

@@ -181,15 +181,15 @@ export class DummyService implements MasterService {
   getForm(cat: string, sub: string, id: number): Observable<Form> {
     switch(cat.toLowerCase()){
       case 'equipment': {
-        return of(this.dummyEquipmentList.find(x => x.formid == id));
+        return of(this.dummyEquipmentList.find(x => x.form_id == id));
       }
 
       case 'tool': {
-        return of(this.dummyToolList.find(x => x.formid == id));
+        return of(this.dummyToolList.find(x => x.form_id == id));
       }
 
       case 'landscape': {
-        return of(this.dummyLandscapeList.find(x => x.formid == id));
+        return of(this.dummyLandscapeList.find(x => x.form_id == id));
       }
 
       default: {
@@ -319,7 +319,7 @@ export class DummyService implements MasterService {
     }
 
     //In the real example the server will generate the form ID
-    return of(input.formid);
+    return of(input.form_id);
   }
 
   /**
@@ -329,7 +329,7 @@ export class DummyService implements MasterService {
   deleteForm(input: Form): Observable<any> {
     switch(input.category.toLowerCase()){
       case 'equipment': {
-        var found = this.dummyEquipmentList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyEquipmentList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -338,7 +338,7 @@ export class DummyService implements MasterService {
       }
 
       case 'tool': {
-        var found = this.dummyToolList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyToolList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -347,7 +347,7 @@ export class DummyService implements MasterService {
       }
 
       case 'landscape': {
-        var found = this.dummyLandscapeList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyLandscapeList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -400,7 +400,7 @@ export class DummyService implements MasterService {
   updateForm(input: Form): Observable<any> {
     switch(input.category.toLowerCase()){
       case 'equipment': {
-        var found = this.dummyEquipmentList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyEquipmentList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -409,7 +409,7 @@ export class DummyService implements MasterService {
       }
 
       case 'tool': {
-        var found = this.dummyToolList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyToolList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -418,7 +418,7 @@ export class DummyService implements MasterService {
       }
 
       case 'landscape': {
-        var found = this.dummyLandscapeList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyLandscapeList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }

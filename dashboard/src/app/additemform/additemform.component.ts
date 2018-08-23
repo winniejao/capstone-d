@@ -29,7 +29,7 @@ export class AdditemformComponent implements OnInit {
 
   passData(id, cat, sub, name, item, purpose, cost, serial, date, from,  every, dwm, note, attach) {
     this.iService.setData(id, cat, sub,name, item, purpose,cost,serial,date, from,every,dwm,note,attach);
-    this.table_details={formid:id, category:cat, subcat:sub, name:name, item:item, purpose:purpose, cost:cost, serial:serial, date:date, maint_date:from, repeat:every, attachment:attach, notes:note};
+    this.table_details={form_id:id, category:cat, subcat:sub, name:name, item:item, purpose:purpose, cost:cost, serial:serial, date:date, maint_date:from, repeat:every, attach:attach, notes:note};
 
     this.dService.addForm(this.table_details);
   }
