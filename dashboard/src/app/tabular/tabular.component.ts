@@ -1,12 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core'; import { SearchResult } from '../search-result';
 import { DashService } from '../dash.service';
 import { ArrayResponse } from '../master-service';
-// TODO: use real service
 import { Form, FORM_HEADERS } from '../form';
 import { MatTableModule, MatTableDataSource, MatSort, MatPaginator } from '@angular/material/';
 import { Router, ActivatedRoute } from '@angular/router';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { MOCK_FORMS } from '../mock_forms';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+//import { MOCK_FORMS } from '../mock_forms';
 import { PassServiceService } from '../pass-service.service';
 import { AdditemformComponent } from '../additemform/additemform.component';
 

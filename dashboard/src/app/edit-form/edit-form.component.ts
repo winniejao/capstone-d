@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DashService } from '../dash.service';
 import { Form } from '../form';
+import { SingleResponse } from '../master-service';
 
 @Component({
   selector: 'app-edit-form',
@@ -24,7 +25,7 @@ export class EditFormComponent implements OnInit {
     this.id = this.stringToNum(this.route.snapshot.paramMap.get('id'));
     this.category = this.route.snapshot.paramMap.get('category');
     this.subcat = this.route.snapshot.paramMap.get('subcat');
-    this.service.getForm(this.category, this.subcat, this.id).subscribe(form => this.form = form);
+    this.service.getForm(this.category, this.subcat, this.id).subscribe(res => this.form = res[0]);
   }
 
   stringToNum(str: any): number {
