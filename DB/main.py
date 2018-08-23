@@ -171,11 +171,18 @@ def rRestore():
     return ("Restore Successful")
 
 
-################## SEARCH DB on STRING ########################
+################## SEARCH DB on STRING ROUTE ########################
 @app.route('/search/<string:search_str>', methods=['GET'])
 def rSearch(search_str):
     reqHandle = req.search(search_str)
     return jsonify(reqHandle)
+
+# ################## SEARCH DB on STRING JSON ########################
+# @app.route('/search', methods=['POST'])
+# def rSearch():
+#     getRequest = json.loads(request.data)
+#     reqHandle = req.search(getRequest)
+#     return jsonify(reqHandle)
 
 
 if __name__ == '__main__':
