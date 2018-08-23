@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MOCK_FORMS } from '../mock_forms';
 import { PassServiceService } from '../pass-service.service';
-
+import { AdditemformComponent } from '../additemform/additemform.component';
 
 @Component({
   selector: 'app-tabular',
@@ -56,7 +56,6 @@ export class TabularComponent implements OnInit {
   }
   
   passData(cat,sub){
-console.log(cat);
    this.pService.setData(cat,sub);
   }
  

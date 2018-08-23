@@ -133,8 +133,8 @@ def add_form(category, subcat, formInfo):
         c = conn.cursor()
         c.execute(
             "INSERT INTO {}(form_id, name, item, purpose, cost, serial, date, maint_date, repeat, attach, "
-            "notes) VALUES(?,?,?,?,?,?,?,?,?, "
-            "?,?)".format(subcat),
+            "notes, category, subcat) VALUES(?,?,?,?,?,?,?,?,?, "
+            "?,?,?,?)".format(subcat),
             (form_id,
              formInfo["name"],
              formInfo["item"],
@@ -145,7 +145,9 @@ def add_form(category, subcat, formInfo):
              formInfo["maint_date"],
              formInfo["repeat"],
              attachment,
-             formInfo["notes"]))
+             formInfo["notes"],
+             category,
+             subcat))
         conn.commit()
         conn.close()
         success_flag = True
@@ -443,7 +445,7 @@ def alter_form(category, subcat, formid, dict):
     query = "UPDATE {} SET name = ?, item = ?,\
 	 		purpose = ?, cost = ?, serial = ?,\
 			date = ?, maint_date = ?, repeat =?,\
-            notes = ?\
+            notes = ?, category =?, subcat = ?\
 			WHERE form_id = ?".format(subcat)
     attch_tbl = subcat + '_' + str(formid) + '_attch'
     query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
@@ -453,7 +455,7 @@ def alter_form(category, subcat, formid, dict):
                       dict['purpose'], dict['cost'], \
                       dict['serial'], dict['date'], \
                       dict['maint_date'], dict['repeat'], \
-                      dict['notes'], formid))
+                      dict['notes'], category, subcat, formid))
     conn.commit()
     c.execute(query_tbl_reset)  # Deletes the existing attachments
     conn.commit()
@@ -484,7 +486,7 @@ def new_subcat(category, subcat):
 			 name TEXT, item TEXT, purpose TEXT, cost REAL,\
 	         serial TEXT, date DATE, maint_date DATE,\
              repeat INTEGER, attach TEXT,\
-			 notes TEXT)".format(subcat)
+			 notes TEXT, category TEXT, subcat TEXT)".format(subcat)
     query_exists = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name= ?"
 
     conn = sqlite3.connect(".\\databases\\" + category + '.db')
@@ -677,6 +679,41 @@ def restore_backup(flpth):
             shutil.copy(src, ".\\databases\\" + ntpath.basename(dst_src))
             shutil.copystat(src, ".\\databases\\" + ntpath.basename(dst_src))  # Copies file permissions#
 
+######################################################
+# Method Name: search
+# Arguments (1): String to search on (search_str)
+# Returns: Python Dictionary with fields that match
+#           search_str
+# Description: Finds the substring search_str in all
+#              three databases, if found, writes the
+#              entire row to a python dictionary and
+#              returns to front end.
+######################################################
+# def search(search_dict):
+#     search_str = search_dict["search"]
+#     databases = []
+#     json_str = []
+#     for filename in os.listdir(".\\databases\\"):  # Gets the database names
+#         if filename.endswith(".db"):
+#             databases.append(filename)
+
+#     for database in databases:  # Connects to all three of the DBs one at a time
+#         conn = sqlite3.connect(".\\databases\\" + database)
+#         c = conn.cursor()
+#         for tablerow in c.execute(
+#                 "SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'").fetchall():
+#             table = tablerow[0]  # Loops through each table
+#             if '_attch' not in table:  # Filters the attachment tables
+#                 c.execute("SELECT * FROM {}".format(table))
+#                 field_names = [r[0] for r in c.description]  # gets the table schema
+#                 for row in c:  # Goes through every row
+#                     row_srch = list(map(str, row))
+#                     if any(search_str.lower() in s.lower() for s in row_srch):  # If match was found in the row
+#                         json_str.append(dict(zip(field_names, row)))  # writes the entire row to a dictionary
+#             else:
+#                 continue
+#         conn.close()
+#     return json_str
 
 ######################################################
 # Method Name: search
@@ -706,7 +743,7 @@ def search(search_str):
                 field_names = [r[0] for r in c.description]  # gets the table schema
                 for row in c:  # Goes through every row
                     row_srch = list(map(str, row))
-                    if any(search_str in s for s in row_srch):  # If match was found in the row
+                    if any(search_str.lower() in s.lower() for s in row_srch):  # If match was found in the row
                         json_str.append(dict(zip(field_names, row)))  # writes the entire row to a dictionary
             else:
                 continue
