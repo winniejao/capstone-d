@@ -14,6 +14,7 @@ export class SearchBarComponent implements OnInit {
   selectedCategory: string;
   categories: string[];
   results: SearchResult[];
+  search_text: string;
 
   constructor(
     private dummyService: DummyService,

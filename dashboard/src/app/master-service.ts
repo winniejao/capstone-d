@@ -8,9 +8,9 @@ export interface MasterService {
 
     search(target: string): Observable<Form[]>
 
-    getForm(cat: string, sub: string, id: number): Observable<Form>
+    getForm(cat: string, sub: string, id: number): Observable<SingleResponse>
 
-    getAllForms(cat: string, sub: string): Observable<Form[]> 
+    getAllForms(cat: string, sub: string): Observable<ArrayResponse>
 
     getTools(): Observable<string[]> 
 
@@ -29,4 +29,16 @@ export interface MasterService {
     updateForm(input: Form): Observable<any>
     
     deleteSubcategory(cat: string, sub: string): Observable<any>
+}
+
+//This is the shape and name I'm getting from the python server
+//A better naming convention be a nice refactor if time allowed
+export interface ArrayResponse {
+    0: Form[];
+    1: number;
+  }
+
+export interface SingleResponse {
+    0: Form;
+    1: number;
 }

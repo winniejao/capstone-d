@@ -67,7 +67,7 @@ import { EditFormComponent } from './edit-form/edit-form.component';
     MatSortModule,
     MatPaginatorModule
   ],
-  providers: [ {provide: DashService, useClass: DummyService }, ItemfieldsService, PassServiceService],
+  providers: [ {provide: DashService, useClass: DashService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

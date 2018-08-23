@@ -4,7 +4,7 @@ export const FORM_HEADERS: string[] = ['formid', 'category', 'subcat', 'name', '
 
 export class Form {
     constructor(id: number, cat: string, scat: string){
-          this.formid = id;
+          this.form_id = id;
           this.category = cat;
           this.subcat = scat;
           this.name = "TestName";
@@ -12,14 +12,13 @@ export class Form {
           this.purpose = "TestPurpose";
           this.cost = 3.14;
           this.serial = "ATES-TSER-IAL1";
-          this.date = "11/22/2018";
+          this.date = "2018-10-10";
           this.maint_date = "2018-10-10";
           this.repeat = 2;
-          this.attachment = "C:/testpath";
+          this.attach = [];
           this.notes = "TestNote";
     }
-    
-    formid: number;
+    form_id: number;
     category: string;
     subcat: string;
     name: string;
@@ -30,7 +29,8 @@ export class Form {
     date: string;
     maint_date: string;
     repeat: number;
-    attachment: string;
+    //Do NOT use forward slashes for paths
+    attach: string[];
     notes: string;
 
 }

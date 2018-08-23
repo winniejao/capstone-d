@@ -5,8 +5,9 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
-import { MasterService } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
+import { del } from '../../node_modules/@types/selenium-webdriver/http';
 
 const pythonURL = 'http://127.0.0.1:5000';
 
@@ -15,6 +16,8 @@ const pythonURL = 'http://127.0.0.1:5000';
 })
 
 export class DashService implements MasterService {
+
+  
 
   constructor(private http: HttpClient) { }
 
@@ -41,7 +44,7 @@ export class DashService implements MasterService {
    * @param sub - The subcategory of the form
    * @param id - The form ID number
    */
-  getForm(cat: string, sub: string, id: number): Observable<Form> {
+  getForm(cat: string, sub: string, id: number): Observable<SingleResponse> {
     return this.http.get<Form>(pythonURL + '/form/' + cat + '/' + sub + '/' + id).pipe(
       catchError(this.handleError('getForm', undefined)),
       tap(data => console.log(data)
@@ -66,12 +69,26 @@ export class DashService implements MasterService {
    * @param sub - The subcategory of the form dump
    * 
    */
-  getAllForms(cat: string, sub: string): Observable<Form[]> {
-    return this.http.get<Form>(pythonURL + '/form/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
+  // getAllForms(cat: string, sub: string): Observable<Form[]> {
+  //   return this.http.get<Form[]>(pythonURL + '/form/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
+  //     catchError(this.handleError('getAllForms', null)),
+  //     tap(data => console.log('I am the tapped data',data)
+  //     ));
+  // }
+
+    /**
+   * Gets all forms for a category and subcategory
+   * @param cat - The category of the form dump
+   * @param sub - The subcategory of the form dump
+   * 
+   */
+  getAllForms(cat: string, sub: string): Observable<ArrayResponse> {
+    return this.http.get<ArrayResponse>(pythonURL + '/form/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
       catchError(this.handleError('getAllForms', null)),
-      tap(data => console.log(data)
+      tap(data => console.log('I am the tapped data',data)
       ));
   }
+
 
   /**
    * Gets a variable list of subcategories 
@@ -122,9 +139,38 @@ export class DashService implements MasterService {
    * @returns - The assigned formid or 0 if unsuccessful
    * 
    */
-  addForm(input: Form): Observable<number> {
+  addForm(input: Form): Observable<any> {
     var route = pythonURL + '/' + 'form/' + input.category.toLowerCase() + '/' + input.subcat.toLowerCase();
-    return this.http.post<number>(route, input).pipe(
+    //Identifying why it returns a 201 response but 404 in the body
+    var testForm = { 
+    category: 'doibreakthegame', 
+    cost: "99.99", 
+    date: '2018-06-18', 
+    item: 'asdasd', 
+    maint_date: '2018-12-18', 
+    name: 'asasd', 
+    notes: 'asdasd', 
+    purpose: 'asdasdasd', 
+    repeat: '6', 
+    serial: 'asdasd', 
+    attach: []
+  };
+
+    var sillyForm = {
+      category: input.category,
+      cost: input.cost,
+      date: input.date,
+      item: input.item,
+      maint_date: input.maint_date,
+      name: input.name,
+      notes: input.notes,
+      purpose: input.purpose,
+      repeat: input.repeat,
+      serial: input.serial,
+      attach: []
+    }
+
+    return this.http.post(route, input).pipe(
       catchError(this.handleError('addForm', 0)),
       tap(data => console.log(data)
       ));
@@ -138,7 +184,7 @@ export class DashService implements MasterService {
     var route = pythonURL + '/form/' +
       input.category + '/' +
       input.subcat + '/' +
-      input.formid;
+      input.form_id;
     return this.http.delete(route).pipe(
       catchError(this.handleError('deleteForm')),
       tap(data => console.log(data)
@@ -167,12 +213,14 @@ export class DashService implements MasterService {
     var route = pythonURL + '/form/' +
       input.category + '/' +
       input.subcat + '/' +
-      input.formid;
+      input.form_id;
     return this.http.put(route, input).pipe(
       catchError(this.handleError('updateForm')),
       tap(data => console.log(data)
       ));
   }
+
+  
 
   /**
    * Deletes the subcategory according to this path. ASSUMES frontend did check
@@ -190,6 +238,15 @@ export class DashService implements MasterService {
       catchError(this.handleError('deleteSubcategory'))
     );
       
+  }
+
+  testForm(): Observable<any> {
+    var testForm = { category: 'doibreakthegame', cost: "99.99", date: '2018-06-18', item: 'asdasd', maint_date: '2018-12-18', name: 'asasd', notes: 'asdasd', purpose: 'asdasdasd', repeat: '6', serial: 'asdasd', attach: []};
+    var route = pythonURL + '/' + 'form/equipment/computer'
+    return this.http.post<number>(route, testForm).pipe(
+      catchError(this.handleError('addForm', 0)),
+      tap(data => console.log(data)
+      ));
   }
 
 
@@ -210,3 +267,4 @@ export class DashService implements MasterService {
 
 
 }
+

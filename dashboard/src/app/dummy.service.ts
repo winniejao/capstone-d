@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { Form, FORM_HEADERS } from './form';
 import { MOCK_FORMS, MOCK_NUMBER } from './mock_forms'
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
-import { MasterService } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 
 
@@ -76,7 +76,7 @@ export class DummyService implements MasterService {
       return of(MOCK_FORMS);
     }
     else {
-      return this.getAllForms(cat, subcat);
+      return this.getAllForms(cat, subcat)[0];
     }
   }
 
@@ -178,24 +178,24 @@ export class DummyService implements MasterService {
    * @param sub - The subcategory of the form
    * @param id - The form ID number
    */
-  getForm(cat: string, sub: string, id: number): Observable<Form> {
+  getForm(cat: string, sub: string, id: number): Observable<SingleResponse> {
     switch(cat.toLowerCase()){
       case 'equipment': {
-        return of(this.dummyEquipmentList.find(x => x.formid == id));
+        return of( { 0:this.dummyEquipmentList.find(x => x.form_id == id), 1:200 });
       }
 
       case 'tool': {
-        return of(this.dummyToolList.find(x => x.formid == id));
+        return of( { 0:this.dummyToolList.find(x => x.form_id == id), 1:200 });
       }
 
       case 'landscape': {
-        return of(this.dummyLandscapeList.find(x => x.formid == id));
+        return of( { 0:this.dummyLandscapeList.find(x => x.form_id == id), 1:200 });
       }
 
       default: {
         console.log('Incorrectly formatted call to single form dummy service! returning dummy form');
       }
-      return of( this.dummyForm);
+      return of( { 0: this.dummyForm,  1: 404 } );
     }
   }
 
@@ -215,27 +215,24 @@ export class DummyService implements MasterService {
    * @param cat - The category of the form dump
    * @param sub - The subcategory of the form dump
    */
-  getAllForms(cat: string, sub: string): Observable<Form[]> {
+  getAllForms(cat: string, sub: string): Observable<ArrayResponse> {
     console.log('Cat is: ' + cat + ' sub is: ' + sub);
     switch(cat.toLowerCase()){
       case 'equipment': {
-        return of(this.dummyEquipmentList);
+        return of( { 0: this.dummyEquipmentList, 1: 200});
       }
 
       case 'tool': {
-        return of(this.dummyToolList);
-      }
+        return of( { 0: this.dummyToolList, 1: 200});      }
 
       case 'landscape': {
-        return of(this.dummyLandscapeList);
-      }
+        return of( { 0: this.dummyLandscapeList, 1: 200});      }
 
       default: {
         console.log('Incorrectly formatted call to getAllForms dummy service! Returning equipment list');
       }
 
-      return of(this.dummyEquipmentList);
-    }
+      return of( { 0: this.dummyEquipmentList, 1: 200});    }
   }
 
   /**
@@ -319,7 +316,7 @@ export class DummyService implements MasterService {
     }
 
     //In the real example the server will generate the form ID
-    return of(input.formid);
+    return of(input.form_id);
   }
 
   /**
@@ -329,7 +326,7 @@ export class DummyService implements MasterService {
   deleteForm(input: Form): Observable<any> {
     switch(input.category.toLowerCase()){
       case 'equipment': {
-        var found = this.dummyEquipmentList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyEquipmentList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -338,7 +335,7 @@ export class DummyService implements MasterService {
       }
 
       case 'tool': {
-        var found = this.dummyToolList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyToolList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -347,7 +344,7 @@ export class DummyService implements MasterService {
       }
 
       case 'landscape': {
-        var found = this.dummyLandscapeList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyLandscapeList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -400,7 +397,7 @@ export class DummyService implements MasterService {
   updateForm(input: Form): Observable<any> {
     switch(input.category.toLowerCase()){
       case 'equipment': {
-        var found = this.dummyEquipmentList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyEquipmentList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -409,7 +406,7 @@ export class DummyService implements MasterService {
       }
 
       case 'tool': {
-        var found = this.dummyToolList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyToolList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }
@@ -418,7 +415,7 @@ export class DummyService implements MasterService {
       }
 
       case 'landscape': {
-        var found = this.dummyLandscapeList.findIndex( x => x.formid == input.formid)
+        var found = this.dummyLandscapeList.findIndex( x => x.form_id == input.form_id)
         if( found === -1){
           return of(new HttpResponse({status: 404}))
         }

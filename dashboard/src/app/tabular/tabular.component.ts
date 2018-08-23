@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core'; import { SearchResult } from '../search-result';
 import { DashService } from '../dash.service';
+import { ArrayResponse } from '../master-service';
+// TODO: use real service
 import { Form, FORM_HEADERS } from '../form';
 import { MatTableModule, MatTableDataSource, MatSort, MatPaginator } from '@angular/material/';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { MOCK_FORMS } from '../mock_forms';
 import { PassServiceService } from '../pass-service.service';
 import { AdditemformComponent } from '../additemform/additemform.component';
@@ -41,17 +43,18 @@ export class TabularComponent implements OnInit {
   ngOnInit() {
     this.cat = this.route.snapshot.paramMap.get('cat');
     this.subcat = this.route.snapshot.paramMap.get('subcat');
-    //this.dummyService.getDetails(this.cat, this.subcat).subscribe(table_details => this.table_details = table_details);
-    //// When I get time I need to cache this result instead of double calling it, really bad right now
-    this.service.getAllForms(this.cat, this.subcat).subscribe(forms => this.table_details = forms);
-    console.log(this.table_details);
-    //this.dummyService.getItems(this.cat, this.subcat).subscribe(items => this.items = items);
-    this.service.getAllForms(this.cat, this.subcat).subscribe(forms => this.items = Array.from(new Set(forms.map(single => single.name))));
-    this.num_results = this.table_details.length;
-    // Need to decide how to pass search terms
-    this.dataSource = new MatTableDataSource(this.table_details);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.service.getAllForms(this.cat, this.subcat).subscribe( (res: ArrayResponse) => {
+        //The data is in res[0]
+        //The return code is in res[1]
+        var forms = res[0];
+        this.table_details = forms;
+        this.items = Array.from(new Set(forms.map(single => single.name)));
+        this.num_results = this.table_details.length;
+        // Need to decide how to pass search terms
+        this.dataSource = new MatTableDataSource(this.table_details);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    });
     
   }
   
