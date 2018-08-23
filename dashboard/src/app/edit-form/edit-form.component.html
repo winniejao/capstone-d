@@ -1,0 +1,80 @@
+<div class="edit_form_component">
+  <form #editForm="ngForm">
+    <h2>Form #{{form.formid}}</h2>
+    <h3>Category: {{form.category}}</h3>
+    <h3>Subcategory: {{form.subcat}}</h3>
+    <h4>Date Added: {{form.date}}</h4>
+    <p>* indicates a required input.</p>
+    <div class="form-group">
+      <label>Name*</label>
+      <input class="form-control"
+             type="text"
+             [(ngModel)]="form.name"
+             name="name"
+             required />
+    </div>
+    <div class="form-group">
+      <label>Item*</label>
+      <input class="form-control"
+             type="text"
+             [(ngModel)]="form.item"
+             name="item"
+             required />
+    </div>
+    <div class="form-group">
+      <label>Purpose*</label>
+      <input class="form-control"
+             type="text"
+             [(ngModel)]="form.purpose"
+             name="purpose"
+             required />
+    </div>
+    <div class="form-group">
+      <label>Cost*</label>
+      <input class="form-control"
+             type="text"
+             [(ngModel)]="form.cost"
+             name="cost"
+             required />
+    </div>
+    <div class="form-group">
+      <label>Serial Number</label>
+      <input type="text"
+             class="form-control"
+             [(ngModel)]="form.serial"
+             name="serial" />
+    </div>
+    <div class="form-group">
+      <label>Maintenance Date</label>
+      <input type="text"
+             class="form-control"
+             [(ngModel)]="form.maint_date"
+             name="maint_date" />
+    </div>
+    <div class="form-group">
+      <label>Repeat</label>
+      <input type="text"
+             class="form-control"
+             [(ngModel)]="form.repeat"
+             name="repeat" />
+    </div>
+    <div class="form-group">
+      <label>Notes</label>
+      <input type="text"
+             class="form-control"
+             [(ngModel)]="form.notes"
+             name="notes" />
+    </div>
+  </form>
+
+  <div [hidden]="editForm.valid || editForm.pristine"
+       class="alert alert-danger">
+    Form is not valid.
+  </div>
+
+  <button type="submit"
+          [disabled]="editForm.pristine || !editForm.valid"
+          class="btn btn-primary">
+    Save Changes
+  </button>
+</div>

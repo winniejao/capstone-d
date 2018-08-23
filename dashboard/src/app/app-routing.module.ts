@@ -9,6 +9,7 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { EditFormComponent } from './edit-form/edit-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/mainpage', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'calendar', component: CalendarComponent },
   { path: 'additemform', component: AdditemformComponent },
   { path: 'viewitemform', component: ViewitemformComponent },
+  { path: 'editform', component: EditFormComponent },
   { path: 'equipment', component: SubcategoryComponent},
   { path: 'tool', component: SubcategoryComponent},
   { path: 'landscape', component: SubcategoryComponent},
