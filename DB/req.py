@@ -708,7 +708,7 @@ def search(search_str):
                 field_names = [r[0] for r in c.description]  # gets the table schema
                 for row in c:  # Goes through every row
                     row_srch = list(map(str, row))
-                    if any(search_str in s for s in row_srch):  # If match was found in the row
+                    if any(search_str.lower() in s.lower() for s in row_srch):  # If match was found in the row
                         json_str.append(dict(zip(field_names, row)))  # writes the entire row to a dictionary
             else:
                 continue
