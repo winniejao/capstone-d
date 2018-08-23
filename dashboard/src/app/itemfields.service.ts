@@ -16,7 +16,7 @@ export class ItemfieldsService {
   public passFromDate:string;
   public passEvery:string;
   public passDwm:string;
-  public passAttach:string;
+  public passAttach:string[];
   public passNote:string;
 
   constructor() {
@@ -32,7 +32,7 @@ export class ItemfieldsService {
     this.passFromDate='';
     this.passEvery='';
     this.passDwm='';
-    this.passAttach='';
+    this.passAttach=[];
     this.passNote='';
   }
 
