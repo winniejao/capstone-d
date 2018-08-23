@@ -66,12 +66,26 @@ export class DashService implements MasterService {
    * @param sub - The subcategory of the form dump
    * 
    */
+  // getAllForms(cat: string, sub: string): Observable<Form[]> {
+  //   return this.http.get<Form[]>(pythonURL + '/form/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
+  //     catchError(this.handleError('getAllForms', null)),
+  //     tap(data => console.log('I am the tapped data',data)
+  //     ));
+  // }
+
+    /**
+   * Gets all forms for a category and subcategory
+   * @param cat - The category of the form dump
+   * @param sub - The subcategory of the form dump
+   * 
+   */
   getAllForms(cat: string, sub: string): Observable<Form[]> {
-    return this.http.get<Form>(pythonURL + '/form/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
+    return this.http.get<Form[]>(pythonURL + '/form/' + cat.toLowerCase() + '/' + sub.toLowerCase()).pipe(
       catchError(this.handleError('getAllForms', null)),
-      tap(data => console.log(data)
+      tap(data => console.log('I am the tapped data',data)
       ));
   }
+
 
   /**
    * Gets a variable list of subcategories 
@@ -174,6 +188,8 @@ export class DashService implements MasterService {
       ));
   }
 
+  
+
   /**
    * Deletes the subcategory according to this path. ASSUMES frontend did check
    * Very destructive, be careful
@@ -190,6 +206,15 @@ export class DashService implements MasterService {
       catchError(this.handleError('deleteSubcategory'))
     );
       
+  }
+
+  testForm(): Observable<any> {
+    var testForm = { category: 'doibreakthegame', cost: "99.99", date: '2018-06-18', item: 'asdasd', maint_date: '2018-12-18', name: 'asasd', notes: 'asdasd', purpose: 'asdasdasd', repeat: '6', serial: 'asdasd', attach: []};
+    var route = pythonURL + '/' + 'form/equipment/computer'
+    return this.http.post<number>(route, testForm).pipe(
+      catchError(this.handleError('addForm', 0)),
+      tap(data => console.log(data)
+      ));
   }
 
 

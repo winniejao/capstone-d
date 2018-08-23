@@ -40,13 +40,24 @@ export class TestComponent implements OnInit {
   }
 
   getForms(): void {
-    var output: Form[];
-    this.service.getAllForms(this.category, this.subcategory).subscribe(v => output = v);
-    console.log(output);
+    var output;
+    this.service.getAllForms(this.category, this.subcategory).subscribe(  v => {
 
-    output.forEach(element => {
-      this.resultsArr.push('Form: ' + element.name + ' ' + element.formid + '| ' + element.purpose);
+      console.log('first value',v[0]);
+      console.log('second value',v[1]);
+
+
+      output = v[0];
+      console.log('inside', output);
+      //console.log('Type',output[0][0] instanceof Form, form);
+      
+      output.forEach(element => {
+        this.resultsArr.push('Form: ' + element.name + ' ' + element.formid + '| ' + element.purpose);
+      });
     });
+    console.log('outside', output);
+
+
  
   }
 
@@ -80,8 +91,9 @@ export class TestComponent implements OnInit {
       this.category,
       this.subcategory
     );
-
-    this.service.addForm(inputForm).subscribe(val => console.log(val));
+    //var testForm = { cost: "99.99", date: '2018-06-18', item: 'asdasd', maint_date: '2018-12-18', name: 'asasd', notes: 'asdasd', purpose: 'asdasdasd', repeat: '6', serial: 'asdasd', attach: []};
+    //this.service.testForm().subscribe(val => console.log('Sent form', val));
+    this.service.addForm(inputForm).subscribe(val => console.log('Form I am sending', inputForm, val));
 
   }
 

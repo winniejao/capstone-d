@@ -65,7 +65,7 @@ import { ViewitemformComponent } from './viewitemform/viewitemform.component';
     MatSortModule,
     MatPaginatorModule
   ],
-  providers: [ {provide: DashService, useClass: DummyService }, ItemfieldsService, PassServiceService],
+  providers: [ {provide: DashService, useClass: DashService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
