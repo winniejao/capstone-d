@@ -31,6 +31,7 @@ import { DummyService } from './dummy.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ViewitemformComponent } from './viewitemform/viewitemform.component';
+import { EditFormComponent } from './edit-form/edit-form.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ViewitemformComponent } from './viewitemform/viewitemform.component';
     SubcategoryComponent,
     BreadcrumbComponent,
     SearchResultComponent,
-    ViewitemformComponent
+    ViewitemformComponent,
+    EditFormComponent
   ],
   imports: [
     AppRoutingModule,

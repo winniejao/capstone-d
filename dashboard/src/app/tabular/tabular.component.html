@@ -9,10 +9,10 @@
   </div>
 
   <div class="table">
-    <table mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="formid">
+    <table mat-table [dataSource]="dataSource" matSort class="table table-striped">
+      <ng-container matColumnDef="form_id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> FormID </th>
-        <td mat-cell *matCellDef="let row" > {{row.formid}} </td>
+        <td mat-cell *matCellDef="let row" ><a [routerLink]="['/editform', { id: row.form_id, category: row.category, subcat: row.subcat }]"> {{row.form_id}} </a></td>
       </ng-container>
 
       <ng-container matColumnDef="category">
