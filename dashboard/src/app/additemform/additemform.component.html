@@ -1,7 +1,7 @@
 <table>
   <tr>
     <th> FormID </th>
-    <td> <input type="text" id="formid" value="{{iService.getID()}}" #formid> </td>
+    <td> <input type="text" id="formid" #formid> </td>
   </tr>
   <tr>
     <th> Category </th> <td> {{pService.getCat()}}</td>
@@ -12,23 +12,23 @@
   </tr>
   <tr>
     <th> Name </th>
-    <td> <input type="text" id="name" value="{{iService.getName()}}" #name > </td>
+    <td> <input type="text" id="name" #name > </td>
   </tr>
   <tr>
     <th> Item </th>
-    <td> <input type="text" id="item" value="{{iService.getItem()}}" #item> </td>
+    <td> <input type="text" id="item" #item> </td>
   </tr>
   <tr>
     <th> Purpose </th>
-    <td> <input type="text" id="purpose" value="{{iService.getPurpose()}}" #purpose> </td>
+    <td> <input type="text" id="purpose" #purpose> </td>
   </tr>
   <tr>
     <th> Cost </th>
-    <td> $<input type="text" id="cost" value="{{iService.getCost()}}" #cost> </td>
+    <td> $<input type="text" id="cost" #cost> </td>
   </tr>
   <tr>
     <th> Serial </th>
-    <td> <input type="text" id="serial" value="{{iService.getSerial()}}" #serial> </td>
+    <td> <input type="text" id="serial" #serial> </td>
   </tr>
   <tr>
     <th> Date </th>
@@ -42,23 +42,23 @@
   <tr>
     <td> Every <input type="text" style="width:40px; padding: 0; margin:0;" id="every" #every></td> 
     <td id="dwm" style="padding:0" #dwm> <select>
-	  <option value="days" selected="dwm==days"> days </option>
-	  <option value="weeks" selected="dwm==weeks"> weeks </option>
-	  <option value="months" selected="dwm==months"> months </option>
+	  <option value="days" selected> days </option>
+	  <option value="weeks" > weeks </option>
+	  <option value="months"> months </option>
  	</select>
     </td>
   </tr>
   <tr>
     <th> Attachments </th>
-    <td> <input type="file" id="attachments" #attach> </td>
+    <td> <input type="file" id="attachments" multiple #attach> </td>
   </tr>
   <tr>
     <th> Notes </th>
   </tr>
   <tr>
-    <td colspan="2"> <input type="text" id="note" value="{{iService.getAttach()}}" #note> </td>
+    <td colspan="2"> <input type="text" id="note" #note> </td>
   </tr>
   <tr>
-   <td> <button id="save" (click)="passData(formid.value, pService.getCat(), pService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, dwm.selected, note.value, attach.value);" [routerLink]="['/viewitemform', {cat: pService.getCat(), subcat: pService.getSubcat()}]">save </button> </td>
+   <td> <button id="save" (click)="passData(formid.value, pService.getCat(), pService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, dwm.value, note.value, attach.value);" [routerLink]="['/viewitemform', {cat: pService.getCat(), subcat: pService.getSubcat()}]">save </button> </td>
     <td> <button id="cancel" (click)="alertCancel()">cancel</button> </td>
   </tr></table>

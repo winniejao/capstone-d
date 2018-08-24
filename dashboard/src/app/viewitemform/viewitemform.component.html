@@ -1,7 +1,7 @@
 <table>
   <tr>
     <th> FormID </th>
-    <td> {{iService.getID()}} </td>
+    <td> <input type="text" id="formid" value="{{iService.getID()}}" #formid> </td>
   </tr>
   <tr>
     <th> Category </th>
@@ -13,46 +13,50 @@
   </tr>
   <tr>
     <th> Name </th>
-    <td> {{iService.getName()}} </td>
+    <td> <input type="text" id="name" value="{{iService.getName()}}" #name > </td>
   </tr>
   <tr>
     <th> Item </th>
-    <td> {{iService.getItem()}} </td>
+    <td> <input type="text" id="item" value="{{iService.getItem()}}" #item> </td>
   </tr>
   <tr>
     <th> Purpose </th>
-    <td> {{iService.getPurpose()}} </td>
+    <td> <input type="text" id="purpose" value="{{iService.getPurpose()}}" #purpose> </td>
   </tr>
   <tr>
     <th> Cost </th>
-    <td> ${{iService.getCost()}} </td>
+    <td> $<input type="text" id="cost" value="{{iService.getCost()}}" #cost> </td>
   </tr>
   <tr>
     <th> Serial </th>
-    <td> {{iService.getSerial()}} </td>
+    <td> <input type="text" id="serial" value="{{iService.getSerial()}}" #serial> </td>
   </tr>
   <tr>
     <th> Date </th>
-    <td> {{iService.getDate()}} </td>
+    <td> <input type="date" id="date" value="{{iService.getDate()}}"  #date> </td>
   </tr>
   <tr>
     <th> Maintenance Date </th>
-    <td> {{iService.getFromDate()}} </td>
-    <td> Every {{iService.getEvery()}}</td> 
+    <td> <input type="date" id="startdate" value="{{iService.getFromDate()}}"  #startdate></td>
+    <td> Every <input type="text" style="width:40px; padding: 0; margin:0;" id="every" value="{{iService.getEvery()}}" #every></td> 
     <td id="dwm" style="padding:0"> {{iService.getDwm()}}
     </td>
   </tr>
   <tr>
     <th> Attachments </th>
-    <td > {{iService.getNote()}} </td>
+    <td> {{iService.getNote()}} <input type="file" id="attachments" multiple  #attach> </td>
   </tr>
   <tr>
     <th> Notes </th>
-    <td> {{iService.getAttach()}}</td>
+    <td colspan="2"> <input type="text" id="note" value="{{iService.getAttach()}}" #note> </td>
   </tr>
   <tr>
-    <td> <button id="edit" [routerLink]="['../additemform', {formid: iService.getID()}]" >edit</button> </td>
-    <td> <button id="delete" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">delete</button> </td>
+
+<!--
+   <td> <button id="save" (click)="passData(formid.value, iService.getCat(), iService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, iService.getDwm(), note.value, attach.value);" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">save </button> </td>
+-->
+
+   <td> <button id="delete" (click)="deleteData(formid.value, iService.getCat(), iService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, iService.getDwm(), note.value, attach.value);" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">delete </button> </td>
     <td> <button id="back" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">back</button> </td>
   </tr>
 </table>
