@@ -42,9 +42,9 @@
   <tr>
     <td> Every <input type="text" style="width:40px; padding: 0; margin:0;" id="every" #every></td> 
     <td id="dwm" style="padding:0" #dwm> <select>
-	  <option value="days" selected="dwm==days"> days </option>
-	  <option value="weeks" selected="dwm==weeks"> weeks </option>
-	  <option value="months" selected="dwm==months"> months </option>
+	  <option value="days" selected> days </option>
+	  <option value="weeks" > weeks </option>
+	  <option value="months"> months </option>
  	</select>
     </td>
   </tr>
@@ -59,6 +59,6 @@
     <td colspan="2"> <input type="text" id="note" #note> </td>
   </tr>
   <tr>
-   <td> <button id="save" (click)="passData(formid.value, pService.getCat(), pService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, dwm.selected, note.value, attach.value);" [routerLink]="['/viewitemform', {cat: pService.getCat(), subcat: pService.getSubcat()}]">save </button> </td>
+   <td> <button id="save" (click)="passData(formid.value, pService.getCat(), pService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, dwm.value, note.value, attach.value);" [routerLink]="['/viewitemform', {cat: pService.getCat(), subcat: pService.getSubcat()}]">save </button> </td>
     <td> <button id="cancel" (click)="alertCancel()">cancel</button> </td>
   </tr></table>
