@@ -51,8 +51,12 @@
     <td colspan="2"> <input type="text" id="note" value="{{iService.getAttach()}}" #note> </td>
   </tr>
   <tr>
-   <td> <button id="save" (click)="passData(formid.value, iService.getCat(), iService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, iService.getDwm(), note.value, attach.value);">save </button> </td>
-    <td> <button id="delete" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">delete</button> </td>
+
+<!--
+   <td> <button id="save" (click)="passData(formid.value, iService.getCat(), iService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, iService.getDwm(), note.value, attach.value);" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">save </button> </td>
+-->
+
+   <td> <button id="delete" (click)="deleteData(formid.value, iService.getCat(), iService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, iService.getDwm(), note.value, attach.value);" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">delete </button> </td>
     <td> <button id="back" [routerLink]="['../tabular', {cat: iService.getCat(), subcat: iService.getSubcat()}]">back</button> </td>
   </tr>
 </table>
