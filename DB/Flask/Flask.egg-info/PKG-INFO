@@ -106,6 +106,6 @@ Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
 Classifier: Topic :: Internet :: WWW/HTTP :: WSGI :: Application
 Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
 Classifier: Topic :: Software Development :: Libraries :: Python Modules
-Provides-Extra: dev
-Provides-Extra: docs
 Provides-Extra: dotenv
+Provides-Extra: docs
+Provides-Extra: dev

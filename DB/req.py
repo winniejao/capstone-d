@@ -17,7 +17,7 @@ test_data = {
     "date": "2018-06-18",
     "maint_date": "2018-12-18",
     "repeat": "6",
-    "attach": ["Q.jpg", "A.png", "s.png"],
+    "attach": [],
     "notes": "All of these need to burn"
 }
 
@@ -451,20 +451,22 @@ def alter_form(category, subcat, formid, dict):
     query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
     conn = sqlite3.connect(".\\databases\\" + category + '.db')
     c = conn.cursor()
-    c.execute(query, (dict['name'], dict['item'],
+
+    c.execute("SELECT form_id FROM {} WHERE form_id = {}".format(subcat, formid))
+    validate_query = c.fetchone()
+    if validate_query is None:
+        return  0;    
+    else:
+        c.execute(query, (dict['name'], dict['item'],
                       dict['purpose'], dict['cost'], \
                       dict['serial'], dict['date'], \
                       dict['maint_date'], dict['repeat'], \
                       dict['notes'], category, subcat, formid))
-    conn.commit()
-    c.execute(query_tbl_reset)  # Deletes the existing attachments
-    conn.commit()
-    conn.close()
-    attach_table(category, subcat, formid, dict)  # Adds the new attachments
-
-    if c.rowcount == 0:
-        return 0
-    else:
+        conn.commit()
+        c.execute(query_tbl_reset)  # Deletes the existing attachments
+        conn.commit()
+        conn.close()
+        attach_table(category, subcat, formid, dict)  # Adds the new attachments
         return 1
 
 
@@ -753,7 +755,7 @@ def search(search_str):
 
 # if __name__ == '__main__':
     # print(new_subcat("equipment", "boiler"))
-    # alter_form(test_data, 1, "equipment", "AirConditioning")
+    # print(alter_form("equipment", "computer", 20180822175102, test_data))
     # attach_table("equipment", "Computer", 2, test_data)
     # print(get_subcat("equipment"))
     # print(get_filter("equipment", "air conditioning unit"))
