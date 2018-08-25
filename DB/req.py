@@ -69,16 +69,20 @@ def get_all_attachment(database, table):
     c.execute("SELECT attach_path from {}".format(table))
     query = c.fetchall()
     c.close()
+    query = [x[0].split("_",1)[1] for x in query]
     return query if query else ""
 
 
-def get_path_list(formInfo, new_path_list):
+def get_path_list(formInfo, form_id, new_path_list):
     attachment_list = formInfo["attach"]
     path_to_directory = ".\\attachments\\"
     for path_to_copy in attachment_list:
-        shutil.copy2(path_to_copy, path_to_directory)
         relative_path = path_to_copy.split("/")
+        relative_path[-1] = str(form_id) + "_" + relative_path[-1]
         new_path_list.append(relative_path[-1])
+
+        shutil.copy(path_to_copy, path_to_directory + relative_path[-1])
+        #shutil.copy2(relative_path[-1], path_to_directory)
 
     return new_path_list
 
@@ -118,14 +122,14 @@ def add_form(category, subcat, formInfo):
     # new_subcat(category, subcat)
 
     # save the file to an attachment folder (in-case the file is deleted later)
-    # os.unlink(".\\attachments\\" + "somefile.txt")
-    # os.unlink(".\\attachments\\" + "file1.txt")
-    # os.unlink(".\\attachments\\" + "file2.txt")
-    # os.unlink(".\\assets\\" + "equipment.txt")
+    #os.unlink(".\\attachments\\" + "file2.txt")
+    #os.unlink(".\\assets\\" + "equipment.txt")
+    #os.unlink(".\\attachments\\" + "test.txt")
+    #os.unlink(".\\attachments\\" + "test1234.txt")
     new_path_list = []
     if formInfo["attach"]:
-        formInfo["attach"] = get_path_list(formInfo, new_path_list)
-        print(formInfo["attach"])
+        formInfo["attach"] = get_path_list(formInfo, form_id, new_path_list)
+
 
     attach_table(category, subcat, form_id, formInfo)
     if check_form_existence(category, subcat, form_id) is None:
@@ -403,8 +407,9 @@ def open_file(category, subcat, formid, filename):
     success_flag = False
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
+    filename = str(formid) + "_" + filename
     database = ".\\databases\\" + category + ".db"
-    result = None;
+    result = None
     conn = sqlite3.connect(database)
     c = conn.cursor()
     table_to_search = subcat + '_' + str(formid) + '_attch'
@@ -417,7 +422,6 @@ def open_file(category, subcat, formid, filename):
 
     if result:
         result = [x[1] for x in result]
-        print(result)
         list_dir = os.listdir(".\\attachments\\")
         for file in result:
             if file == filename and file in list_dir:
@@ -634,8 +638,8 @@ def attach_table(category, subcat, formid, dict):
     c.execute(query_create)
     conn.commit()
     new_path_list = []
-    if dict['attach']:
-        dict['attach'] = get_path_list(dict, new_path_list)
+    #if dict['attach']:
+        #dict['attach'] = get_path_list(dict, new_path_list)
     for item in dict['attach']:  # Inserts all items in the attach sublist into separate rows#
         c.execute(query_nsrt, (attch_tbl, item))
 
