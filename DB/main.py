@@ -21,12 +21,12 @@ def rAddForm(category, subcat):
 @app.route('/form/<string:category>/<string:subcat>/', defaults={'formid': None}, methods=['GET'])
 @app.route('/form/<string:category>/<string:subcat>/<int:formid>', methods=['GET'])
 def rGetForm(category, subcat, formid):
-    try:
+    # try:
         reqHandle = req.get_form(category, subcat, formid)
         return jsonify(reqHandle)
 
-    except:
-        return jsonify(req.status_code[2])
+    # except:
+        # return jsonify(req.status_code[2])
 
 
 @app.route('/form/<string:category>/<string:subcat>/<int:formid>', methods=['DELETE'])
@@ -130,19 +130,19 @@ def rDeleteSub(category, subcat):
 ################ GET SUBCAT FILTER BANK ##################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
 def rLandscapeGet(subcat):
-    reqHandle = req.get_filter("landscape", subcat)
+    reqHandle = req.get_table_data("landscape", subcat)
     return jsonify(reqHandle)
 
 
 @app.route('/equipment/<string:subcat>', methods=['GET'])
 def rEquipmentGet(subcat):
-    reqHandle = req.get_filter("equipment", subcat)
+    reqHandle = req.get_table_data("equipment", subcat)
     return jsonify(reqHandle)
 
 
 @app.route('/tools/<string:subcat>', methods=['GET'])
 def rToolsGet(subcat):
-    reqHandle = req.get_filter("tools", subcat)
+    reqHandle = req.get_table_data("tools", subcat)
     return jsonify(reqHandle)
 
 
@@ -172,17 +172,17 @@ def rRestore():
 
 
 ################## SEARCH DB on STRING ROUTE ########################
-@app.route('/search/<string:search_str>', methods=['GET'])
-def rSearch(search_str):
-    reqHandle = req.search(search_str)
-    return jsonify(reqHandle)
+# @app.route('/search/<string:search_str>', methods=['GET'])
+# def rSearch(search_str):
+#     reqHandle = req.search(search_str)
+#     return jsonify(reqHandle)
 
 # ################## SEARCH DB on STRING JSON ########################
-# @app.route('/search', methods=['POST'])
-# def rSearch():
-#     getRequest = json.loads(request.data)
-#     reqHandle = req.search(getRequest)
-#     return jsonify(reqHandle)
+@app.route('/search', methods=['POST'])
+def rSearch():
+    getRequest = json.loads(request.data)
+    reqHandle = req.search(getRequest)
+    return jsonify(reqHandle)
 
 
 if __name__ == '__main__':

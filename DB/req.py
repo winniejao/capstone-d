@@ -9,16 +9,16 @@ from os import path
 from collections import Counter
 
 test_data = {
-    "name": "Boiler1",
-    "item": "Exhaust Pipe",
-    "purpose": "To Burn ",
-    "cost": "99.99 ",
-    "serial": "122-937-2210 ",
-    "date": "2018-06-18",
-    "maint_date": "2018-12-18",
+    "name": "State POS Computer",
+    "item": "Card Reader",
+    "purpose": "Handles credit card payments",
+    "cost": "299.99",
+    "serial": "12867-9992837-2323683264823",
+    "date": "2018-08-25",
+    "maint_date": "2018-12-25",
     "repeat": "6",
-    "attach": [],
-    "notes": "All of these need to burn"
+    "attach": ["E:/Test1234.txt", "E:/file1.txt"],
+    "notes": "No chip reader functionality just yet"
 }
 
 status_code = [200, 201, 404]
@@ -85,6 +85,23 @@ def get_path_list(formInfo, form_id, new_path_list):
         #shutil.copy2(relative_path[-1], path_to_directory)
 
     return new_path_list
+
+######################################################
+# Method Name: flpth_return
+# Arguments (1): attch_lst (List to work with)
+# Returns: Python list
+# Description: Returns a relative project filepath
+#              for a attachment file stored in the DB
+######################################################
+def flpth_return(attch_lst):
+    new_lst = []
+    relative_path = "DB\\attachments\\"
+    for item in attch_lst:
+       splt_lst = item.split("_")
+       splt_lst = splt_lst[-1]
+       new_lst.append(relative_path + splt_lst)
+
+    return new_lst
 
 ######################################################
 # Method Name: add_form
@@ -445,23 +462,28 @@ def open_file(category, subcat, formid, filename):
 def alter_form(category, subcat, formid, dict):
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
+    attch_tbl = subcat + '_' + str(formid) + '_attch'
 
-    query = "UPDATE {} SET name = ?, item = ?,\
+    update_query = "UPDATE {} SET name = ?, item = ?,\
 	 		purpose = ?, cost = ?, serial = ?,\
 			date = ?, maint_date = ?, repeat =?,\
             notes = ?, category =?, subcat = ?\
 			WHERE form_id = ?".format(subcat)
-    attch_tbl = subcat + '_' + str(formid) + '_attch'
+
+    validate_query = "SELECT form_id FROM {} \
+                     WHERE form_id = {}".format(subcat, formid)
+
     query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
+
     conn = sqlite3.connect(".\\databases\\" + category + '.db')
     c = conn.cursor()
+    c.execute(validate_query)
+    validate_return = c.fetchone()
 
-    c.execute("SELECT form_id FROM {} WHERE form_id = {}".format(subcat, formid))
-    validate_query = c.fetchone()
-    if validate_query is None:
+    if validate_return is None:
         return  0;    
     else:
-        c.execute(query, (dict['name'], dict['item'],
+        c.execute(update_query, (dict['name'], dict['item'],
                       dict['purpose'], dict['cost'], \
                       dict['serial'], dict['date'], \
                       dict['maint_date'], dict['repeat'], \
@@ -470,7 +492,14 @@ def alter_form(category, subcat, formid, dict):
         c.execute(query_tbl_reset)  # Deletes the existing attachments
         conn.commit()
         conn.close()
-        attach_table(category, subcat, formid, dict)  # Adds the new attachments
+        new_path_list = []
+        if dict["attach"]:
+            dict["attach"] = get_path_list(dict, formid, new_path_list)
+            print(dict["attach"])
+        try:
+            attach_table(category, subcat, formid, dict)  # Adds the new attachments
+        except:
+            print("File not found")
         return 1
 
 
@@ -544,18 +573,18 @@ def del_subcat(category, subcat):
 
 
 ######################################################
-# Method Name: get_filter
+# Method Name: get_table_data
 # Arguments (2): Category Name (Database),
 #                Subcategory Name (Table)
 # Returns: Python dictionary
 # Description: Returns every row in a subcategory (table)
 #              and appends those rows to a Python Dictionary
 ######################################################
-def get_filter(category, subcat):
+def get_table_data(category, subcat):
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
     query_row = ("SELECT * FROM {}").format(subcat)
-
+    
     conn = sqlite3.connect(".\\databases\\" + category + ".db")
     c = conn.cursor()
     c.execute(query_row)
@@ -574,15 +603,17 @@ def get_filter(category, subcat):
                 		attach_path TEXT UNIQUE,\
                 		FOREIGN KEY (attach_id) REFERENCES\
                 		{}(attach) ON DELETE CASCADE)".format(attch_tbl, subcat)
+
+        query_attch = ("SELECT attach_path FROM {}").format(attch_tbl)
+
         c.execute(query_create)
-        c.execute(("SELECT attach_path FROM {}").format(attch_tbl))  # gets attachments from attachment table#
+        c.execute(query_attch)  # gets attachments from attachment table#
         attch_lst = list(c.fetchall())
         lst_to_fltr = [i[0] for i in attch_lst]  # Converts tuple to list#
-        item.update({'attach': lst_to_fltr})
+        item.update({'attach': flpth_return(lst_to_fltr)})
 
     conn.close()
     return json_data
-
 
 ######################################################
 # Method Name: get_subcat
@@ -637,9 +668,7 @@ def attach_table(category, subcat, formid, dict):
     c = conn.cursor()
     c.execute(query_create)
     conn.commit()
-    new_path_list = []
-    #if dict['attach']:
-        #dict['attach'] = get_path_list(dict, new_path_list)
+
     for item in dict['attach']:  # Inserts all items in the attach sublist into separate rows#
         c.execute(query_nsrt, (attch_tbl, item))
 
@@ -695,43 +724,8 @@ def restore_backup(flpth):
 #              entire row to a python dictionary and
 #              returns to front end.
 ######################################################
-# def search(search_dict):
-#     search_str = search_dict["search"]
-#     databases = []
-#     json_str = []
-#     for filename in os.listdir(".\\databases\\"):  # Gets the database names
-#         if filename.endswith(".db"):
-#             databases.append(filename)
-
-#     for database in databases:  # Connects to all three of the DBs one at a time
-#         conn = sqlite3.connect(".\\databases\\" + database)
-#         c = conn.cursor()
-#         for tablerow in c.execute(
-#                 "SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'").fetchall():
-#             table = tablerow[0]  # Loops through each table
-#             if '_attch' not in table:  # Filters the attachment tables
-#                 c.execute("SELECT * FROM {}".format(table))
-#                 field_names = [r[0] for r in c.description]  # gets the table schema
-#                 for row in c:  # Goes through every row
-#                     row_srch = list(map(str, row))
-#                     if any(search_str.lower() in s.lower() for s in row_srch):  # If match was found in the row
-#                         json_str.append(dict(zip(field_names, row)))  # writes the entire row to a dictionary
-#             else:
-#                 continue
-#         conn.close()
-#     return json_str
-
-######################################################
-# Method Name: search
-# Arguments (1): String to search on (search_str)
-# Returns: Python Dictionary with fields that match
-#           search_str
-# Description: Finds the substring search_str in all
-#              three databases, if found, writes the
-#              entire row to a python dictionary and
-#              returns to front end.
-######################################################
-def search(search_str):
+def search(search_dict):
+    search_str = search_dict["search"]
     databases = []
     json_str = []
     for filename in os.listdir(".\\databases\\"):  # Gets the database names
@@ -756,10 +750,44 @@ def search(search_str):
         conn.close()
     return json_str
 
+######################################################
+# Method Name: search
+# Arguments (1): String to search on (search_str)
+# Returns: Python Dictionary with fields that match
+#           search_str
+# Description: Finds the substring search_str in all
+#              three databases, if found, writes the
+#              entire row to a python dictionary and
+#              returns to front end.
+######################################################
+# def search(search_str):
+#     databases = []
+#     json_str = []
+#     for filename in os.listdir(".\\databases\\"):  # Gets the database names
+#         if filename.endswith(".db"):
+#             databases.append(filename)
+
+#     for database in databases:  # Connects to all three of the DBs one at a time
+#         conn = sqlite3.connect(".\\databases\\" + database)
+#         c = conn.cursor()
+#         for tablerow in c.execute(
+#                 "SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'").fetchall():
+#             table = tablerow[0]  # Loops through each table
+#             if '_attch' not in table:  # Filters the attachment tables
+#                 c.execute("SELECT * FROM {}".format(table))
+#                 field_names = [r[0] for r in c.description]  # gets the table schema
+#                 for row in c:  # Goes through every row
+#                     row_srch = list(map(str, row))
+#                     if any(search_str.lower() in s.lower() for s in row_srch):  # If match was found in the row
+#                         json_str.append(dict(zip(field_names, row)))  # writes the entire row to a dictionary
+#             else:
+#                 continue
+#         conn.close()
+#     return json_str
 
 # if __name__ == '__main__':
     # print(new_subcat("equipment", "boiler"))
-    # print(alter_form("equipment", "computer", 20180822175102, test_data))
+    # print(alter_form("equipment", "computer", 20180825153242, test_data))
     # attach_table("equipment", "Computer", 2, test_data)
     # print(get_subcat("equipment"))
     # print(get_filter("equipment", "air conditioning unit"))
@@ -768,3 +796,4 @@ def search(search_str):
 # restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
 # print(search("Laptop"))
 # del_subcat("Equipment", "Computer")
+    # print(flpth_return(test_lst['attach']))

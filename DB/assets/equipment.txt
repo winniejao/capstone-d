@@ -17,3 +17,11 @@ boiler
 boiler
 boiler
 boiler
+computer
+computer
+computer
+computer
+computer
+computer
+computer
+air_conditioning_unit
