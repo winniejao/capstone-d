@@ -27,8 +27,8 @@ status_code = [200, 201, 404]
 ######################################################
 # Method Name: get_all_tables
 # Arguments (1): Category Name (Database),
-# Returns:
-# Description:
+# Returns: list of all tables in database
+# Description: Gets all of the tables in a single DB
 ######################################################
 def get_all_tables(database):
     conn = sqlite3.connect(database)
@@ -43,8 +43,8 @@ def get_all_tables(database):
 # Method Name: check_existence
 # Arguments (3): Form ID,  Category Name (Database),
 #                Subcategory Name (Table)
-# Returns:
-# Description:
+# Returns:  Query if the row exists
+# Description: 
 ######################################################
 def check_form_existence(category, subcat, form_id):
     database = ".\\databases\\" + category + ".db"
@@ -72,7 +72,15 @@ def get_all_attachment(database, table):
     query = [x[0].split("_",1)[1] for x in query]
     return query if query else ""
 
-
+######################################################
+# Method Name: get_path_list
+# Arguments (2): Category Name (Database),
+#                Subcategory Name (Table)
+# Returns: list
+# Description: Copies a file from a given filepath to 
+#              the attachments directory in the project
+#              folder. 
+######################################################
 def get_path_list(formInfo, form_id, new_path_list):
     attachment_list = formInfo["attach"]
     path_to_directory = ".\\attachments\\"
