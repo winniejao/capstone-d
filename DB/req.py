@@ -95,11 +95,10 @@ def get_path_list(formInfo, form_id, new_path_list):
 ######################################################
 def flpth_return(attch_lst):
     new_lst = []
-    relative_path = "DB\\attachments\\"
     for item in attch_lst:
        splt_lst = item.split("_")
        splt_lst = splt_lst[-1]
-       new_lst.append(relative_path + splt_lst)
+       new_lst.append(splt_lst)
 
     return new_lst
 
