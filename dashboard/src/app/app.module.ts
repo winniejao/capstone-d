@@ -32,6 +32,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ViewitemformComponent } from './viewitemform/viewitemform.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { EditFormComponent } from './edit-form/edit-form.component';
     CalendarModule.forRoot(),
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule,
   ],
   providers: [ {provide: DashService, useClass: DashService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]
