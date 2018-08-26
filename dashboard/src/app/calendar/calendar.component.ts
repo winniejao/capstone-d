@@ -3,6 +3,8 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { Form } from '../form';
+
 
 const colors: any = {
   red: {
@@ -15,6 +17,10 @@ const colors: any = {
     primary: '#e3bc08',
   }
 };
+
+interface FormData {
+  data: Form;
+}
 
 @Component({
   selector: 'app-calendar',
@@ -34,9 +40,17 @@ export class CalendarComponent {
     event: CalendarEvent;
   };
 
+
+
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
+  events: CalendarEvent<FormData>[] = [
+    {
+      start:startOfDay(new Date()),
+      title: 'David\'s test date',
+      color: colors.red,
+      meta: { data: new Form(1, 'Equipment', 'Computer') }
+    }
 /*
     {
       start: subDays(startOfDay(new Date()), 1),
@@ -80,7 +94,10 @@ export class CalendarComponent {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
- 	  location.href = 'additemform'; 
+     //location.href = 'additemform'; 
+     console.log('action', action);
+     console.log('event', event);
+     console.log('form data', event.meta.data);
 // this has to be sent to the specific view form with its id
   }
 
