@@ -1,4 +1,4 @@
-<div class="edit_form_component" *ngIf="form">
+<div class="edit_form_component" *ngIf="form && !submitted">
   <form [formGroup]="newForm" #editForm="ngForm" (ngSubmit)="onSubmit()">
     <h2>Form #{{form.formid}}</h2>
     <h3>Category: {{form.category}}</h3>
@@ -85,4 +85,20 @@
       Save Changes
     </button>
     </form>
+</div>
+
+<div *ngIf="form && submitted" class="alert alert-primary">
+  <h3>The form has been updated:</h3>
+  <div class="alert alert-light">
+    <p>Name: {{form.name}}</p>
+    <p>Form ID: {{form.form_id}}</p>
+    <p>Item: {{form.item}}</p>
+    <p>Purpose: {{form.purpose}}</p>
+    <p>Cost: ${{form.cost}}</p>
+    <p>Serial Number: {{form.serial}}</p>
+    <p>Maintenance Date: {{form.maint_date}}</p>
+    <p>Repeat: {{form.repeat}}</p>
+    <p>Notes: {{form.notes}}</p>
+    <button class="btn btn-primary" [routerLink]="['/tabular', { cat: category, subcat: subcat }]">Click to return to {{subcat}} page.</button>
+  </div>
 </div>

@@ -18,6 +18,7 @@ export class EditFormComponent implements OnInit {
   subcat: string;
   form: Form;
   newForm: FormGroup;
+  submitted: boolean = false;
 
   constructor(
     private router: Router,
@@ -78,5 +79,6 @@ export class EditFormComponent implements OnInit {
     this.form.repeat = this.newForm.get('repeat').value;
     this.form.notes = this.newForm.get('notes').value;
     this.service.updateForm(this.form);
+    this.submitted = true;
   }
 }
