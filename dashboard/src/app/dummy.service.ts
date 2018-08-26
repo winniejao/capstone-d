@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { Form, FORM_HEADERS } from './form';
 import { MOCK_FORMS, MOCK_NUMBER } from './mock_forms'
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
-import { MasterService, ArrayResponse, SingleResponse } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse, QuickResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 
 
@@ -261,6 +261,23 @@ export class DummyService implements MasterService {
         return of(this.toolSub);
       }
     }
+  }
+
+  getQuickTool(): Observable<QuickResponse>{
+    return of({ 0: this.toolSub.slice(0,4), 1: 200 });
+  }
+
+  getQuickEquip(): Observable<QuickResponse>{
+    return of({ 0: this.equipSub.slice(0,4), 1: 200 });
+  }
+
+  getQuickLand(): Observable<QuickResponse>{
+    return of({ 0: this.landSub.slice(0,4), 1: 200 });
+  }
+
+  openFile(input: Form, filename: string): Observable<any> {
+    console.log('Dummy data cannot open without python!');
+    return of();
   }
 
 

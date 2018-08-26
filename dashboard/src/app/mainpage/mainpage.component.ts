@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgModule } from '@angular/core';
 import { MatRipple } from "@angular/material";
 import { Router } from '@angular/router';
+import { DashService } from '../dash.service';
 
 @NgModule({
   imports: [
@@ -17,9 +18,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./mainpage.component.css']
 })
 export class MainpageComponent implements OnInit{
-  equip: string = 'Equipment';
-  tool: string = 'Tool';
-  land: string = 'Landscape';
+  equip: string = 'equipment';
+  tool: string = 'tool';
+  land: string = 'landscape';
   equipSub1: string = 'Boiler';
   equipSub2: string = "Boiler2";
   equipSub3: string;
@@ -33,10 +34,16 @@ export class MainpageComponent implements OnInit{
   landSub3: string;
   landSub4: string;
 
+  quickLand: string[];
+  quickTool: string[];
+  quickEquip: string[];
+
+
 
   constructor(
     private comp: HamburgerComponent,
     private router: Router,
+    private service: DashService
   ) { }
   equipcat: string[] = ["boiler", "tools", "random", "whatever"];
 
@@ -44,6 +51,25 @@ export class MainpageComponent implements OnInit{
     this.comp.initState();
   }
 
+  test() {
+    console.log('quick equipment', this.quickEquip);
+    console.log('quick tools', this.quickTool);
+    console.log('quick land', this.quickLand);
+  }
 
-  ngOnInit() { }
+
+  ngOnInit() { 
+    this.service.getQuickEquip().subscribe(res => {
+      var list = res[0];
+      this.quickEquip = list;
+    });
+    this.service.getQuickTool().subscribe(res => {
+      var list = res[0];
+      this.quickTool = list;
+    });
+    this.service.getQuickLand().subscribe(res => {
+      var list = res[0];
+      this.quickLand = list;
+    });
+  }
 }

@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
-import { MasterService, ArrayResponse, SingleResponse } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse, QuickResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 import { del } from '../../node_modules/@types/selenium-webdriver/http';
 
@@ -20,6 +20,12 @@ export class DashService implements MasterService {
   
 
   constructor(private http: HttpClient) { }
+
+  private cleanAttach(input: string[]){
+    input.forEach(element => {
+      element = element.replace(/\\/g, '/');
+    });
+  }
 
   /**
    * Gets a specific form based on its ID. This version extracts the route for you
@@ -169,7 +175,8 @@ export class DashService implements MasterService {
       serial: input.serial,
       attach: []
     }
-
+    this.cleanAttach(input.attach);
+    console.log('Cleaned attachment before sending to python', input);
     return this.http.post(route, input).pipe(
       catchError(this.handleError('addForm', 0)),
       tap(data => console.log(data)
@@ -214,6 +221,9 @@ export class DashService implements MasterService {
       input.category + '/' +
       input.subcat + '/' +
       input.form_id;
+
+    this.cleanAttach(input.attach);
+    console.log('Cleaned attachment before sending to python', input);
     return this.http.put(route, input).pipe(
       catchError(this.handleError('updateForm')),
       tap(data => console.log(data)
@@ -248,6 +258,41 @@ export class DashService implements MasterService {
       tap(data => console.log(data)
       ));
   }
+
+  getQuick(cat: string): Observable<QuickResponse> {
+    var route = pythonURL + '/quickaccess/' + cat;
+    return this.http.get<QuickResponse>(route).pipe(
+      catchError(this.handleError('getQuick' + cat, { 0: [], 1: 400 })),
+      tap(data => console.log(data)
+      ));
+  }
+
+  getQuickTool(): Observable<QuickResponse> {
+    return this.getQuick('tool');
+  }
+
+  getQuickEquip(): Observable<QuickResponse>{
+    return this.getQuick('equipment');
+  }
+
+  getQuickLand(): Observable<QuickResponse>{
+    return this.getQuick('landscape');
+  }
+
+  openFile(input: Form, filename: string): Observable<any> {
+    var route = pythonURL +
+    '/openfile/' +
+    input.category.toLowerCase() +
+    input.subcat.toLowerCase() +
+    input.form_id.toString() +
+    filename;
+
+    return this.http.get(route).pipe(
+      catchError(this.handleError('openFile')),
+      tap(data => console.log(data)
+    ));
+  }
+
 
 
   /**

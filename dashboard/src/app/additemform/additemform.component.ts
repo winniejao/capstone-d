@@ -16,7 +16,7 @@ export class AdditemformComponent implements OnInit {
   constructor(
 	private location: Location, 
 	private iService: ItemfieldsService,
-	private pService: PassServiceService,
+	public pService: PassServiceService,
 	private dService: DashService
   ) { }
 

@@ -4,7 +4,7 @@
   <p>The search_term is {{search_term}}</p>
   <div class="table">
     <table mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="formid">
+      <ng-container matColumnDef="form_id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> FormID </th>
         <td mat-cell *matCellDef="let row"> {{row.formid}} </td>
       </ng-container>

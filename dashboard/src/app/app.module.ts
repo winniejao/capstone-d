@@ -32,6 +32,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ViewitemformComponent } from './viewitemform/viewitemform.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
+import { BackupComponent } from './backup/backup.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { EditFormComponent } from './edit-form/edit-form.component';
     BreadcrumbComponent,
     SearchResultComponent,
     ViewitemformComponent,
-    EditFormComponent
+    EditFormComponent,
+    BackupComponent
   ],
   imports: [
     AppRoutingModule,

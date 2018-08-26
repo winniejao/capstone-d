@@ -29,6 +29,15 @@ export interface MasterService {
     updateForm(input: Form): Observable<any>
     
     deleteSubcategory(cat: string, sub: string): Observable<any>
+
+    getQuickTool(): Observable<QuickResponse>
+
+    getQuickEquip(): Observable<QuickResponse>
+
+    getQuickLand(): Observable<QuickResponse>
+
+    openFile(input: Form, filename: string): Observable<any>
+
 }
 
 //This is the shape and name I'm getting from the python server
@@ -40,5 +49,10 @@ export interface ArrayResponse {
 
 export interface SingleResponse {
     0: Form;
+    1: number;
+}
+
+export interface QuickResponse {
+    0: string[];
     1: number;
 }
