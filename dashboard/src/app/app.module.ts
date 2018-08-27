@@ -5,9 +5,10 @@ import { CalendarModule } from 'angular-calendar';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import { NgxElectronModule } from 'ngx-electron';
 
 import { AppComponent } from './app.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
@@ -67,9 +68,10 @@ import { BackupComponent } from './backup/backup.component';
     CalendarModule.forRoot(),
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxElectronModule
   ],
-  providers: [ {provide: DashService, useClass: DashService }, ItemfieldsService, PassServiceService],
+  providers: [ {provide: DashService, useClass: DummyService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

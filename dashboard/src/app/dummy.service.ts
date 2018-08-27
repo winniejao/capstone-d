@@ -280,6 +280,15 @@ export class DummyService implements MasterService {
     return of();
   }
 
+  backup( filepath: string): Observable<any> {
+    console.log('Dummy data cannot backup without python!');
+    return of();
+  }
+
+  restore( filepath: string): Observable<any> {
+    console.log('Dummy data cannot restore without python!');
+    return of();
+  }
 
   /**
    * Gets a list of all possible Tool subcategories

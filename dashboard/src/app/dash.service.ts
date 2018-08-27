@@ -293,7 +293,21 @@ export class DashService implements MasterService {
     ));
   }
 
+  backup( filepath: string): Observable<any> {
+    var route = pythonURL + '/backup'
+    return this.http.post(route, { path: filepath}).pipe(
+      catchError(this.handleError('backup')),
+      tap(data => console.log(data)
+    ));;
+  }
 
+  restore( filepath: string): Observable<any> {
+    var route = pythonURL + '/restore'
+    return this.http.post(route, { path: filepath}).pipe(
+      catchError(this.handleError('restore')),
+      tap(data => console.log(data)
+    ));;
+  }
 
   /**
    * Handle Http operation that failed.

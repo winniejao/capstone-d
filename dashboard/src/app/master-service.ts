@@ -38,6 +38,10 @@ export interface MasterService {
 
     openFile(input: Form, filename: string): Observable<any>
 
+    backup( path: string): Observable<any>
+
+    restore( path: string): Observable<any>
+
 }
 
 //This is the shape and name I'm getting from the python server

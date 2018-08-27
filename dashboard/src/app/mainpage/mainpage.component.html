@@ -1,63 +1,100 @@
-<nav>
-  <table class="floatleft">
-    <tr>
-      <th rowspan="2">
-	<a routerLink="/equipment">Equipment</a>
-	</th>
-      <td><a *ngIf="quickEquip && quickEquip.length > 0" [routerLink]="['/tabular', { cat: equip, subcat: quickEquip[0] }]">{{quickEquip[0]}}</a></td>
-      <td><a *ngIf="quickEquip && quickEquip.length > 1" [routerLink]="['/tabular', { cat: equip, subcat: quickEquip[1] }]">{{quickEquip[1]}}</a></td>
-    </tr>
-    <tr>
-      <td><a *ngIf="quickEquip && quickEquip.length > 2" [routerLink]="['/tabular', { cat: equip, subcat: quickEquip[2] }]">{{quickEquip[2]}}</a></td>
-      <td><a *ngIf="quickEquip && quickEquip.length > 3" [routerLink]="['/tabular', { cat: equip, subcat: quickEquip[3] }]">{{quickEquip[3]}}</a></td>
-    </tr>
-    <tr>
-      <th rowspan="2">
-        <a routerLink="/tool">Tools</a>
-      </th>
-      <td><a *ngIf="quickTool && quickTool.length > 0" [routerLink]="['/tabular', { cat: tool, subcat: quickTool[0] }]">{{quickTool[0]}}</a></td>
-      <td><a *ngIf="quickTool && quickTool.length > 1" [routerLink]="['/tabular', { cat: tool, subcat: quickTool[1] }]">{{quickTool[1]}}</a></td>
-    </tr>
-    <tr>
-      <td><a *ngIf="quickTool && quickTool.length > 2" [routerLink]="['/tabular', { cat: tool, subcat: quickTool[2] }]">{{quickTool[2]}}</a></td>
-      <td><a *ngIf="quickTool && quickTool.length > 3" [routerLink]="['/tabular', { cat: tool, subcat: quickTool[3] }]">{{quickTool[3]}}</a></td>
-    </tr>
-    <tr>
-      <th rowspan="2">
-        <a routerLink="/landscape">Landscape</a>
-      </th>
-      <td><a *ngIf="quickLand && quickLand.length > 0" [routerLink]="['/tabular', { cat: land, subcat: quickLand[0] }]">{{quickLand[0]}}</a></td>
-      <td><a *ngIf="quickLand && quickLand.length > 1" [routerLink]="['/tabular', { cat: land, subcat: quickLand[1] }]">{{quickLand[1]}}</a></td>
-    </tr>
-    <tr>
-      <td><a *ngIf="quickLand && quickLand.length > 2" [routerLink]="['/tabular', { cat: land, subcat: quickLand[2] }]">{{quickLand[2]}}</a></td>
-      <td><a *ngIf="quickLand && quickLand.length > 3" [routerLink]="['/tabular', { cat: land, subcat: quickLand[3] }]">{{quickLand[3]}}</a></td>
-    </tr>
-    <tr>
-      <th><a routerLink="/backup">Backup</a></th>
-      <th colspan="2"><a routerLink="/calendar" (click)=callInit()>Open Calendar</a></th>
-    </tr>
-    
 <!--
-    <tr>
-      <th><a routerLink="/additemform">Add Forms</a></th>
-    </tr>
-    <tr>
-	  <input type="file" id="files" multiple accept="pdf">
-      <div class="dnd" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
-	<form>
-          <p> Drag a file here to upload </p>
-	  <input type="file" id="files" multiple accept="pdf">
-	</form>
+<div class="row">
+  <div class="col-md-4">
+    <nav>
+      <div class="">
+        <div class="row">
+          <div class="col-md-4">
+            <button class="btn btn-primary category" routerLink="/equipment">Equipment</button>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-12">
+                <div><button class="btn btn-primary subcategory" *ngIf="quickEquip && quickEquip.length > 0" [routerLink]="['/tabular', { cat: equip, subcat: quickEquip[0] }]">{{quickEquip[0]}}</button></div>
+                <div><button class="btn btn-primary subcategory" *ngIf="quickEquip && quickEquip.length > 1" [routerLink]="['/tabular', { cat: equip, subcat: quickEquip[1] }]">{{quickEquip[1]}}</button></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div><button class="btn btn-primary subcategory" *ngIf="quickEquip && quickEquip.length > 2" [routerLink]="['/tabular', { cat: equip, subcat: quickEquip[2] }]">{{quickEquip[2]}}</button></div>
+                <div><button class="btn btn-primary subcategory" *ngIf="quickEquip && quickEquip.length > 3" [routerLink]="['/tabular', { cat: equip, subcat: quickEquip[3] }]">{{quickEquip[3]}}</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <button class="btn btn-primary category" routerLink="/tool">Tools</button>
+          </div>
+          <div><button class="btn btn-primary subcategory" *ngIf="quickTool && quickTool.length > 0" [routerLink]="['/tabular', { cat: tool, subcat: quickTool[0] }]">{{quickTool[0]}}</button></div>
+          <div><button class="btn btn-primary subcategory" *ngIf="quickTool && quickTool.length > 1" [routerLink]="['/tabular', { cat: tool, subcat: quickTool[1] }]">{{quickTool[1]}}</button></div>
+        </div>
+        <div>
+          <div><button class="btn btn-primary subcategory" *ngIf="quickTool && quickTool.length > 2" [routerLink]="['/tabular', { cat: tool, subcat: quickTool[2] }]">{{quickTool[2]}}</button></div>
+          <div><button class="btn btn-primary subcategory" *ngIf="quickTool && quickTool.length > 3" [routerLink]="['/tabular', { cat: tool, subcat: quickTool[3] }]">{{quickTool[3]}}</button></div>
+        </div>
+        <div>
+          <div>
+            <button class="btn btn-primary category" routerLink="/landscape">Landscape</button>
+          </div>
+          <div><button class="btn btn-primary subcategory" *ngIf="quickLand && quickLand.length > 0" [routerLink]="['/tabular', { cat: land, subcat: quickLand[0] }]">{{quickLand[0]}}</button></div>
+          <div><button class="btn btn-primary subcategory" *ngIf="quickLand && quickLand.length > 1" [routerLink]="['/tabular', { cat: land, subcat: quickLand[1] }]">{{quickLand[1]}}</button></div>
+        </div>
+        <div>
+          <div><button class="btn btn-primary subcategory" *ngIf="quickLand && quickLand.length > 2" [routerLink]="['/tabular', { cat: land, subcat: quickLand[2] }]">{{quickLand[2]}}</button></div>
+          <div><button class="btn btn-primary subcategory" *ngIf="quickLand && quickLand.length > 3" [routerLink]="['/tabular', { cat: land, subcat: quickLand[3] }]">{{quickLand[3]}}</button></div>
+        </div>
+        <div>
+          <div><button class="btn btn-primary category subcategory" routerLink="/backup">Backup</button></div>
+          <div><button class="btn btn-primary category subcategory" routerLink="/calendar" (click)=callInit()>Open Calendar
+            </button></div>
+        </div>
+
       </div>
-    </tr>
+    </nav>
+  </div>
 -->
-
-  </table>
-
-<app-calendar></app-calendar>
-
-</nav>
-
-  <a routerLink="/test">TEST page</a>
-
+<div class ="container-fluid">
+  <div class="row">
+      <div class="col-md-4">
+        <div *ngFor="let cat of [{catType: 'equipment', quickCat: quickEquip}, {catType: 'tool', quickCat: quickTool}, {catType: 'landscape', quickCat: quickLand}]">
+            <div class="row">
+                <div class="col-md-4">
+                  <button class="btn btn-primary category" [routerLink]="['/', cat.catType]">Equipment</button>
+                </div>
+                <div class="col-md-8">
+                  <div class="subCategories">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 0" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[0] }]">{{ cat.quickCat[0] }}</button>
+                        <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 1" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[1] }]">{{ cat.quickCat[1] }}</button>
+                        <!-- <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 0" [routerLink]="['/tabular', { cat: cat.catType, subcat: quickEquip[subCats[1]] }]">{{quickEquip[subCats[1]]}}</button> -->
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 2" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[2] }]">{{ cat.quickCat[2] }}</button>
+                          <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 3" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[3] }]">{{ cat.quickCat[3] }}</button>
+                          <!-- <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 0" [routerLink]="['/tabular', { cat: cat.catType, subcat: quickEquip[subCats[1]] }]">{{quickEquip[subCats[1]]}}</button> -->
+                        </div>
+                      </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+              <button class="btn btn-primary category" routerLink="/backup">Backup</button>
+          </div>
+          <div class="col-md-4">
+              <button class="btn btn-primary category" routerLink="/calendar" (click)=callInit()>Open Calendar</button>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+      <app-calendar></app-calendar>
+    </div>
+  </div>
+</div>
+<!--</div>-->
+<a routerLink="/test">TEST page</a>

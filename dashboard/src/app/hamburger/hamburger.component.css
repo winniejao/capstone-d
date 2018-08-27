@@ -2,7 +2,9 @@
   border: none;
   margin: 1rem;
   float: right;
-  position: relative;
+  position: fixed;
+  right: 0;
+  top: 0;
   overflow: hidden;
   width: 70px;
   height: 60px;

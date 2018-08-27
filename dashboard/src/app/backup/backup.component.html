@@ -1,3 +1,14 @@
-<input type="file" id="attachments" #file>
 
-<button (click)="test(file.files)"> Test the binding </button>
+
+<div class="jumbotron">
+    <h2> Back up</h2>
+    <p>Select the folder where you would like to create a database backup</p>
+    <button class="btn btn-primary" (click)="backup()"> Create a back up file </button>
+</div>
+
+<div class="jumbotron">
+    <h2> Restore </h2>
+    <p>Select a previously saved backup file to restore the database</p>
+    <button class="btn btn-secondary" (click)="restore()"> Load a back up file </button>
+</div>
+
