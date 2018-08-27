@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
-import { MasterService, ArrayResponse, SingleResponse, QuickResponse } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse, QuickResponse, EventResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 import { del } from '../../node_modules/@types/selenium-webdriver/http';
 
@@ -25,6 +25,16 @@ export class DashService implements MasterService {
     input.forEach(element => {
       element = element.replace(/\\/g, '/');
     });
+  }
+
+  private cleanPath(input: string): string {
+    const escaped = input.replace(/\\/g, '/');
+    if(escaped[escaped.length - 1] === '/') {
+      return escaped;
+    } else {
+      return escaped + '/';
+    } 
+
   }
 
   /**
@@ -295,7 +305,7 @@ export class DashService implements MasterService {
 
   backup( filepath: string): Observable<any> {
     var route = pythonURL + '/backup'
-    return this.http.post(route, { path: filepath}).pipe(
+    return this.http.post(route, { path: this.cleanPath(filepath)}).pipe(
       catchError(this.handleError('backup')),
       tap(data => console.log(data)
     ));;
@@ -303,10 +313,32 @@ export class DashService implements MasterService {
 
   restore( filepath: string): Observable<any> {
     var route = pythonURL + '/restore'
-    return this.http.post(route, { path: filepath}).pipe(
+    return this.http.post(route, { path: this.cleanPath(filepath)}).pipe(
       catchError(this.handleError('restore')),
       tap(data => console.log(data)
     ));;
+  }
+
+  //Credit to https://stackoverflow.com/questions/222309/calculate-last-day-of-month-in-javascript
+  //https://stackoverflow.com/users/658303/lebreeze
+  daysInMonth(iMonth: number, iYear: number): number {
+    return 32 - new Date(iYear, iMonth, 32).getDate();
+  }
+
+  getEvents(month: Date): Observable<EventResponse> {
+    //Javascript Date indexes by 0 for months
+    var calcDay = this.daysInMonth(month.getMonth(), month.getFullYear());
+    var firstDay = month.getFullYear() + '-' + (month.getMonth()+1) + '-' + '1';
+    var lastDay  = month.getFullYear() + '-' + (month.getMonth()+1) + '-' + calcDay;
+    var route = pythonURL + '/getevents/' +
+    firstDay + '/' +
+    lastDay;
+
+    return this.http.get<EventResponse>(route).pipe(
+      catchError(this.handleError('getEvents', null)),
+      tap(data => console.log('Calendar data',data)
+      ));
+
   }
 
   /**

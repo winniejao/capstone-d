@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { Form, FORM_HEADERS } from './form';
 import { MOCK_FORMS, MOCK_NUMBER } from './mock_forms'
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
-import { MasterService, ArrayResponse, SingleResponse, QuickResponse } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse, QuickResponse, EventResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 
 
@@ -288,6 +288,10 @@ export class DummyService implements MasterService {
   restore( filepath: string): Observable<any> {
     console.log('Dummy data cannot restore without python!');
     return of();
+  }
+
+  getEvents(month: Date): Observable<EventResponse> {
+    return of( { 0: { Equipment: this.dummyEquipmentList, Landscape: this.dummyLandscapeList, Tools: this.dummyToolList }, 1: 200});
   }
 
   /**

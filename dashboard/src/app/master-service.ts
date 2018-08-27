@@ -42,6 +42,7 @@ export interface MasterService {
 
     restore( path: string): Observable<any>
 
+    getEvents(month: Date): Observable<ArrayResponse>
 }
 
 //This is the shape and name I'm getting from the python server
@@ -53,6 +54,11 @@ export interface ArrayResponse {
 
 export interface SingleResponse {
     0: Form;
+    1: number;
+}
+
+export interface EventResponse {
+    0: { Equipment: Form[], Landscape: Form[], Tools: Form[] }
     1: number;
 }
 

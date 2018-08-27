@@ -71,7 +71,7 @@ import { BackupComponent } from './backup/backup.component';
     MatPaginatorModule,
     NgxElectronModule
   ],
-  providers: [ {provide: DashService, useClass: DummyService }, ItemfieldsService, PassServiceService],
+  providers: [ {provide: DashService, useClass: DashService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

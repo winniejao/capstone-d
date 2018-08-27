@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { Form } from '../form';
+import { DashService } from '../dash.service';
+import { EventResponse } from '../master-service';
 
 
 const colors: any = {
@@ -74,7 +76,7 @@ export class CalendarComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal, private service: DashService) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -95,10 +97,73 @@ export class CalendarComponent {
 
   handleEvent(action: string, event: CalendarEvent): void {
      //location.href = 'additemform'; 
-     console.log('action', action);
-     console.log('event', event);
-     console.log('form data', event.meta.data);
-// this has to be sent to the specific view form with its id
+     //console.log('action', action);
+     //console.log('event', event);
+     //console.log('form data', event.meta.data);
+     //console.log('view date', this.viewDate);
+     //console.log('Second', this.view);
+// this has to be sent to the specifc view form with its id
+  }
+
+  test(){
+    this.getCurrentEvents();
+  }
+
+  splitMonth(input: string) {
+    return input.split('-')[1];
+  }
+
+  splitDay(input: string) {
+    return input.split('-')[2];
+  }
+
+  splitYear(input: string) {
+    return input.split('-')[0];
+  }
+
+  getCurrentEvents(): void {
+    this.service.getEvents(this.viewDate).subscribe( (res: EventResponse) => {
+      console.log(res[0]);
+      var results = res[0];
+      if(results.Equipment){
+          results.Equipment.forEach( form => this.events.push({
+            start: startOfDay(new Date( parseInt(this.splitYear( form.date),10), 
+                                        parseInt(this.splitMonth( form.date),10)-1,
+                                        parseInt(this.splitDay( form.date),10))),
+            title: form.name,
+            color: colors.blue,
+            meta: { data: form }
+        }))
+      }
+
+      if(results.Tools){
+        results.Tools.forEach( form => this.events.push({
+          start: startOfDay(new Date( parseInt(this.splitYear( form.date),10), 
+                                      parseInt(this.splitMonth( form.date),10)-1,
+                                      parseInt(this.splitDay( form.date),10))),
+          title: form.name,
+          color: colors.red,
+          meta: { data: form }
+        }))
+      }
+
+      if(results.Landscape){
+        results.Landscape.forEach( form => this.events.push({
+            start: startOfDay(new Date( parseInt(this.splitYear( form.date),10), 
+                                        parseInt(this.splitMonth( form.date),10)-1,
+                                        parseInt(this.splitDay( form.date),10))),
+            title: form.name,
+            color: colors.green,
+            meta: { data: form }
+          }))
+        }
+
+        this.refresh.next();
+    });
+  }
+
+  ngOnInit() {
+    this.getCurrentEvents();
   }
 
   addEvent({title, start, end}): void {

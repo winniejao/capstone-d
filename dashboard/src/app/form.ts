@@ -13,7 +13,7 @@ export class Form {
           this.cost = 3.14;
           this.serial = "ATES-TSER-IAL1";
           this.date = "2018-10-10";
-          this.maint_date = "2018-10-10";
+          this.maint_date = "2018-8-27";
           this.repeat = 2;
           this.attach = [];
           this.notes = "TestNote";

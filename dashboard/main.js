@@ -12,6 +12,8 @@ function createWindow () {
     backgroundColor: '#ffffff'
   })
 
+  win.setFullScreen(true);
+
 
   win.loadURL(`file://${basepath}/dist/dashboard/index.html`)
 
