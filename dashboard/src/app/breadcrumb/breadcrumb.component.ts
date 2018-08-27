@@ -20,9 +20,14 @@ export class BreadcrumbComponent implements OnInit {
 
     if( input.includes(';')){
       this.crumbtrail = input.trim()
+        .replace('/searchresult', '')
+        .replace('search_term=', '')
+        .replace('/editform', '')
+        .replace('subcat=', '')
         .replace('/tabular', '')
         .replace('cat=', '')
-        .replace('subcat=', '')
+        .replace('category=', '')
+        .replace('id=', '')
         .split(';')
         .filter(x => x != '')
         .filter(x => x != 'mainpage');

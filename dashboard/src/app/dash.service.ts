@@ -72,7 +72,7 @@ export class DashService implements MasterService {
    * @param target - The search string
    */
   search(target: string): Observable<Form[]> {
-    return this.http.get<Form[]>(pythonURL + '/search/' + target).pipe(
+    return this.http.post<Form[]>(pythonURL + '/search', { search: target}).pipe(
       catchError(this.handleError('search', [])),
       tap(data => console.log(data)
     ));

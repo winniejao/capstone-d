@@ -22,6 +22,7 @@ import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
+import { FormValidatorDirective } from './form-validator.directive';
 
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule } from '@angular/material/';
@@ -34,6 +35,7 @@ import { SearchResultComponent } from './search-result/search-result.component';
 import { ViewitemformComponent } from './viewitemform/viewitemform.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { BackupComponent } from './backup/backup.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import { BackupComponent } from './backup/backup.component';
     SearchResultComponent,
     ViewitemformComponent,
     EditFormComponent,
-    BackupComponent
+    BackupComponent,
+    FormValidatorDirective
   ],
   imports: [
     AppRoutingModule,
@@ -69,7 +72,8 @@ import { BackupComponent } from './backup/backup.component';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    NgxElectronModule
+    NgxElectronModule,
+    ReactiveFormsModule
   ],
   providers: [ {provide: DashService, useClass: DashService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]

@@ -47,13 +47,14 @@ export class CalendarComponent {
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent<FormData>[] = [
+    /*
     {
       start:startOfDay(new Date()),
       title: 'David\'s test date',
       color: colors.red,
       meta: { data: new Form(1, 'Equipment', 'Computer') }
     }
-/*
+
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -96,13 +97,14 @@ export class CalendarComponent {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-     //location.href = 'additemform'; 
+     var theForm = event.meta.data;
+     location.href = 'additemform' + 'category='+ theForm.category +';subcat=' + theForm.subcat + ';id=' + theForm.id; 
      //console.log('action', action);
      //console.log('event', event);
      //console.log('form data', event.meta.data);
      //console.log('view date', this.viewDate);
      //console.log('Second', this.view);
-// this has to be sent to the specifc view form with its id
+    // this has to be sent to the specifc view form with its id
   }
 
   test(){
