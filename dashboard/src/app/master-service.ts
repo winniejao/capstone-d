@@ -42,7 +42,7 @@ export interface MasterService {
 
     restore( path: string): Observable<any>
 
-    getEvents(month: Date): Observable<ArrayResponse>
+    getEvents(month: Date): Observable<EventResponse>
 }
 
 //This is the shape and name I'm getting from the python server
