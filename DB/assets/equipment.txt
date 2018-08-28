@@ -25,3 +25,4 @@ computer
 computer
 computer
 air_conditioning_unit
+boiler

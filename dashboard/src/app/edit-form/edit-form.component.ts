@@ -78,7 +78,7 @@ export class EditFormComponent implements OnInit {
     this.form.maint_date = this.newForm.get('maint_date').value;
     this.form.repeat = this.newForm.get('repeat').value;
     this.form.notes = this.newForm.get('notes').value;
-    this.service.updateForm(this.form);
+    this.service.updateForm(this.form).subscribe();
     this.submitted = true;
   }
 }
