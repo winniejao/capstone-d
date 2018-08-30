@@ -1,8 +1,8 @@
-<button (click)="test()"> Check month & cache</button>
 <div class="row text-center">
   <div class="col-md-4">
     <div class="btn-group">
       <div
+        (click)="getCurrentEvents()"
         class="btn btn-primary"
         mwlCalendarPreviousView
         [view]="view"
@@ -17,6 +17,7 @@
         Today
       </div>
       <div
+        (click)="getCurrentEvents()"
         class="btn btn-primary"
         mwlCalendarNextView
         [view]="view"

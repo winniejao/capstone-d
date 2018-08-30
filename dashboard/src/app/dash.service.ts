@@ -185,6 +185,8 @@ export class DashService implements MasterService {
       serial: input.serial,
       attach: []
     }
+    console.log('RIGHT BEFORE CLEAN ATTACH', input);
+
     this.cleanAttach(input.attach);
     console.log('Cleaned attachment before sending to python', input);
     return this.http.post(route, input).pipe(

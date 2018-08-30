@@ -66,6 +66,6 @@
     <td colspan="2"> <input type="text" id="note" #note> </td>
   </tr>
   <tr>
-   <td> <button class="save" id="save" (click)="passData(formid.value, pService.getCat(), pService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, dwm.value, note.value);" [routerLink]="['/viewitemform', {cat: pService.getCat(), subcat: pService.getSubcat()}]">save </button> </td>
+   <td> <button class="save" id="save" (click)="passData(pService.getCat(), pService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, dwm.value, note.value);" [routerLink]="['/viewitemform', {cat: pService.getCat(), subcat: pService.getSubcat()}]">save </button> </td>
     <td> <button class="save" id="cancel" (click)="alertCancel()">cancel</button> </td>
   </tr></table>

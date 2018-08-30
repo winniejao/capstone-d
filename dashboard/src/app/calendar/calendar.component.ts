@@ -37,6 +37,8 @@ export class CalendarComponent {
 
   viewDate: Date = new Date();
 
+  checkedMonth: Set<string>;
+
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -92,13 +94,16 @@ export class CalendarComponent {
 
   eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
  	  event.start = newStart;
-  	  event.end = newEnd;
-    	  this.refresh.next();
+      event.end = newEnd;
+      console.log('Clicked');
+        this.refresh.next();
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
      var theForm = event.meta.data;
-     location.href = 'additemform' + 'category='+ theForm.category +';subcat=' + theForm.subcat + ';id=' + theForm.id; 
+     console.log('The event', event);
+
+     //location.href = 'additemform' + 'category='+ theForm.category +';subcat=' + theForm.subcat + ';id=' + theForm.id; 
      //console.log('action', action);
      //console.log('event', event);
      //console.log('form data', event.meta.data);
@@ -124,47 +129,54 @@ export class CalendarComponent {
   }
 
   getCurrentEvents(): void {
-    this.service.getEvents(this.viewDate).subscribe( (res: EventResponse) => {
-      console.log(res[0]);
-      var results = res[0];
-      if(results.Equipment){
-          results.Equipment.forEach( form => this.events.push({
+    var first = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth(), 1).toDateString();
+    if(this.checkedMonth.has(first)){
+      return;
+    } else {   
+        console.log("SEARCHING");
+        this.checkedMonth.add(first);   
+        this.service.getEvents(this.viewDate).subscribe( (res: EventResponse) => {
+        var results = res[0];
+        if(results.Equipment){
+            results.Equipment.forEach( form => this.events.push({
+              start: startOfDay(new Date( parseInt(this.splitYear( form.date),10), 
+                                          parseInt(this.splitMonth( form.date),10)-1,
+                                          parseInt(this.splitDay( form.date),10))),
+              title: form.name,
+              color: colors.blue,
+              meta: { data: form }
+          }))
+        }
+
+        if(results.Tools){
+          results.Tools.forEach( form => this.events.push({
             start: startOfDay(new Date( parseInt(this.splitYear( form.date),10), 
                                         parseInt(this.splitMonth( form.date),10)-1,
                                         parseInt(this.splitDay( form.date),10))),
             title: form.name,
-            color: colors.blue,
-            meta: { data: form }
-        }))
-      }
-
-      if(results.Tools){
-        results.Tools.forEach( form => this.events.push({
-          start: startOfDay(new Date( parseInt(this.splitYear( form.date),10), 
-                                      parseInt(this.splitMonth( form.date),10)-1,
-                                      parseInt(this.splitDay( form.date),10))),
-          title: form.name,
-          color: colors.red,
-          meta: { data: form }
-        }))
-      }
-
-      if(results.Landscape){
-        results.Landscape.forEach( form => this.events.push({
-            start: startOfDay(new Date( parseInt(this.splitYear( form.date),10), 
-                                        parseInt(this.splitMonth( form.date),10)-1,
-                                        parseInt(this.splitDay( form.date),10))),
-            title: form.name,
-            color: colors.green,
+            color: colors.red,
             meta: { data: form }
           }))
         }
 
-        this.refresh.next();
-    });
+        if(results.Landscape){
+          results.Landscape.forEach( form => this.events.push({
+              start: startOfDay(new Date( parseInt(this.splitYear( form.date),10), 
+                                          parseInt(this.splitMonth( form.date),10)-1,
+                                          parseInt(this.splitDay( form.date),10))),
+              title: form.name,
+              color: colors.green,
+              meta: { data: form }
+            }))
+          }
+
+          this.refresh.next();
+      });
+    }
   }
 
   ngOnInit() {
+    this.checkedMonth = new Set();
     this.getCurrentEvents();
   }
 
@@ -172,7 +184,7 @@ export class CalendarComponent {
       this.events.push({
       	  title: title,
       	  start: start,
-    	  end: end,
+    	    end: end,
           color: colors.red,
           draggable: true,
       	  resizable: {

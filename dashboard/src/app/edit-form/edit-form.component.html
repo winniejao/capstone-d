@@ -1,6 +1,6 @@
 <div class="edit_form_component" *ngIf="form && !submitted">
   <form [formGroup]="newForm" #editForm="ngForm" (ngSubmit)="onSubmit()">
-    <h2>Form #{{form.formid}}</h2>
+    <h2>Form #{{form.form_id}}</h2>
     <h3>Category: {{form.category}}</h3>
     <h3>Subcategory: {{form.subcat}}</h3>
     <h4>Date Added: {{form.date}}</h4>
