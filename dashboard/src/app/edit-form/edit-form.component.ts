@@ -6,6 +6,7 @@ import { SingleResponse } from '../master-service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { validateConfig } from '@angular/router/src/config';
 import { dateValidator, FormValidatorDirective } from '../form-validator.directive';
+import { DISABLED } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-edit-form',
@@ -19,6 +20,7 @@ export class EditFormComponent implements OnInit {
   form: Form;
   newForm: FormGroup;
   submitted: boolean = false;
+  edit: boolean = false;
 
   constructor(
     private router: Router,
@@ -67,6 +69,7 @@ export class EditFormComponent implements OnInit {
       repeat: new FormControl(this.form.repeat),
       notes: new FormControl(this.form.notes),
     });
+    this.newForm.disable();
   }
 
   onSubmit(): void {
@@ -80,5 +83,12 @@ export class EditFormComponent implements OnInit {
     this.form.notes = this.newForm.get('notes').value;
     this.service.updateForm(this.form).subscribe();
     this.submitted = true;
+  }
+
+  enableEdit(): void {
+    if (this.newForm.disabled) {
+      this.newForm.enable();
+    }
+    this.edit = true;
   }
 }

@@ -51,15 +51,15 @@
              name="serial" />
     </div>
     <!--
-    <div class="form-group">
-      <label>Maintenance Date (YYYY-MM-DD)</label>
-      <input type="text"
-              class="form-control"
-              id="maint_date"
-              formControlName="maint_date"
-              name="maint_date" />
-    </div>
-      -->
+  <div class="form-group">
+    <label>Maintenance Date (YYYY-MM-DD)</label>
+    <input type="text"
+            class="form-control"
+            id="maint_date"
+            formControlName="maint_date"
+            name="maint_date" />
+  </div>
+    -->
     <div class="form-group date">
       <label>Maintenance Date</label>
       <input type="date"
@@ -85,24 +85,30 @@
                 formControlName="notes">
       </textarea>
       <!--
-      <input type="text"
-              class="form-control"
-              formControlName="notes"
-              name="notes" />
-      -->
+    <input type="text"
+            class="form-control"
+            formControlName="notes"
+            name="notes" />
+    -->
     </div>
 
     <div *ngIf="newForm.invalid && (newForm.dirty || newForm.touched)"
-          class="alert alert-danger">
+         class="alert alert-danger">
       There are invalid fields.
     </div>
+
+    <button (click)="enableEdit()"
+            [disabled]="edit"
+            class="btn btn-primary">
+      Edit Form
+    </button>
 
     <button type="submit"
             [disabled]="newForm.pristine || newForm.invalid"
             class="btn btn-primary">
       Save Changes
     </button>
-</form>
+  </form>
 </div>
 
 <div *ngIf="form && submitted" class="alert alert-primary">
