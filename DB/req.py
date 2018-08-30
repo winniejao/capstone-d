@@ -291,7 +291,7 @@ def get_events(start_date, end_date):
     all_databases = ["Equipment.db", "Landscape.db", "Tools.db"]
 
     #get all fields necessary from one database
-    field_names = ["form_id", "name", "item", "date", "notes"]
+    field_names = ["form_id", "name", "item", "date", "notes", "category", "subcat"]
 
     for database in all_databases:
         formatted_database = ".\\databases\\" + database
@@ -311,8 +311,10 @@ def get_events(start_date, end_date):
                         saver.append(row[2])
                         saver.append(row[6])
                         saver.append(row[10])
+                        saver.append(row[11])
+                        saver.append(row[12])
                     if saver:
-                        response_dict[database.strip(".db")].append(dict(zip(field_names,saver)))
+                        response_dict[database.strip(".db")].append(dict(zip(field_names, saver)))
                         success_flag = True
 
         event_list.clear()
