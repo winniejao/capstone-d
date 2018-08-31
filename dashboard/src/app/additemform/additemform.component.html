@@ -1,14 +1,10 @@
 <table>
   <tr>
-    <th> FormID </th>
-    <td> <input type="text" id="formid" #formid> </td>
-  </tr>
-  <tr>
-    <th> Category </th> <td> {{pService.getCat()}}</td>
+    <th> Category </th> <td> {{pService.getCat() | titlecase }}</td>
   </tr>
   <tr>
     <th> Subcategory </th>
-    <td> {{pService.getSubcat()}} </td>
+    <td> {{pService.getSubcat() | titlecase}} </td>
   </tr>
   <tr>
     <th> Name </th>
@@ -50,8 +46,19 @@
   </tr>
   <tr>
     <th> Attachments </th>
-    <td> <input type="file" id="attachments" multiple #attach> </td>
+    <!-- <td> <input type="file" id="attachments" multiple #attach> </td> -->
+    <td> <button (click)="addAttachments()">Attach files</button></td>
   </tr>
+  <tr *ngFor="let file of selectedFiles; let i = index">
+      <div class="row" >
+        <div class="col">
+            {{ file }} 
+        </div>
+        <div class="col">
+            <button class="btn btn-default btn-xs" (click)="remove(i)"> X </button>
+        </div>
+      </div>
+    </tr>
   <tr>
     <th> Notes </th>
   </tr>
@@ -59,6 +66,6 @@
     <td colspan="2"> <input type="text" id="note" #note> </td>
   </tr>
   <tr>
-   <td> <button id="save" (click)="passData(formid.value, pService.getCat(), pService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, dwm.value, note.value, attach.value);" [routerLink]="['/viewitemform', {cat: pService.getCat(), subcat: pService.getSubcat()}]">save </button> </td>
-    <td> <button id="cancel" (click)="alertCancel()">cancel</button> </td>
+   <td> <button class="save" id="save" (click)="passData(pService.getCat(), pService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, dwm.value, note.value);" [routerLink]="['/viewitemform', {cat: pService.getCat(), subcat: pService.getSubcat()}]">save </button> </td>
+    <td> <button class="save" id="cancel" (click)="alertCancel()">cancel</button> </td>
   </tr></table>

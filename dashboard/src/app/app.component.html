@@ -1,12 +1,16 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<div class="container-fluid">
+
+  <div class="col-lg-12">
+    <h1>{{title}}</h1>
+    <app-breadcrumb></app-breadcrumb>
+
+    <div class="search-bar" style="text-align:center">
+      <app-search-bar></app-search-bar>
+    </div>
+    <div class="router-outlet">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
 <app-hamburger></app-hamburger>
-<h1>{{title}}</h1>
-<app-breadcrumb></app-breadcrumb>
-
-<div class="search-bar" style="text-align:center">
-  <app-search-bar></app-search-bar>
-</div>
-
-<div class="router-outlet">
-  <router-outlet></router-outlet>
-</div>

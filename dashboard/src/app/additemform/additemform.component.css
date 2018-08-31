@@ -26,11 +26,10 @@ tr {
   height: 400px;
 }
 
-button {
+.save {
   width: 150px;
   padding: 10px 0;
   cursor: pointer;
-  text-size: 20px;
 }
 
 table{

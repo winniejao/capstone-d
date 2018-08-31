@@ -12,7 +12,7 @@ import { Form } from '../form';
 export class ViewitemformComponent implements OnInit {
   table_details: Form
 
-  constructor(private iService: ItemfieldsService, private location: Location, private dService: DashService) { }
+  constructor(public iService: ItemfieldsService, private location: Location, private dService: DashService) { }
 
   ngOnInit() {
   }

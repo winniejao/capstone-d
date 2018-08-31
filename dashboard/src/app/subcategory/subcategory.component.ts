@@ -106,11 +106,13 @@ export class SubcategoryComponent implements OnInit {
 
   //The item has been confirmed, add and make a service request
   addConfirm(item){
-    console.log("HTTP service request! Item: " + item);
-    //If successful
-    this.theList.push(this.addVal);
-    this.select(this.addVal.charAt(0));
-    this.closeBoxes();
+    this.service.addSubcategory(this.path, item).subscribe(res => {
+      //If successful
+      this.theList.push(this.addVal);
+      this.select(this.addVal.charAt(0));
+      this.closeBoxes();
+    })
+
   }
   
   constructor(private route: ActivatedRoute, private service: DashService) { }
