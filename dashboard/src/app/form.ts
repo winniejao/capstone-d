@@ -1,7 +1,7 @@
 import { forEach } from "@angular/router/src/utils/collection";
 
 export const FORM_HEADERS: string[] = ['form_id', 'category', 'subcat', 'name', 'item', 'purpose', 'cost', 'serial', 'date', 'maint_date', 'repeat', 'attachment', 'notes'];
-export const FORM_HEADERS_ABR: string[] = ['form_id', 'name', 'item', 'purpose', 'cost', 'serial', 'date', 'maint_date', 'repeat', 'attachment', 'notes'];
+export const FORM_HEADERS_ABR: string[] = ['form_id', 'name', 'item', 'purpose', 'cost', 'serial', 'date', 'maint_date', 'attachment', 'notes'];
 
 export class Form {
     constructor(id: number, cat: string, scat: string){
