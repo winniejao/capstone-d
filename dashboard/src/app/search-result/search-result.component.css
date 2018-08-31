@@ -1,8 +1,37 @@
 h1{
-  text-align:center;
 }
 
 .searchResults{
   margin:25px;
   clear:both;
+  width:80%;
 }
+
+.mat-cell, .mat-header-cell {
+  overflow: hidden;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.mat-cell {
+  padding: 5px;
+}
+
+.mat-header-cell {
+  padding-top: 0;
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+.mat-column-purpose {
+  min-width: 150px;
+}
+
+.mat-column-notes {
+  min-width: 150px;
+}
+
+.mat-paginator {
+  float: left;
+}
+

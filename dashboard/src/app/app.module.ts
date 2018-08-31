@@ -73,7 +73,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSortModule,
     MatPaginatorModule,
     NgxElectronModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [ {provide: DashService, useClass: DashService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]

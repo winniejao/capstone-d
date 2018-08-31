@@ -50,6 +50,7 @@ export class ItemfieldsService {
   }
 
   setDatas(id, cat, subcat,name,item, purpose, cost, serial, date, from, every, attach, note) {
+    this.passId = id;
     this.setData(cat, subcat,name,item, purpose, cost, serial, date, from, every, attach, note);
   }
 

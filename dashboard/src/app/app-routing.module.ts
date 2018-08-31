@@ -23,7 +23,11 @@ const routes: Routes = [
   { path: 'tool', component: SubcategoryComponent},
   { path: 'landscape', component: SubcategoryComponent},
   { path: 'tabular', component: TabularComponent },
-  { path: 'searchresult', component: SearchResultComponent },
+  {
+    path: 'searchresult',
+    component: SearchResultComponent,
+    runGuardsAndResolvers: 'always',
+  },
   { path: 'test', component: TestComponent},
   {   path: 'foo', 
       component: TestComponent,
@@ -34,7 +38,7 @@ const routes: Routes = [
   { path: 'backup', component: BackupComponent}
 ];
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload') ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule { }
