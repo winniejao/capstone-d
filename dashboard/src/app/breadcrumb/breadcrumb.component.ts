@@ -42,6 +42,19 @@ export class BreadcrumbComponent implements OnInit {
 
   }
 
+  redirect(input: string): void {
+    console.log('bcrumb input then crumbtrail', input, this.crumbtrail);
+    const indexOf = this.crumbtrail.findIndex(v => v === input);
+    switch(indexOf) {
+      case 0: 
+        this.router.navigate([this.crumbtrail[0]]);
+        break;
+        //this.router.navigate(['editform', { category: theForm.category, subcat: theForm.subcat, id: theForm.form_id }]);
+      case 1:
+        this.router.navigate(['tabular', { cat: this.crumbtrail[0], subcat: this.crumbtrail[1] }]);
+        break;
+    }
+  }
   
   reconstruct(input): string {
     const indexOf = this.crumbtrail.findIndex(v => v === input);

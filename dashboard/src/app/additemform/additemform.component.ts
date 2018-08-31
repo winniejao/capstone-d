@@ -71,14 +71,14 @@ export class AdditemformComponent implements OnInit {
       subcat: sub, 
       name: name, 
       item: item, 
-      purpose: purpose, 
+      purpose: purpose , 
       cost: cost, 
-      serial: serial, 
-      date: date, 
-      maint_date: from, 
-      repeat: every, 
+      serial: serial ? serial : '', 
+      date: date ? date : '', 
+      maint_date: from ? from : '', 
+      repeat: every ? every : 0, 
       attach: this.selectedFiles, 
-      notes: note 
+      notes: note ? note : '' 
     };
 
     this.dService.addForm(this.form).subscribe( id => {
@@ -87,7 +87,7 @@ export class AdditemformComponent implements OnInit {
       }
       var assignedID = id[0];
       console.log('assignedID', assignedID.form_id);
-      this.iService.setDatas(assignedID.form_id, cat, sub,name, item, purpose,cost,serial,date, from,every,note,this.selectedFiles);
+      this.iService.setDatas(assignedID.form_id, cat, sub, name, item, purpose,cost, serial,date, from,every,note,this.selectedFiles);
     });
   }  
     
