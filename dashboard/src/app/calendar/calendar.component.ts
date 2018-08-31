@@ -6,6 +6,7 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } fr
 import { Form } from '../form';
 import { DashService } from '../dash.service';
 import { EventResponse } from '../master-service';
+import { Router } from '@angular/router';
 
 
 const colors: any = {
@@ -79,7 +80,7 @@ export class CalendarComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal, private service: DashService) {}
+  constructor(private modal: NgbModal, private service: DashService, private router: Router) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -102,14 +103,8 @@ export class CalendarComponent {
   handleEvent(action: string, event: CalendarEvent): void {
      var theForm = event.meta.data;
      console.log('The event', event);
-
-     //location.href = 'additemform' + 'category='+ theForm.category +';subcat=' + theForm.subcat + ';id=' + theForm.id; 
-     //console.log('action', action);
-     //console.log('event', event);
-     //console.log('form data', event.meta.data);
-     //console.log('view date', this.viewDate);
-     //console.log('Second', this.view);
-    // this has to be sent to the specifc view form with its id
+     console.log('The route:  /editform' + 'category='+ theForm.category +';subcat=' + theForm.subcat + ';id=' + theForm.form_id);
+     this.router.navigate(['editform', { category: theForm.category, subcat: theForm.subcat, id: theForm.form_id }]);
   }
 
   test(){
