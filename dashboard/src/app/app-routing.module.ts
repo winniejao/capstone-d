@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: 'backup', component: BackupComponent}
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload') ],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}) ],
   exports: [ RouterModule ]
 })
 export class AppRoutingModule { }
