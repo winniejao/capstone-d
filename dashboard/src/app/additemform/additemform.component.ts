@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ItemfieldsService } from '../itemfields.service';
-import { PassServiceService } from '../pass-service.service';
 import { DashService } from '../dash.service';
 import { Form } from '../form';
+import { ActivatedRoute } from '@angular/router';
+import { PassServiceService } from '../pass-service.service';
 import { ElectronService } from 'ngx-electron';
-
 
 @Component({
   selector: 'app-additemform',
   templateUrl: './additemform.component.html',
   styleUrls: ['./additemform.component.css']
 })
+
 export class AdditemformComponent implements OnInit {
-
-  table_details: Form;
-
+  form: Form;
+  
   constructor(
 	private location: Location, 
 	private iService: ItemfieldsService,
   public pService: PassServiceService,
   private _electronService: ElectronService,
-	private dService: DashService
+	private dService: DashService,
+  private route: ActivatedRoute
   ) { }
 
   selectedFiles: string[];
@@ -47,13 +48,13 @@ export class AdditemformComponent implements OnInit {
   }
 
   //attach removed and is now a property of the component
-  passData(cat, sub, name, item, purpose, cost, serial, date, from,  every, dwm, note) {
+  passData(cat, sub, name, item, purpose, cost, serial, date, from,  every, note) {
     //Make sure the attach array is empty, not undefined
     if( !this.selectedFiles) {
       this.selectedFiles = [];
     }
 
-    this.table_details= { 
+    this.form= { 
       form_id: 0, 
       category: cat, 
       subcat: sub, 
@@ -75,9 +76,8 @@ export class AdditemformComponent implements OnInit {
       }
       var assignedID = id[0];
       console.log('assignedID', assignedID.form_id);
-      this.iService.setData(assignedID.form_id, cat, sub,name, item, purpose,cost,serial,date, from,every,dwm,note,this.selectedFiles);
+      this.iService.setData(assignedID.form_id, cat, sub,name, item, purpose,cost,serial,date, from,every,note,this.selectedFiles);
     });
-    
-  }
   
+    
 }
