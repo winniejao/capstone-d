@@ -70,14 +70,14 @@ export class AdditemformComponent implements OnInit {
       notes: note 
     };
 
-    this.dService.addForm(this.table_details).subscribe( id => {
+    this.dService.addForm(this.form).subscribe( id => {
       if(id[1] != 201){
-        console.log('An error has occured adding this item!', this.table_details);
+        console.log('An error has occured adding this item!', this.form);
       }
       var assignedID = id[0];
       console.log('assignedID', assignedID.form_id);
-      this.iService.setData(assignedID.form_id, cat, sub,name, item, purpose,cost,serial,date, from,every,note,this.selectedFiles);
+      this.iService.setDatas(assignedID.form_id, cat, sub,name, item, purpose,cost,serial,date, from,every,note,this.selectedFiles);
     });
-  
+  }  
     
 }
