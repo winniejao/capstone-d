@@ -1,0 +1,14 @@
+.breadcrumb-item {
+    cursor:pointer;
+    color:blue;
+}
+
+.breadcrumb-item:hover {
+    text-decoration:underline;
+}
+
+.breadcrumb-item.active {
+    cursor: text;
+    color: gray;
+    text-decoration: none;
+}
