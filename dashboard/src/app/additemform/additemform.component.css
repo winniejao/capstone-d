@@ -16,6 +16,7 @@ input.ng-invalid{
 }
 [type="date"]::-webkit-inner-spin-button{
   display: none;
+}
 [type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
 }

@@ -34,7 +34,7 @@ export class ItemfieldsService {
     this.passNote='';
   }
 
-  setData( cat, subcat,name,item, purpose, cost, serial, date, from, every, attach, note) {
+  setData(cat, subcat,name,item, purpose, cost, serial, date, from, every, attach, note) {
     this.passCat = cat;
     this.passSubcat = subcat;
     this.passName = name;
@@ -47,6 +47,10 @@ export class ItemfieldsService {
     this.passEvery = every;
     this.passAttach.push(attach);
     this.passNote = note;
+  }
+
+  setDatas(id, cat, subcat,name,item, purpose, cost, serial, date, from, every, attach, note) {
+    this.setData(cat, subcat,name,item, purpose, cost, serial, date, from, every, attach, note);
   }
 
   getID(){return this.passId;}
