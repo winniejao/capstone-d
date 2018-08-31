@@ -1,64 +1,94 @@
-<table>
-  <tr>
-    <th> FormID </th>
-    <td> <input type="text" id="formid" #formid> </td>
-  </tr>
-  <tr>
-    <th> Category </th> <td> {{pService.getCat()}}</td>
-  </tr>
-  <tr>
-    <th> Subcategory </th>
-    <td> {{pService.getSubcat()}} </td>
-  </tr>
-  <tr>
-    <th> Name </th>
-    <td> <input type="text" id="name" #name > </td>
-  </tr>
-  <tr>
-    <th> Item </th>
-    <td> <input type="text" id="item" #item> </td>
-  </tr>
-  <tr>
-    <th> Purpose </th>
-    <td> <input type="text" id="purpose" #purpose> </td>
-  </tr>
-  <tr>
-    <th> Cost </th>
-    <td> $<input type="text" id="cost" #cost> </td>
-  </tr>
-  <tr>
-    <th> Serial </th>
-    <td> <input type="text" id="serial" #serial> </td>
-  </tr>
-  <tr>
-    <th> Date </th>
-    <td> <input type="date" id="date"  #date> </td>
-  </tr>
-  <tr>
-    <th> Maintenance Date </th>
-    <td> <input type="date" id="startdate" #startdate></td>
-  </tr>
+<div class="add_form_component">
+    <h3>Category: {{pService.getCat()}}</h3>
+    <h3>Subcategory: {{pService.getSubcat()}}</h3>
+  <form #addForm="ngForm">
+      <p>* indicates a required input.</p>
+      <div class="form-group">
+        <label>Name*</label> 
+        <input class="form-control" 
+              type="text" name="name" 
+              [(ngModel)]="name"
+              required />
+      </div>
+      <div class="form-group">
+        <label>Item*</label>
+        <input class="form-control"
+              type="text"
+              [(ngModel)]="item"
+              name="item"
+              required />
+      </div>
+      <div class="form-group">
+        <label>Purpose*</label>
+        <input class="form-control"
+              type="text"
+              [(ngModel)]="purpose"
+              name="purpose"
+              required />
+      </div>
+      <div class="form-group">
+        <label>Cost*</label>
+        <input class="form-control"
+              type="text"
+              [(ngModel)]="cost"
+              name="cost"
+              required />
+      </div>
+      <div class="form-group">
+        <label>Serial Number</label>
+        <input type="text"
+              class="form-control"
+              [(ngModel)]="serial"
+              name="serial" />
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date"
+              class="form-control"
+              [(ngModel)]="date"
+              name="date" />
+      </div>
+      <div class="form-group">
+        <label>Maintenance Date</label>
+        <input type="date"
+              class="form-control"
+              [(ngModel)]="maint_date"
+              name="maint_date" />
+      </div>
+      <div class="form-group">
+        <label>Repeat</label>
+        <input type="text"
+              class="form-control"
+              [(ngModel)]="repeat"
+              name="repeat" />
+        
+      </div>
+      <div class="form-group">
+        <label>Attachment</label>
+        <input type="file"
+              class="form-control"
+              [(ngModel)]="attach"
+              name="attach"
+              multiple />
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <input type="text"
+              class="form-control"
+              [(ngModel)]="notes"
+              name="notes" />
+      </div>
+    </form>
+    <div [hidden]="addForm.valid || addForm.pristine"
+          class="alert alert-danger">
+        Form is not valid.
+    </div>
+    <button type="submit" 
+            (click)="passData(pService.getCat(), pService.getSubcat(), name, item, purpose, cost, serial, date, maint_date,  repeat, notes, attach);" 
+            [routerLink]="['/tabular', {cat: pService.getCat(), subcat: pService.getSubcat()}]"
+            [disabled]="addForm.pristine || !addForm.valid"
+            class="btn btn-primary">Save</button>
 
-  <tr>
-    <td> Every <input type="text" style="width:40px; padding: 0; margin:0;" id="every" #every></td> 
-    <td id="dwm" style="padding:0" #dwm> <select>
-	  <option value="days" selected> days </option>
-	  <option value="weeks" > weeks </option>
-	  <option value="months"> months </option>
- 	</select>
-    </td>
-  </tr>
-  <tr>
-    <th> Attachments </th>
-    <td> <input type="file" id="attachments" multiple #attach> </td>
-  </tr>
-  <tr>
-    <th> Notes </th>
-  </tr>
-  <tr>
-    <td colspan="2"> <input type="text" id="note" #note> </td>
-  </tr>
-  <tr>
-   <td> <button id="save" (click)="passData(formid.value, pService.getCat(), pService.getSubcat(), name.value, item.value, purpose.value, cost.value, serial.value, date.value, startdate.value,  every.value, dwm.value, note.value, attach.value);" [routerLink]="['/viewitemform', {cat: pService.getCat(), subcat: pService.getSubcat()}]">save </button> </td>
-    <td> <button id="cancel" (click)="alertCancel()">cancel</button> </td>
-  </tr></table>
+    <button type="submit" (click)="alertCancel()"
+            class="btn btn-primary">Cancel</button>
+</div>

@@ -15,7 +15,6 @@ export class ItemfieldsService {
   public passDate:string;
   public passFromDate:string;
   public passEvery:string;
-  public passDwm:string;
   public passAttach:string[];
   public passNote:string;
 
@@ -31,13 +30,11 @@ export class ItemfieldsService {
     this.passDate='';
     this.passFromDate='';
     this.passEvery='';
-    this.passDwm='';
     this.passAttach=[];
     this.passNote='';
   }
 
-  setData(id, cat, subcat,name,item, purpose, cost, serial, date, from, every, dwm, attach, note) {
-    this.passId = id;
+  setData( cat, subcat,name,item, purpose, cost, serial, date, from, every, attach, note) {
     this.passCat = cat;
     this.passSubcat = subcat;
     this.passName = name;
@@ -48,8 +45,7 @@ export class ItemfieldsService {
     this.passDate = date;
     this.passFromDate = from;
     this.passEvery = every;
-    this.passDwm = dwm;
-    this.passAttach = attach;
+    this.passAttach.push(attach);
     this.passNote = note;
   }
 
@@ -64,7 +60,6 @@ export class ItemfieldsService {
   getDate(){return this.passDate;}
   getFromDate(){return this.passFromDate;}
   getEvery(){return this.passEvery;}
-  getDwm(){return this.passDwm;}
   getAttach(){return this.passAttach;}
   getNote(){return this.passNote;}
 }
