@@ -48,36 +48,36 @@ export class AdditemformComponent implements OnInit {
   }
 
   //attach removed and is now a property of the component
-  passData(cat, sub, name, item, purpose, cost, serial, date, from, every, note) {
+  passData(cat, sub, name, item, purpose, cost, serial, date, from,  every, note) {
     //Make sure the attach array is empty, not undefined
-    if (!this.selectedFiles) {
+    if( !this.selectedFiles) {
       this.selectedFiles = [];
     }
 
-    this.form = {
-      form_id: 0,
-      category: cat,
-      subcat: sub,
-      name: name,
-      item: item,
-      purpose: purpose,
-      cost: cost,
-      serial: serial,
-      date: date,
-      maint_date: from,
-      repeat: every,
-      attach: this.selectedFiles,
-      notes: note
+    this.form= { 
+      form_id: 0, 
+      category: cat, 
+      subcat: sub, 
+      name: name, 
+      item: item, 
+      purpose: purpose, 
+      cost: cost, 
+      serial: serial, 
+      date: date, 
+      maint_date: from, 
+      repeat: every, 
+      attach: this.selectedFiles, 
+      notes: note 
     };
-    
-    this.dService.addForm(this.form).subscribe(id => {
-      if (id[1] != 201) {
+
+    this.dService.addForm(this.form).subscribe( id => {
+      if(id[1] != 201){
         console.log('An error has occured adding this item!', this.form);
       }
       var assignedID = id[0];
       console.log('assignedID', assignedID.form_id);
-      this.iService.setData(assignedID.form_id, cat, sub, name, item, purpose, cost, serial, date, from, note, this.selectedFiles);
+      this.iService.setDatas(assignedID.form_id, cat, sub,name, item, purpose,cost,serial,date, from,every,note,this.selectedFiles);
     });
+  }  
     
-  }
 }
