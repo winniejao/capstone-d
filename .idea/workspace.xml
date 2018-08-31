@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2378ccb6-f6fc-4382-b159-418275e9616d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/assets/equipment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DB/assets/equipment.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/databases/Equipment.db" beforeDir="false" afterPath="$PROJECT_DIR$/DB/databases/Equipment.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/req.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB/req.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,12 +15,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="req.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DB/req.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1914">
-              <caret line="79" column="53" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
+            <state relative-caret-position="68">
+              <caret line="307" column="33" selection-start-line="307" selection-start-column="33" selection-end-line="307" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -80,6 +81,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -96,7 +98,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -243,22 +244,22 @@
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16693164" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16693164" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.3283582" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.45389506" side_tool="true" weight="0.33768657" />
-      <window_info anchor="bottom" id="Version Control" order="9" visible="true" weight="0.17350747" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49523053" visible="true" weight="0.35261193" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.17350747" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.3283582" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49523053" weight="0.35261193" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.5461049" weight="0.47201493" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TypeScript" order="7" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.3283582" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -275,13 +276,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dashboard/src/app/mainpage/mainpage.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/src/app/mainpage/mainpage.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -511,10 +505,13 @@
         <state relative-caret-position="-3162" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/DB/req.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1914">
-          <caret line="79" column="53" selection-start-line="79" selection-start-column="53" selection-end-line="79" selection-end-column="53" />
+        <state relative-caret-position="68">
+          <caret line="307" column="33" selection-start-line="307" selection-start-column="33" selection-end-line="307" selection-end-column="33" />
         </state>
       </provider>
     </entry>

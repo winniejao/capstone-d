@@ -305,7 +305,7 @@ def get_events(start_date, end_date):
                 all_rows = c.fetchall()
                 for row in all_rows:
                     saver = []
-                    if str(start) <= row[7] <= str(end):
+                    if row[7] and str(start) <= row[7] <= str(end):
                         saver.append(row[0])
                         saver.append(row[1])
                         saver.append(row[2])
