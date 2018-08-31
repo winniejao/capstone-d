@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchResult } from '../search-result';
-import { DummyService } from '../dummy.service';
-// TODO: use real service
+import { Form } from '../form';
+import { DashService } from '../dash.service';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,21 +10,37 @@ import { DummyService } from '../dummy.service';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
+  selectedCategory: string;
+  //categories: string[];
+  results: Form[];
   search_text: string;
-  categories: string[];
-  results: SearchResult[];
 
-  constructor(private dummyService: DummyService) { }
+  constructor(
+    private service: DashService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
-    this.getCategories();
+    //this.getCategories();
+    //this.selectedCategory = this.categories[0];
   }
 
   getResults(category: string, query: string): void {
-    this.dummyService.getSearchResults(category, query).subscribe(results => this.results = results);
+    this.service.search(query).subscribe(results => this.results = results);
   }
 
+  /*
   getCategories(): void {
-    this.dummyService.getCategories().subscribe(categories => this.categories = categories);
+    this.service.getCategories().subscribe(categories => this.categories = categories);
   }
+*/
+  runSearch(search_text: string): void {
+    this.router.navigate(['/searchresult', { search_term: search_text }]);
+  }
+  /*
+  runSearch(cat: string, search_text: string): void {
+    this.router.navigate(['/searchresult', { category: cat, search_term: search_text }]);
+  }
+  */
 }

@@ -37,6 +37,7 @@ export class CalendarComponent {
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [
+/*
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -54,6 +55,7 @@ export class CalendarComponent {
       title: 'A long event that spans 2 months',
       color: colors.blue
     }
+*/
   ];
 
   activeDayIsOpen: boolean = true;

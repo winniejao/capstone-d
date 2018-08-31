@@ -1,0 +1,16 @@
+.edit_form_component{
+  margin:25px;
+  width: 400px;
+}
+
+input.ng-dirty{
+  border-left: 5px solid dodgerblue;
+}
+
+input.ng-invalid{
+  border-left: 5px solid red;
+}
+
+.date{
+  width: 200px;
+}

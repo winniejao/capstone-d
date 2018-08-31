@@ -25,10 +25,14 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule } from '@angular/material/';
 import { ItemfieldsService } from './itemfields.service'
+import { PassServiceService } from './pass-service.service'
 import { DashService } from './dash.service'
 import { DummyService } from './dummy.service';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { SearchResultComponent } from './search-result/search-result.component';
 import { ViewitemformComponent } from './viewitemform/viewitemform.component';
+import { EditFormComponent } from './edit-form/edit-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -45,7 +49,9 @@ import { ViewitemformComponent } from './viewitemform/viewitemform.component';
     CalendarComponent,
     SubcategoryComponent,
     BreadcrumbComponent,
-    ViewitemformComponent
+    SearchResultComponent,
+    ViewitemformComponent,
+    EditFormComponent
   ],
   imports: [
     AppRoutingModule,
@@ -60,9 +66,10 @@ import { ViewitemformComponent } from './viewitemform/viewitemform.component';
     CalendarModule.forRoot(),
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule,
   ],
-  providers: [ {provide: DashService, useClass: DummyService }, ItemfieldsService],
+  providers: [ {provide: DashService, useClass: DashService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

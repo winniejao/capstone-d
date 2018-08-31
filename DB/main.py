@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 
-################ FORM BANK ##################
+################################## FORM BANK ######################################
 
 @app.route('/form/<string:category>/<string:subcat>', methods=['POST'])
 def rAddForm(category, subcat):
@@ -39,7 +39,7 @@ def rDeleteForm(category, subcat, formid):
         return jsonify(req.status_code[2])
 
 
-@app.route("/getevents/<string:start_date>/<string:end_date>")
+@app.route("/getevents/<string:start_date>/<string:end_date>", methods=['GET'])
 def rGetEvents(start_date, end_date):
     try:
         reqHandle = req.get_events(start_date, end_date)
@@ -49,7 +49,7 @@ def rGetEvents(start_date, end_date):
         return jsonify(req.status_code[2])
 
 
-@app.route("/preventative_maint/<string:category>/<string:subcat>")
+@app.route("/preventative_maint/<string:category>/<string:subcat>", methods=['GET'])
 def rGetPreventativeMaint(category, subcat):
     try:
         reqHandle = req.get_preventative_maint(category, subcat)
@@ -69,6 +69,16 @@ def rQuickAccess(category):
         return jsonify(req.status_code[2])
 
 
+@app.route("/openfile/<string:category>/<string:subcat>/<int:formid>/<string:filename>", methods=['GET'])
+def rOpenFile(category, subcat, formid, filename):
+    try:
+        reqHandle = req.open_file(category, subcat, formid, filename)
+        return jsonify(reqHandle)
+
+    except:
+        return jsonify(req.status_code[2])
+
+
 @app.route('/form/<string:category>/<string:subcategory>/<int:formid>', methods=['PUT'])
 def rAlterForm(category, subcategory, formid):
     getRequest = json.loads(request.data)
@@ -79,7 +89,7 @@ def rAlterForm(category, subcategory, formid):
         return "Form ID not found", 404
 
 
-################ NEW SUBCATEGORY BANK ############
+######################## NEW SUBCATEGORY BANK #########################
 @app.route('/landscape/sub/<string:subcat>', methods=['POST'])
 def rLandscapeSub(subcat):
     rtrn_hndl = req.new_subcat("landscape", subcat)
@@ -107,36 +117,36 @@ def rToolSub(subcat):
         return "Table already exists", 400
 
 
-################ DELETE SUBCAT BANK ######################
+########################## DELETE SUBCAT BANK ###########################
 @app.route('/deletesubcat/<string:category>/<string:subcat>', methods=['DELETE'])
 def rDeleteSub(category, subcat):
     try:
         req.del_subcat(category, subcat)
         return 'Subcategory Successfully Deleted', 201
     except:
-        return "Form ID Not Found", 404
+        return "Subcategory Not Found", 404
 
 
-################ GET SUBCAT FILTER BANK ##################
+########################## GET SUBCAT FILTER BANK ########################
 @app.route('/landscape/<string:subcat>', methods=['GET'])
 def rLandscapeGet(subcat):
-    reqHandle = req.get_filter("landscape", subcat)
+    reqHandle = req.get_table_data("landscape", subcat)
     return jsonify(reqHandle)
 
 
 @app.route('/equipment/<string:subcat>', methods=['GET'])
 def rEquipmentGet(subcat):
-    reqHandle = req.get_filter("equipment", subcat)
+    reqHandle = req.get_table_data("equipment", subcat)
     return jsonify(reqHandle)
 
 
 @app.route('/tools/<string:subcat>', methods=['GET'])
 def rToolsGet(subcat):
-    reqHandle = req.get_filter("tools", subcat)
+    reqHandle = req.get_table_data("tools", subcat)
     return jsonify(reqHandle)
 
 
-################## GET SUBCAT LIST BANK #######################
+######################## GET SUBCAT LIST BANK #######################
 @app.route('/subcatlist/<string:category>', methods=['GET'])
 def rSubcatGet(category):
     reqHandle = req.get_subcat(category)
@@ -146,7 +156,7 @@ def rSubcatGet(category):
         return jsonify(reqHandle)
 
 
-################## BACKUP / RESTORE DB ########################
+########################### BACKUP / RESTORE DB ########################
 @app.route('/backup', methods=['POST'])
 def rBackup():
     getRequest = json.loads(request.data)
@@ -161,10 +171,17 @@ def rRestore():
     return ("Restore Successful")
 
 
-################## SEARCH DB on STRING ########################
-@app.route('/search/<string:search_str>', methods=['GET'])
-def rSearch(search_str):
-    reqHandle = req.search(search_str)
+################## SEARCH DB on STRING ROUTE ########################
+# @app.route('/search/<string:search_str>', methods=['GET'])
+# def rSearch(search_str):
+#     reqHandle = req.search(search_str)
+#     return jsonify(reqHandle)
+
+# ################## SEARCH DB on STRING JSON ########################
+@app.route('/search', methods=['POST'])
+def rSearch():
+    getRequest = json.loads(request.data)
+    reqHandle = req.search(getRequest)
     return jsonify(reqHandle)
 
 
