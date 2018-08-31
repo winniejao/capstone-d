@@ -42,18 +42,3 @@ app.on('activate', function () {
     createWindow()
   }
 })
-
-const spawn = require("child_process");
-const p = spawn.spawn("python", ["DB\\main.py"]);
-p.stdout.on('data', (data) => {
-  console.log('stdout: ' + data);
-});
-
-p.stderr.on('data', (data) => {
-  console.log('stderr: ' + data);
-
-
-  p.on('close', (code) => {
-    console.log('child process exited with code ' + code);
-  });
-});

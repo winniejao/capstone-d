@@ -15,6 +15,16 @@ import { ElectronService } from 'ngx-electron';
 
 export class AdditemformComponent implements OnInit {
   form: Form;
+  name: string
+  purpose: string
+  cost: string
+  serial: string
+  date: string
+  maint_date: string
+  repeat: string
+  attach: string[]
+  notes: string
+  item: string
   
   constructor(
 	private location: Location, 
