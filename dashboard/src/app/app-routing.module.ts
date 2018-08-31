@@ -10,6 +10,7 @@ import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
+import { BackupComponent } from './backup/backup.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/mainpage', pathMatch: 'full' },
@@ -30,6 +31,7 @@ const routes: Routes = [
         { path: 'bar/baz', component: TestComponent }
       ]
   },
+  { path: 'backup', component: BackupComponent}
 ];
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

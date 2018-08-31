@@ -5,6 +5,7 @@ import { DashService } from '../dash.service';
 import { Form } from '../form';
 import { ActivatedRoute } from '@angular/router';
 import { PassServiceService } from '../pass-service.service';
+import { ElectronService } from 'ngx-electron';
 
 @Component({
   selector: 'app-additemform',
@@ -14,35 +15,69 @@ import { PassServiceService } from '../pass-service.service';
 
 export class AdditemformComponent implements OnInit {
   form: Form;
-  id: number;
-
+  
   constructor(
 	private location: Location, 
 	private iService: ItemfieldsService,
-  private dService: DashService,
-  private pService: PassServiceService,
+  public pService: PassServiceService,
+  private _electronService: ElectronService,
+	private dService: DashService,
   private route: ActivatedRoute
   ) { }
 
+  selectedFiles: string[];
+
   ngOnInit() {
-    this.id = this.stringToNum(this.route.snapshot.paramMap.get('id'));
+  }
+
+  addAttachments(): void {
+    const path = this._electronService.remote.dialog.showOpenDialog( { properties: ['multiSelections', 'openFile']});
+    console.log(path);
+    if(path && path.length) {
+      this.selectedFiles = path;
+    }
+
+  }
+
+  remove(index: number) {
+    this.selectedFiles.splice(index, 1);
   }
 
   alertCancel() {
     this.location.back();
   }
 
-  passData(cat, sub, name, item, purpose, cost, serial, date, from,  every, note, attach) {
-    this.iService.setData(cat, sub,name, item, purpose,cost,serial,date, from,every,note,attach);
-    this.form={form_id:this.id, category:cat, subcat:sub, name:name, item:item, purpose:purpose, cost:cost, serial:serial, date:date, maint_date:from, repeat:every, attach:attach, notes:note};
-    // form_id????????
-    
-    this.dService.addForm(this.form).subscribe();
+  //attach removed and is now a property of the component
+  passData(cat, sub, name, item, purpose, cost, serial, date, from,  every, note) {
+    //Make sure the attach array is empty, not undefined
+    if( !this.selectedFiles) {
+      this.selectedFiles = [];
+    }
 
-  }
+    this.form= { 
+      form_id: 0, 
+      category: cat, 
+      subcat: sub, 
+      name: name, 
+      item: item, 
+      purpose: purpose, 
+      cost: cost, 
+      serial: serial, 
+      date: date, 
+      maint_date: from, 
+      repeat: every, 
+      attach: this.selectedFiles, 
+      notes: note 
+    };
 
-  stringToNum(str: any): number {
-    return str*1;
-  }
+    this.dService.addForm(this.table_details).subscribe( id => {
+      if(id[1] != 201){
+        console.log('An error has occured adding this item!', this.table_details);
+      }
+      var assignedID = id[0];
+      console.log('assignedID', assignedID.form_id);
+      this.iService.setData(assignedID.form_id, cat, sub,name, item, purpose,cost,serial,date, from,every,note,this.selectedFiles);
+    });
+  
     
 }

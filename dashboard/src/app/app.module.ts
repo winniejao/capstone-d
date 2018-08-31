@@ -5,9 +5,10 @@ import { CalendarModule } from 'angular-calendar';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap/modal/modal.module';
+import { NgxElectronModule } from 'ngx-electron';
 
 import { AppComponent } from './app.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
@@ -21,6 +22,7 @@ import { TabularComponent } from './tabular/tabular.component';
 import { TestComponent } from './test/test.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { SubcategoryComponent } from './subcategory/subcategory.component';
+import { FormValidatorDirective } from './form-validator.directive';
 
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { MatTableModule, MatTableDataSource, MatSortModule, MatPaginatorModule } from '@angular/material/';
@@ -32,6 +34,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ViewitemformComponent } from './viewitemform/viewitemform.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
+import { BackupComponent } from './backup/backup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -51,7 +54,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     BreadcrumbComponent,
     SearchResultComponent,
     ViewitemformComponent,
-    EditFormComponent
+    EditFormComponent,
+    BackupComponent,
+    FormValidatorDirective
   ],
   imports: [
     AppRoutingModule,
@@ -67,7 +72,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    ReactiveFormsModule,
+    NgxElectronModule,
+    ReactiveFormsModule
   ],
   providers: [ {provide: DashService, useClass: DashService }, ItemfieldsService, PassServiceService],
   bootstrap: [AppComponent]

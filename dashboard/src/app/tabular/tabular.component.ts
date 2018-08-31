@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core'; import { SearchResult } from '../search-result';
 import { DashService } from '../dash.service';
 import { ArrayResponse } from '../master-service';
-import { Form, FORM_HEADERS } from '../form';
+import { Form, FORM_HEADERS_ABR } from '../form';
 import { MatTableModule, MatTableDataSource, MatSort, MatPaginator } from '@angular/material/';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +18,7 @@ export class TabularComponent implements OnInit {
   cat: string;
   subcat: string;
   table_details: Form[];
-  table_columns: string[] = FORM_HEADERS;
+  table_columns: string[] = FORM_HEADERS_ABR;
   items: string[];
   dataSource: MatTableDataSource<Form>;
   pageSize = 10;
