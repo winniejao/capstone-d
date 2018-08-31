@@ -5,19 +5,21 @@ ul {
   overflow: hidden;
 }
 
+a{
+  display: block;
+}
+
 li:hover{
-  background-color: dodgerblue;
+  background-color: white;
 }
 
-table.table {
-}
-
-th, td {
-  border: 1px solid black;
+.table {
+  width:80%;
 }
 
 .tabular{
   margin: 25px;
+  width:95%;
 }
 
 .content:hover{
@@ -34,10 +36,9 @@ th, td {
 }
 
 .table{
-  width: 60%;
+  width: 1100px;
   height: 75%;
   float: right;
-
 }
 
 .button{
@@ -53,7 +54,33 @@ th, td {
   margin-top: 10px;
   padding: 20px 0;
   display: inline-block;
-  background-color: #eee;
   border-radius: 4px;
   text-align: center;
+  clear: left;
+  float:left;
+}
+
+.mat-table{
+  overflow: auto;
+}
+
+.mat-cell, .mat-header-cell {
+  overflow: hidden;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.mat-cell{
+  padding: 8px 8px 8px 8px;
+  min-width: 0px;
+}
+
+.mat-header-cell{
+  padding-top: 0;
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+.mat-column-purpose{
+  min-width: 100px;
 }

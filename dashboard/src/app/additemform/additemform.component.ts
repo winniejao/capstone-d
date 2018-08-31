@@ -37,10 +37,12 @@ export class AdditemformComponent implements OnInit {
     this.form={form_id:this.id, category:cat, subcat:sub, name:name, item:item, purpose:purpose, cost:cost, serial:serial, date:date, maint_date:from, repeat:every, attach:attach, notes:note};
     // form_id????????
     
-    this.dService.addForm(this.form);
+    this.dService.addForm(this.form).subscribe();
+
   }
 
   stringToNum(str: any): number {
     return str*1;
   }
+    
 }
