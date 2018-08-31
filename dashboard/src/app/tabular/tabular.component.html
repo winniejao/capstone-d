@@ -1,5 +1,4 @@
 <div class="tabular">
-  <!-- All of these will need to be anchors -->
   <div class="scrollbox">
     <ul>
       <li class="scrollboxline" *ngFor="let itm of items">
@@ -15,6 +14,7 @@
         <td mat-cell *matCellDef="let row"><a [routerLink]="['/editform', { id: row.form_id, category: row.category, subcat: row.subcat }]"> {{row.form_id}} </a></td>
       </ng-container>
 
+      <!-- Redundant?
       <ng-container matColumnDef="category">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
         <td mat-cell *matCellDef="let row" #row.category> {{row.category}} </td>
@@ -24,6 +24,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Subcategory </th>
         <td mat-cell *matCellDef="let row"> {{row.subcat}} </td>
       </ng-container>
+      -->
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
