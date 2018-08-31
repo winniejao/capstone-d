@@ -1,7 +1,7 @@
 <table>
   <tr>
     <th> FormID </th>
-    <td> <input type="text" id="formid" value="{{iService.getID()}}" #formid> </td>
+    <td> {{iService.getID()}} </td>
   </tr>
   <tr>
     <th> Category </th>
@@ -13,42 +13,42 @@
   </tr>
   <tr>
     <th> Name </th>
-    <td> <input type="text" id="name" value="{{iService.getName()}}" #name > </td>
+    <td> {{iService.getName()}}  </td>
   </tr>
   <tr>
     <th> Item </th>
-    <td> <input type="text" id="item" value="{{iService.getItem()}}" #item> </td>
+    <td> {{iService.getItem()}} </td>
   </tr>
   <tr>
     <th> Purpose </th>
-    <td> <input type="text" id="purpose" value="{{iService.getPurpose()}}" #purpose> </td>
+    <td>{{iService.getPurpose()}}</td>
   </tr>
   <tr>
     <th> Cost </th>
-    <td> $<input type="text" id="cost" value="{{iService.getCost()}}" #cost> </td>
+    <td> ${{iService.getCost()}} </td>
   </tr>
   <tr>
     <th> Serial </th>
-    <td> <input type="text" id="serial" value="{{iService.getSerial()}}" #serial> </td>
+    <td> {{iService.getSerial()}} </td>
   </tr>
   <tr>
     <th> Date </th>
-    <td> <input type="date" id="date" value="{{iService.getDate()}}"  #date> </td>
+    <td> {{iService.getDate()}} </td>
   </tr>
   <tr>
     <th> Maintenance Date </th>
-    <td> <input type="date" id="startdate" value="{{iService.getFromDate()}}"  #startdate></td>
-    <td> Every <input type="text" style="width:40px; padding: 0; margin:0;" id="every" value="{{iService.getEvery()}}" #every></td> 
-    <td id="dwm" style="padding:0"> {{iService.getDwm()}}
+    <td> {{iService.getFromDate()}}</td>
+    <td> Every {{iService.getEvery()}} </td> 
+    <td> {{iService.getDwm()}}
     </td>
   </tr>
   <tr>
     <th> Attachments </th>
-    <td> {{iService.getNote()}} <input type="file" id="attachments" multiple  #attach> </td>
+    <td> {{iService.getNote()}}  </td>
   </tr>
   <tr>
     <th> Notes </th>
-    <td colspan="2"> <input type="text" id="note" value="{{iService.getAttach()}}" #note> </td>
+    <td colspan="2"> {{iService.getAttach()}}</td>
   </tr>
   <tr>
 
