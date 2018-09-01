@@ -64,13 +64,39 @@
               name="repeat" />
         
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label>Attachment</label>
         <input type="file"
               class="form-control"
               [(ngModel)]="attach"
               name="attach"
               multiple />
+      </div> -->
+      <!-- <tr>
+        <th> Attachments </th>
+        <td> <button (click)="addAttachments()">Attach files</button></td>
+      </tr>
+      <tr *ngFor="let file of selectedFiles; let i = index">
+          <div class="row" >
+            <div class="col">
+                {{ file }} 
+            </div>
+            <div class="col">
+                <button class="btn btn-default btn-xs" (click)="remove(i)"> X </button>
+            </div>
+          </div>
+        </tr>
+      <tr> -->
+      <div>
+        <button (click)="addAttachments()">Attach files</button>
+        <div  *ngFor="let file of selectedFiles; let i = index" class="row">
+            <div class="col">
+              {{ file }}
+            </div>
+            <div class="col">
+              <button class="btn btn-default btn-xs" (click)="remove(i)"> X </button>
+            </div>
+        </div>
       </div>
       <div class="form-group">
         <label>Notes</label>

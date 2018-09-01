@@ -22,9 +22,17 @@ export class DashService implements MasterService {
   constructor(private http: HttpClient) { }
 
   private cleanAttach(input: string[]){
-    input.forEach(element => {
-      element = element.replace(/\\/g, '/');
-    });
+    var output = [];
+    if(input){
+      input.forEach(element => {
+        element = element.replace(/\\/g, '/');
+        output.push(element.replace(/\\/g, '/'));
+      });
+      console.log('Clean attachment returning', output);
+      return output;
+    } else {
+      return [];
+    }
   }
 
   private cleanPath(input: string): string {
@@ -187,7 +195,7 @@ export class DashService implements MasterService {
     }
     console.log('RIGHT BEFORE CLEAN ATTACH', input);
 
-    this.cleanAttach(input.attach);
+    input.attach = this.cleanAttach(input.attach);
     console.log('Cleaned attachment before sending to python', input);
     return this.http.post(route, input).pipe(
       catchError(this.handleError('addForm', 0)),
@@ -234,7 +242,7 @@ export class DashService implements MasterService {
       input.subcat + '/' +
       input.form_id;
 
-    this.cleanAttach(input.attach);
+    input.attach = this.cleanAttach(input.attach);
     console.log('Cleaned attachment before sending to python', input);
     return this.http.put(route, input).pipe(
       catchError(this.handleError('updateForm')),
