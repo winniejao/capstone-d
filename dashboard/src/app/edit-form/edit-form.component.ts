@@ -21,6 +21,8 @@ export class EditFormComponent implements OnInit {
   newForm: FormGroup;
   submitted: boolean = false;
   edit: boolean = false;
+  deleting: boolean = false;
+  deleted: boolean = false;
 
   constructor(
     private router: Router,
@@ -64,8 +66,7 @@ export class EditFormComponent implements OnInit {
       cost: new FormControl(this.form.cost,
         [Validators.required]),
       serial: new FormControl(this.form.serial),
-      maint_date: new FormControl(this.form.maint_date,
-        [dateValidator]),
+      maint_date: new FormControl(this.form.maint_date),
       repeat: new FormControl(this.form.repeat),
       notes: new FormControl(this.form.notes),
     });
@@ -90,5 +91,19 @@ export class EditFormComponent implements OnInit {
       this.newForm.enable();
     }
     this.edit = true;
+  }
+
+  enableDelete(): void {
+    this.deleting = true;
+  }
+
+  disableDelete(): void {
+    this.deleting = false;
+  }
+
+  deleteForm(): void {
+    this.deleting = false;
+    this.deleted = true;
+    this.service.deleteForm(this.form).subscribe();
   }
 }

@@ -59,7 +59,9 @@ export class AdditemformComponent implements OnInit {
   }
 
   //attach removed and is now a property of the component
-  passData(cat, sub, name, item, purpose, cost, serial, date, from,  every, note) {
+  //passData(cat, sub, name, item, purpose, cost, serial, date, from,  every, note) {
+    passData(cat, sub) {
+  
     //Make sure the attach array is empty, not undefined
     if( !this.selectedFiles) {
       this.selectedFiles = [];
@@ -69,16 +71,16 @@ export class AdditemformComponent implements OnInit {
       form_id: 0, 
       category: cat, 
       subcat: sub, 
-      name: name, 
-      item: item, 
-      purpose: purpose , 
-      cost: cost, 
-      serial: serial ? serial : '', 
-      date: date ? date : '', 
-      maint_date: from ? from : '', 
-      repeat: every ? every : 0, 
+      name: this.name, 
+      item: this.item, 
+      purpose: this.purpose , 
+      cost: this.cost, 
+      serial: this.serial ? this.serial : '', 
+      date: this.date ? this.date : '', 
+      maint_date: this.maint_date ? this.maint_date : '', 
+      repeat: this.repeat ? this.repeat : 0, 
       attach: this.selectedFiles, 
-      notes: note ? note : '' 
+      notes: this.notes ? this.notes : '' 
     };
 
     this.dService.addForm(this.form).subscribe( id => {
@@ -87,7 +89,7 @@ export class AdditemformComponent implements OnInit {
       }
       var assignedID = id[0];
       console.log('assignedID', assignedID.form_id);
-      this.iService.setDatas(assignedID.form_id, cat, sub, name, item, purpose,cost, serial,date, from,every,note,this.selectedFiles);
+      this.iService.setDatas(assignedID.form_id, cat, sub, this.name, this.item, this.purpose,this.cost, this.serial,this.date, this.maint_date,this.repeat,this.notes,this.selectedFiles);
     });
   }  
     

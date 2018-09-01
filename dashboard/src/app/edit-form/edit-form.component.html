@@ -1,4 +1,4 @@
-<div class="edit_form_component" *ngIf="form && !submitted">
+<div class="edit_form_component" *ngIf="form && !submitted && !deleting && !deleted">
   <form [formGroup]="newForm" #editForm="ngForm" (ngSubmit)="onSubmit()">
     <h2>Form #{{form.form_id}}</h2>
     <h3>Category: {{form.category}}</h3>
@@ -98,9 +98,14 @@
       Edit Form
     </button>
 
+    <button (click)="enableDelete()"
+            class="btn btn-danger">
+      Delete Form
+    </button>
+
     <button type="submit"
             [disabled]="newForm.pristine || newForm.invalid"
-            class="btn btn-primary">
+            class="btn btn-success">
       Save Changes
     </button>
   </form>
@@ -118,6 +123,33 @@
     <p>Maintenance Date: {{form.maint_date}}</p>
     <p>Repeat: {{form.repeat}}</p>
     <p>Notes: {{form.notes}}</p>
+    <button class="btn btn-primary" [routerLink]="['/tabular', { cat: category, subcat: subcat }]">Click to return to {{subcat}} page.</button>
+  </div>
+</div>
+
+<div *ngIf="form && deleting" class="alert alert-danger">
+  <h3>Are you sure you want to delete this form?</h3>
+  <div class="alert">
+    <p>Name: {{form.name}}</p>
+    <p>Form ID: {{form.form_id}}</p>
+    <p>Item: {{form.item}}</p>
+    <p>Purpose: {{form.purpose}}</p>
+    <p>Cost: ${{form.cost}}</p>
+    <p>Serial Number: {{form.serial}}</p>
+    <p>Maintenance Date: {{form.maint_date}}</p>
+    <p>Repeat: {{form.repeat}}</p>
+    <p>Notes: {{form.notes}}</p>
+    <button class="btn btn-secondary" (click)="disableDelete()">Cancel</button>
+    <button class="btn btn-danger" (click)="deleteForm()">Delete Form</button>
+  </div>
+</div>
+
+<div *ngIf="form && deleted" class="alert alert-primary">
+  <h3>The form has been deleted:</h3>
+  <div class="alert alert-light">
+    <p>Name: {{form.name}}</p>
+    <p>Form ID: {{form.form_id}}</p>
+    <p>Item: {{form.item}}</p>
     <button class="btn btn-primary" [routerLink]="['/tabular', { cat: category, subcat: subcat }]">Click to return to {{subcat}} page.</button>
   </div>
 </div>
