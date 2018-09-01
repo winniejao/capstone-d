@@ -14,3 +14,7 @@ input.ng-invalid{
 .date{
   width: 200px;
 }
+
+button{
+  margin: 3px;
+}

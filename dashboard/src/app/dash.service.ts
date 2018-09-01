@@ -21,10 +21,15 @@ export class DashService implements MasterService {
 
   constructor(private http: HttpClient) { }
 
-  private cleanAttach(input: string[]){
-    input.forEach(element => {
-      element = element.replace(/\\/g, '/');
-    });
+  private cleanAttach(input: string[]) {
+    if (input) {
+      input.forEach(element => {
+        element = element.replace(/\\/g, '/');
+      });
+    }
+    else {
+      return [];
+    }
   }
 
   private cleanPath(input: string): string {
