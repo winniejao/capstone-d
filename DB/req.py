@@ -18,7 +18,8 @@ test_data = {
     "maint_date": "2018-12-25",
     "repeat": "6",
     "attach": ["E:/Test1234.txt", "E:/file1.txt"],
-    "notes": "No chip reader functionality just yet"
+    "notes": "No chip reader functionality just yet",
+    "completed": "1"
 }
 
 status_code = [200, 201, 404]
@@ -161,8 +162,8 @@ def add_form(category, subcat, formInfo):
         c = conn.cursor()
         c.execute(
             "INSERT INTO {}(form_id, name, item, purpose, cost, serial, date, maint_date, repeat, attach, "
-            "notes, category, subcat) VALUES(?,?,?,?,?,?,?,?,?, "
-            "?,?,?,?)".format(subcat),
+            "notes, category, subcat, completed) VALUES(?,?,?,?,?,?,?,?,?, "
+            "?,?,?,?,?)".format(subcat),
             (form_id,
              formInfo["name"],
              formInfo["item"],
@@ -175,7 +176,8 @@ def add_form(category, subcat, formInfo):
              attachment,
              formInfo["notes"],
              category,
-             subcat))
+             subcat, 
+             0))
         conn.commit()
         conn.close()
         success_flag = True
@@ -476,8 +478,8 @@ def alter_form(category, subcat, formid, dict):
     update_query = "UPDATE {} SET name = ?, item = ?,\
 	 		purpose = ?, cost = ?, serial = ?,\
 			date = ?, maint_date = ?, repeat =?,\
-            notes = ?, category =?, subcat = ?\
-			WHERE form_id = ?".format(subcat)
+            notes = ?, category =?, subcat = ?,\
+			completed = ? WHERE form_id = ?".format(subcat)
 
     validate_query = "SELECT form_id FROM {} \
                      WHERE form_id = {}".format(subcat, formid)
@@ -496,7 +498,7 @@ def alter_form(category, subcat, formid, dict):
                       dict['purpose'], dict['cost'], \
                       dict['serial'], dict['date'], \
                       dict['maint_date'], dict['repeat'], \
-                      dict['notes'], category, subcat, formid))
+                      dict['notes'], category, subcat, dict['completed'], formid))
         conn.commit()
         c.execute(query_tbl_reset)  # Deletes the existing attachments
         conn.commit()
@@ -530,7 +532,7 @@ def new_subcat(category, subcat):
 			 name TEXT, item TEXT, purpose TEXT, cost REAL,\
 	         serial TEXT, date DATE, maint_date DATE,\
              repeat INTEGER, attach TEXT,\
-			 notes TEXT, category TEXT, subcat TEXT)".format(subcat)
+			 notes TEXT, category TEXT, subcat TEXT, completed INTEGER)".format(subcat)
     query_exists = "SELECT count(*) FROM sqlite_master WHERE type='table' AND name= ?"
 
     conn = sqlite3.connect(".\\databases\\" + category + '.db')
@@ -794,9 +796,11 @@ def search(search_dict):
 #         conn.close()
 #     return json_str
 
-# if __name__ == '__main__':
-    # print(new_subcat("equipment", "boiler"))
-    # print(alter_form("equipment", "computer", 20180825153242, test_data))
+if __name__ == '__main__':
+    # print(new_subcat("landscape", "trail"))
+    # print(add_form("landscape", "trail", test_data))
+    # print(get_form("equipment", "boiler", 20180905110228))
+    # print(alter_form("landscape", "trail", 20180906145702, test_data))
     # attach_table("equipment", "Computer", 2, test_data)
     # print(get_subcat("equipment"))
     # print(get_filter("equipment", "air conditioning unit"))
@@ -804,5 +808,5 @@ def search(search_dict):
 # backup_db({"path": "C:\\Users\\Ben3\\Desktop\\"})
 # restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
 # print(search("Laptop"))
-# del_subcat("Equipment", "Computer")
+    del_subcat("Landscape", "Trail")
     # print(flpth_return(test_lst['attach']))
