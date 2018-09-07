@@ -302,9 +302,9 @@ export class DashService implements MasterService {
   openFile(input: Form, filename: string): Observable<any> {
     var route = pythonURL +
     '/openfile/' +
-    input.category.toLowerCase() +
-    input.subcat.toLowerCase() +
-    input.form_id.toString() +
+    input.category.toLowerCase() + '/' +
+    input.subcat.toLowerCase() + '/' +
+    input.form_id.toString() + '/' +
     filename;
 
     return this.http.get(route).pipe(
@@ -331,6 +331,7 @@ export class DashService implements MasterService {
 
   //Credit to https://stackoverflow.com/questions/222309/calculate-last-day-of-month-in-javascript
   //https://stackoverflow.com/users/658303/lebreeze
+  //Really should migrate to momentJS instead of my hacky implementation in javascript
   daysInMonth(iMonth: number, iYear: number): number {
     return 32 - new Date(iYear, iMonth, 32).getDate();
   }

@@ -27,6 +27,3 @@ computer
 air_conditioning_unit
 boiler
 tractor
-tractors
-tractors
-tractors

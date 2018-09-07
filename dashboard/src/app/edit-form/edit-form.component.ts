@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { validateConfig } from '@angular/router/src/config';
 import { dateValidator, FormValidatorDirective } from '../form-validator.directive';
 import { DISABLED } from '@angular/forms/src/model';
+import { ElectronService } from 'ngx-electron';
 
 @Component({
   selector: 'app-edit-form',
@@ -27,6 +28,7 @@ export class EditFormComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private _electronService: ElectronService,
     private service: DashService,
   ) { }
 
@@ -47,12 +49,29 @@ export class EditFormComponent implements OnInit {
     this.service.getForm(this.category, this.subcat, this.id).subscribe(
       res => this.form = res[0],
       error => console.log("Error: ", error),
-      () => this.initNewForm()
+      () => {
+        this.initNewForm();
+      } 
       );
   }
 
   stringToNum(str: any): number {
     return str * 1;
+  }
+
+  open(input: string): void {
+    this.service.openFile(this.form,input).subscribe();
+  }
+
+  addAttachments(): void {
+    const path = this._electronService.remote.dialog.showOpenDialog( { properties: ['multiSelections', 'openFile']});
+    console.log(path);
+    if(path && path.length) {
+      path.forEach(fp => {
+        this.form.attach.push(fp);
+      })
+    }
+
   }
 
   initNewForm(): void {

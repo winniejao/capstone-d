@@ -112,7 +112,7 @@
         Form is not valid.
     </div>
     <button type="submit" 
-            (click)="passData(pService.getCat(), pService.getSubcat(), name, item, purpose, cost, serial, date, maint_date,  repeat, notes);" 
+            (click)="passData(pService.getCat(), pService.getSubcat())" 
             [routerLink]="['/tabular', {cat: pService.getCat(), subcat: pService.getSubcat()}]"
             [disabled]="addForm.pristine || !addForm.valid"
             class="btn btn-primary">Save</button>
