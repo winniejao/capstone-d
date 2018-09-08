@@ -19,7 +19,7 @@ import { DashService } from '../dash.service';
 })
 export class MainpageComponent implements OnInit{
   equip: string = 'equipment';
-  tool: string = 'tool';
+  tool: string = 'tools';
   land: string = 'landscape';
   equipSub1: string = 'Boiler';
   equipSub2: string = "Boiler2";

@@ -1,6 +1,6 @@
 .edit_form_component{
   margin:25px;
-  width: 400px;
+  max-width: 400px;
 }
 
 input.ng-dirty{
@@ -9,6 +9,19 @@ input.ng-dirty{
 
 input.ng-invalid{
   border-left: 5px solid red;
+}
+
+.attachment {
+  max-width: 40%;
+}
+
+.attach-item {
+  color: blue;
+  list-style: none;
+}
+
+.attach-item:hover {
+  color: deepskyblue;
 }
 
 .date{
