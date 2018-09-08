@@ -1,7 +1,7 @@
 <div class ="container-fluid">
   <div class="row">
       <div class="col-md-4">
-        <div *ngFor="let cat of [{catType: 'equipment', quickCat: quickEquip}, {catType: 'tool', quickCat: quickTool}, {catType: 'landscape', quickCat: quickLand}]">
+        <div *ngFor="let cat of [{catType: 'equipment', quickCat: quickEquip}, {catType: 'tools', quickCat: quickTool}, {catType: 'landscape', quickCat: quickLand}]">
             <div class="row">
                 <div class="col-md-4">
                   <button class="btn btn-primary category" [routerLink]="['/', cat.catType]"> {{ cat.catType | titlecase }}</button>

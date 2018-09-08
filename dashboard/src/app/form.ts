@@ -4,6 +4,9 @@ export const FORM_HEADERS: string[] = ['form_id', 'category', 'subcat', 'name', 
 export const FORM_HEADERS_ABR: string[] = ['form_id', 'name', 'item', 'purpose', 'cost', 'serial', 'date', 'maint_date', 'attachment', 'notes'];
 export const FORM_HEADERS_XREPEAT: string[] = ['form_id', 'category', 'subcat', 'name', 'item', 'purpose', 'cost', 'serial', 'date', 'maint_date', 'attachment', 'notes'];
 
+/*
+ * The constructor is for the dummyservice mock. It should really be an optional parameter constructor
+ */
 export class Form {
     constructor(id: number, cat: string, scat: string){
           this.form_id = id;
@@ -19,9 +22,13 @@ export class Form {
           this.repeat = 2;
           this.attach = [];
           this.notes = "TestNote";
+          this.completed = 0;
     }
     form_id: number;
     category: string;
+    //0 for uncompleted
+    //1 for completed
+    completed: number;
     subcat: string;
     name: string;
     item: string;
@@ -31,7 +38,8 @@ export class Form {
     date: string;
     maint_date: string;
     repeat: number;
-    //Do NOT use forward slashes for paths
+    //Do NOT use back slashes for paths
+    //Note the DashService cleanattach for regex to clean it
     attach: string[];
     notes: string;
 

@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'additemform', component: AdditemformComponent },
   { path: 'editform', component: EditFormComponent },
   { path: 'equipment', component: SubcategoryComponent},
-  { path: 'tool', component: SubcategoryComponent},
+  { path: 'tools', component: SubcategoryComponent},
   { path: 'landscape', component: SubcategoryComponent},
   { path: 'tabular', component: TabularComponent },
   {
