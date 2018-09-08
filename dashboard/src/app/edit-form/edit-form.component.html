@@ -71,7 +71,7 @@
       </div>
 
       <div *ngIf="this.form.maint_date" class="form-check">
-          <input class="form-check-input" type="checkbox" name="taskCompleted" id="taskCompleted" value="complete" [checked]="completed" formControlName="complete">
+          <input class="form-check-input" type="checkbox" name="taskCompleted" id="taskCompleted" value="complete" [checked]="this.completed" formControlName="complete" >
           <label class="form-check-label" for="taskCompleted">
             Task completed
           </label>

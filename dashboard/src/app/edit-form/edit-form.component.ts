@@ -109,11 +109,12 @@ export class EditFormComponent implements OnInit {
     this.form.maint_date = this.newForm.get('maint_date').value;
     this.form.repeat = this.newForm.get('repeat').value;
     this.form.notes = this.newForm.get('notes').value;
-    if(this.completed) {
+    if(this.newForm.get('complete').value) {
       this.form.completed = 1;
     } else {
       this.form.completed = 0;
     }
+    console.log('insideonSubmit', this.form);
     this.service.updateForm(this.form).subscribe();
     this.submitted = true;
   }
