@@ -70,6 +70,7 @@ export class AdditemformComponent implements OnInit {
     this.form= { 
       form_id: 0, 
       category: cat, 
+      completed: 0,
       subcat: sub, 
       name: this.name, 
       item: this.item, 

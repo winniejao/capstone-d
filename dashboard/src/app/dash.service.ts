@@ -244,10 +244,7 @@ export class DashService implements MasterService {
 
     input.attach = this.cleanAttach(input.attach);
     console.log('Cleaned attachment before sending to python', input);
-    return this.http.put(route, input).pipe(
-      catchError(this.handleError('updateForm')),
-      tap(data => console.log(data)
-      ));
+    return this.http.put(route, input);
   }
 
   

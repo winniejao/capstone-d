@@ -24,6 +24,7 @@ export class EditFormComponent implements OnInit {
   edit: boolean = false;
   deleting: boolean = false;
   deleted: boolean = false;
+  completed: boolean = false;
 
   constructor(
     private router: Router,
@@ -40,6 +41,7 @@ export class EditFormComponent implements OnInit {
       cost: new FormControl(''),
       serial: new FormControl(''),
       maint_date: new FormControl(''),
+      complete: new FormControl(''),
       repeat: new FormControl(''),
       notes: new FormControl(''),
     });
@@ -51,6 +53,11 @@ export class EditFormComponent implements OnInit {
       error => console.log("Error: ", error),
       () => {
         this.initNewForm();
+        if( this.form.completed === 1) {
+          this.completed = true;
+        } else {
+          this.completed = false;
+        }
       } 
       );
   }
@@ -86,6 +93,7 @@ export class EditFormComponent implements OnInit {
         [Validators.required]),
       serial: new FormControl(this.form.serial),
       maint_date: new FormControl(this.form.maint_date),
+      complete: new FormControl(this.completed),
       repeat: new FormControl(this.form.repeat),
       notes: new FormControl(this.form.notes),
     });
@@ -101,6 +109,12 @@ export class EditFormComponent implements OnInit {
     this.form.maint_date = this.newForm.get('maint_date').value;
     this.form.repeat = this.newForm.get('repeat').value;
     this.form.notes = this.newForm.get('notes').value;
+    if(this.newForm.get('complete').value) {
+      this.form.completed = 1;
+    } else {
+      this.form.completed = 0;
+    }
+    console.log('insideonSubmit', this.form);
     this.service.updateForm(this.form).subscribe();
     this.submitted = true;
   }

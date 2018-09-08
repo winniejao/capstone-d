@@ -21,16 +21,18 @@ export class ViewitemformComponent implements OnInit {
     this.location.back();    
   }
 
-
+  /**
+   * I believe this section is not used anymore and has been migrated to editform
+   */
   passData(id, cat, sub, name, item, purpose, cost, serial, date, from,  every, note, attach) {
     this.iService.setData( cat, sub,name, item, purpose,cost,serial,date, from,every,note,attach);
-    this.table_details={form_id:id, category:cat, subcat:sub, name:name, item:item, purpose:purpose, cost:cost, serial:serial, date:date, maint_date:from, repeat:every, attach:attach, notes:note};
+    //this.table_details={form_id:id, category:cat, subcat:sub, name:name, item:item, purpose:purpose, cost:cost, serial:serial, date:date, maint_date:from, repeat:every, attach:attach, notes:note};
     this.dService.addForm(this.table_details);
   }
 
   deleteData(id, cat, sub, name, item, purpose, cost, serial, date, from,  every,  note, attach) {
     this.iService.setData( cat, sub,name, item, purpose,cost,serial,date, from,every,note,attach);
-    this.table_details={form_id:id, category:cat, subcat:sub, name:name, item:item, purpose:purpose, cost:cost, serial:serial, date:date, maint_date:from, repeat:every, attach:attach, notes:note};
+    //this.table_details={form_id:id, category:cat, subcat:sub, name:name, item:item, purpose:purpose, cost:cost, serial:serial, date:date, maint_date:from, repeat:every, attach:attach, notes:note};
     this.dService.deleteForm(this.table_details);
   }
 }
