@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
 import { Form } from './form'
-import { MasterService, ArrayResponse, SingleResponse, QuickResponse, EventResponse } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse, QuickResponse, EventResponse, PMResponse, PMForm } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 import { del } from '../../node_modules/@types/selenium-webdriver/http';
 
@@ -348,6 +348,15 @@ export class DashService implements MasterService {
       ));
 
   }
+
+  getPM(cat: string, subcat: string): Observable<PMResponse> {
+    //{{url}}/preventative_maint/equipment/newsubcat
+    return this.http.get<PMResponse>(pythonURL + '/preventative_maint/' + cat.toLowerCase() + '/' + subcat.toLowerCase()).pipe(
+      catchError(this.handleError('getPM', { 0: [], 1: 404 })),
+      tap(data => console.log('GetPM',data)
+      ));
+  }
+
 
   /**
    * Handle Http operation that failed.

@@ -1,9 +1,12 @@
 <div class="tabular">
   <div class="left">
-    <div class="scrollbox">
+    <div *ngIf="items && items.length > 0"class="scrollbox">
       <ul>
+        <li *ngIf="items.length > 1" (click)="resetFilter()">
+          Display All
+        </li>
         <li class="scrollboxline" *ngFor="let itm of items">
-          <a [routerLink]="['/tabular', { cat: cat, subcat: itm }]">{{itm}}</a>
+          <a (click)="filterSelection(itm)">{{itm}}</a>
         </li>
       </ul>
     </div>
@@ -12,9 +15,9 @@
       <br />
       <button class="btn btn-primary" id="addform" (click)="passData(cat, subcat); passCat=cat; passSubcat=subcat;" [routerLink]="['../additemform']"> Add Form </button>
       <br>
-      <a class="btn btn-primary" routerLink="/"> PM </a>
+      <a class="btn btn-primary" [routerLink]="['/pm', { cat: cat, subcat: subcat }]"> PM </a>
       <br>
-      <a class="btn btn-primary" routerLink="/"> Manual </a>
+      <!-- <a class="btn btn-primary" routerLink="/"> Manual </a> -->
     </div>
   </div>
 

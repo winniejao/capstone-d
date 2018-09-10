@@ -36,6 +36,7 @@ import { ViewitemformComponent } from './viewitemform/viewitemform.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { BackupComponent } from './backup/backup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PrevMaintComponent } from './prev-maint/prev-maint.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ViewitemformComponent,
     EditFormComponent,
     BackupComponent,
-    FormValidatorDirective
+    FormValidatorDirective,
+    PrevMaintComponent
   ],
   imports: [
     AppRoutingModule,

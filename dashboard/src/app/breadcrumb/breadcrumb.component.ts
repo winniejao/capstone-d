@@ -14,24 +14,34 @@ export class BreadcrumbComponent implements OnInit {
   crumbtrail: string[] = [];
   crumtrailActive: string;
 
+  pm: boolean = false;
+
   routerEvent: any; //if I need to unsubscribe
 
   parseTrail(input: string): void {
 
     if( input.includes(';')){
+      if(input.includes('/pm;')) {
+        this.pm = true;
+      }
       this.crumbtrail = input.trim()
         .replace('/searchresult', '')
         .replace('search_term=', '')
         .replace('/editform', '')
         .replace('subcat=', '')
         .replace('/tabular', '')
+        .replace('/pm', '')
         .replace('cat=', '')
         .replace('category=', '')
         .replace('id=', '')
         .split(';')
         .filter(x => x != '')
         .filter(x => x != 'mainpage');
-        this.crumtrailActive = this.crumbtrail.pop();
+        if(this.pm){
+          this.crumtrailActive = 'Preventative Maintenance';
+        } else {
+          this.crumtrailActive = this.crumbtrail.pop();
+        }
     } else {
       this.crumbtrail = input.trim()
       .split('/')
@@ -39,7 +49,7 @@ export class BreadcrumbComponent implements OnInit {
       .filter(x => x != 'mainpage');
       this.crumtrailActive = this.crumbtrail.pop();
     }
-
+    this.pm = false;
   }
 
   redirect(input: string): void {

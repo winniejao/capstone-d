@@ -1,0 +1,37 @@
+<div>
+  <ul>
+    <li *ngFor="let item of theTable">
+      {{item.name}} 
+
+    </li>
+  </ul>
+
+</div>
+*ngFor="let item of theTable"
+
+<div>
+  <table class="table table-striped table-hover ">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Maintenance Date</th>
+        <th>Repeating interval</th>
+    </tr>
+    <tr *ngFor="let item of theTable">
+      <td>
+        {{item.form_id}}
+      </td>
+      <td>
+        {{item.name}}
+      </td>
+      <td>
+        {{item.maint_date}}
+      </td>
+      <td>
+        {{item.repeat}}
+      </td>
+
+    </tr>
+
+  </table>
+</div>

@@ -336,7 +336,7 @@ def get_preventative_maint(category, subcat):
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
 
-    field_names = ['form_id', 'name', 'main_date', 'repeat']
+    field_names = ['form_id', 'name', 'maint_date', 'repeat']
     final_data = []
     database = ".\\databases\\" + category + ".db"
     table_list = get_all_tables(database)

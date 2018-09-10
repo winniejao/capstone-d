@@ -43,6 +43,8 @@ export interface MasterService {
     restore( path: string): Observable<any>
 
     getEvents(month: Date): Observable<EventResponse>
+
+    getPM(cat: string, subcat: string): Observable<PMResponse>
 }
 
 //This is the shape and name I'm getting from the python server
@@ -64,5 +66,17 @@ export interface EventResponse {
 
 export interface QuickResponse {
     0: string[];
+    1: number;
+}
+
+export interface PMForm {
+    form_id: number;
+    maint_date: string;
+    name: string;
+    repeat: number;
+}
+
+export interface PMResponse {
+    0: PMForm[];
     1: number;
 }
