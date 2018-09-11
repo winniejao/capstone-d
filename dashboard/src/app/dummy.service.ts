@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 import { Form, FORM_HEADERS } from './form';
 import { MOCK_FORMS, MOCK_NUMBER } from './mock_forms'
 import { ActivatedRouteSnapshot } from '../../node_modules/@angular/router';
-import { MasterService, ArrayResponse, SingleResponse, QuickResponse, EventResponse } from './master-service';
+import { MasterService, ArrayResponse, SingleResponse, QuickResponse, EventResponse, PMForm, PMResponse } from './master-service';
 import { HttpResponse } from '@angular/common/http';
 
 
@@ -292,6 +292,14 @@ export class DummyService implements MasterService {
 
   getEvents(month: Date): Observable<EventResponse> {
     return of( { 0: { Equipment: this.dummyEquipmentList, Landscape: this.dummyLandscapeList, Tools: this.dummyToolList }, 1: 200});
+  }
+
+
+
+  getPM(cat: string, subcat: string): Observable<PMResponse> {
+    var rawData = this.dummyEquipmentList.concat(this.dummyLandscapeList, this.dummyToolList);
+    var filteredData = rawData.filter( x => x.maint_date) as PMForm[];
+    return of( { 0: filteredData, 1: 201});
   }
 
   /**

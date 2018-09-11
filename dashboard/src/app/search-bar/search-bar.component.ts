@@ -27,7 +27,9 @@ export class SearchBarComponent implements OnInit {
   }
 
   getResults(category: string, query: string): void {
-    this.service.search(query).subscribe(results => this.results = results);
+    if(category && query) {
+      this.service.search(query).subscribe(results => this.results = results);
+    }
   }
 
   /*

@@ -17,6 +17,7 @@ export class TabularComponent implements OnInit {
   cat: string;
   subcat: string;
   table_details: Form[];
+  full_details: Form[];
   table_columns: string[] = FORM_HEADERS_ABR;
   items: string[];
   dataSource: MatTableDataSource<Form>;
@@ -38,6 +39,15 @@ export class TabularComponent implements OnInit {
     private modalService: NgbModal
   ) { }
 
+  resetFilter(): void {
+    this.table_details = this.full_details;
+    this.dataSource = new MatTableDataSource(this.table_details);
+  }
+  filterSelection(input: string): void {
+    this.table_details = this.full_details.filter(x => x.name == input);
+    this.dataSource = new MatTableDataSource(this.table_details);
+  }
+
   ngOnInit() {
     this.cat = this.route.snapshot.paramMap.get('cat');
     this.subcat = this.route.snapshot.paramMap.get('subcat');
@@ -46,6 +56,7 @@ export class TabularComponent implements OnInit {
       //The return code is in res[1]
       var forms = res[0];
       this.table_details = forms;
+      this.full_details = forms;
       this.items = Array.from(new Set(forms.map(single => single.name)));
       this.num_results = this.table_details.length;
       // Need to decide how to pass search terms

@@ -10,6 +10,7 @@ import { TestComponent } from './test/test.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { BackupComponent } from './backup/backup.component';
+import { PrevMaintComponent } from './prev-maint/prev-maint.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/mainpage', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'tools', component: SubcategoryComponent},
   { path: 'landscape', component: SubcategoryComponent},
   { path: 'tabular', component: TabularComponent },
+  { path: 'pm', component: PrevMaintComponent},
   {
     path: 'searchresult',
     component: SearchResultComponent,
