@@ -17,7 +17,7 @@ test_data = {
     "date": "2018-08-25",
     "maint_date": "2018-12-25",
     "repeat": "6",
-    "attach": ["E:/Test1234.txt", "E:/file1.txt"],
+    "attach": ["E:/Test1234.txt", "E:/file1.txt", "E:/Gee.txt", "E:/Oh.docx"],
     "notes": "No chip reader functionality just yet",
     "completed": "1"
 }
@@ -110,6 +110,29 @@ def flpth_return(attch_lst):
        new_lst.append(splt_lst)
 
     return new_lst
+
+######################################################
+# Method Name: delete_attachments
+# Arguments (3): Category (DB), attch_tbl(Name of table)
+#                dict (Dictionary containing the
+#                attachments
+# Returns: Null
+# Description: Checks if a file attachment was removed
+#              in an alter_form call, if so, removes it
+#              from the attach table.
+######################################################
+def delete_attachment(category, attch_tbl, dict):
+    # item in dict does not exist in DB
+    # remove item from DB
+    conn = sqlite3.connect(".\\databases\\" + category + ".db")
+    c = conn.cursor()
+    c.execute("SELECT attach_path FROM {}".format(attch_tbl))
+    lst_temp = list(c.fetchall())
+    lst_to_fltr = [i[0] for i in lst_temp]
+    deletion_lst = list(set(lst_to_fltr).difference(dict['attach']))
+    for path in deletion_lst:
+        c.execute("DELETE FROM {} WHERE attach_path=?".format(attch_tbl), (path,))
+        conn.commit()
 
 ######################################################
 # Method Name: add_form
@@ -336,7 +359,7 @@ def get_preventative_maint(category, subcat):
     category = category.lower()
     subcat = subcat.replace(" ", "_").lower()
 
-    field_names = ['form_id', 'name', 'main_date', 'repeat']
+    field_names = ['form_id', 'name', 'maint_date', 'repeat']
     final_data = []
     database = ".\\databases\\" + category + ".db"
     table_list = get_all_tables(database)
@@ -484,7 +507,7 @@ def alter_form(category, subcat, formid, dict):
     validate_query = "SELECT form_id FROM {} \
                      WHERE form_id = {}".format(subcat, formid)
 
-    query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
+    # query_tbl_reset = "DELETE FROM {}".format(attch_tbl)
 
     conn = sqlite3.connect(".\\databases\\" + category + '.db')
     c = conn.cursor()
@@ -500,15 +523,16 @@ def alter_form(category, subcat, formid, dict):
                       dict['maint_date'], dict['repeat'], \
                       dict['notes'], category, subcat, dict['completed'], formid))
         conn.commit()
-        c.execute(query_tbl_reset)  # Deletes the existing attachments
-        conn.commit()
         conn.close()
+        # c.execute(query_tbl_reset)  # Deletes the existing attachments
+        # conn.commit()
         new_path_list = []
         if dict["attach"]:
             dict["attach"] = get_path_list(dict, formid, new_path_list)
-            print(dict["attach"])
+            # print(dict["attach"])
         try:
             attach_table(category, subcat, formid, dict)  # Adds the new attachments
+            delete_attachment(category, attch_tbl, dict)
         except:
             print("File not found")
         return 1
@@ -798,9 +822,9 @@ def search(search_dict):
 
 if __name__ == '__main__':
     # print(new_subcat("landscape", "trail"))
-    # print(add_form("landscape", "trail", test_data))
+    # print(add_form("Equipment", "Boilers", test_data))
     # print(get_form("equipment", "boiler", 20180905110228))
-    # print(alter_form("landscape", "trail", 20180906145702, test_data))
+    print(alter_form("equipment", "boilers", 20180910223708, test_data))
     # attach_table("equipment", "Computer", 2, test_data)
     # print(get_subcat("equipment"))
     # print(get_filter("equipment", "air conditioning unit"))
@@ -808,5 +832,5 @@ if __name__ == '__main__':
 # backup_db({"path": "C:\\Users\\Ben3\\Desktop\\"})
 # restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
 # print(search("Laptop"))
-    del_subcat("Landscape", "Trail")
+#     del_subcat("Landscape", "Trail")
     # print(flpth_return(test_lst['attach']))

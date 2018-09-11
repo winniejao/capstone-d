@@ -12,7 +12,6 @@ function createWindow () {
     backgroundColor: '#ffffff'
   })
 
-
   win.loadURL(`file://${basepath}/dist/dashboard/index.html`)
 
   //// uncomment below to open the DevTools.
@@ -40,5 +39,6 @@ app.on('activate', function () {
   // macOS specific close process
   if (win === null) {
     createWindow()
+    
   }
 })
