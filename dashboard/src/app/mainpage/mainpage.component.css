@@ -17,7 +17,8 @@ nav {
 .subcategory {
   width: 8rem;
   display: inline-block;
-  word-break: break-all;
+  word-wrap: normal;
+  overflow-wrap: break-word;
 }
 
 .btn {
@@ -136,7 +137,7 @@ app-calendar {
     width: 7rem !important;
   }
   .subcategory {
-    width: 5rem !important;
-    font-size: 12pt;
+    width: 7rem !important;
+    font-size: 10pt;
   }
 }
