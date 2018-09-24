@@ -34,6 +34,7 @@ export class BreadcrumbComponent implements OnInit {
         .replace('cat=', '')
         .replace('category=', '')
         .replace('id=', '')
+        .replace(/%20|_/g, " ")
         .split(';')
         .filter(x => x != '')
         .filter(x => x != 'mainpage');

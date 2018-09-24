@@ -2,7 +2,7 @@
   <div class="left">
     <div *ngIf="items && items.length > 0"class="scrollbox">
       <ul>
-        <li *ngIf="items.length > 1" (click)="resetFilter()">
+        <li class="scrollboxline" *ngIf="items.length > 1" (click)="resetFilter()">
           Display All
         </li>
         <li class="scrollboxline" *ngFor="let itm of items">

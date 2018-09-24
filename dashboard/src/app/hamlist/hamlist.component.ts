@@ -8,7 +8,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   animations: [
     trigger('changeTrigger', [
       state('out', style({
-        transform: 'translate3d(110%,0,0)'
+        transform: 'translate3d(150%,0,0)'
       })),
       state('in', style({
         transform: 'translate3d(70%,0,0)'

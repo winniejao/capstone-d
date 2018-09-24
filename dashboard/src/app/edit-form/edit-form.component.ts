@@ -74,9 +74,16 @@ export class EditFormComponent implements OnInit {
     const path = this._electronService.remote.dialog.showOpenDialog( { properties: ['multiSelections', 'openFile']});
     console.log(path);
     if(path && path.length) {
-      path.forEach(fp => {
-        this.form.attach.push(fp);
-      })
+      if(this.form.attach){
+        path.forEach(fp => {
+          this.form.attach.push(fp);
+          this.newForm.markAsDirty();
+        })
+      } else {
+        this.form.attach = path;
+        this.newForm.markAsDirty();
+      }
+
     }
 
   }

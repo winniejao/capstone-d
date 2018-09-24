@@ -6,18 +6,18 @@
                 <div class="col-md-4">
                   <button class="btn btn-primary category" [routerLink]="['/', cat.catType]"> {{ cat.catType | titlecase }}</button>
                 </div>
-                <div class="col-md-8">
+                <div class="col-">
                   <div class="subCategories">
                     <div class="row">
                       <div class="col-md-12">
-                        <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 0" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[0] }]">{{ cat.quickCat[0] }}</button>
-                        <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 1" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[1] }]">{{ cat.quickCat[1] }}</button>
+                        <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 0" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[0] }]">{{ cat.quickCat[0] | titlecase | underscore }}</button>
+                        <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 1" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[1] }]">{{ cat.quickCat[1] | titlecase | underscore}}</button>
                       </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                          <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 2" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[2] }]">{{ cat.quickCat[2] }}</button>
-                          <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 3" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[3] }]">{{ cat.quickCat[3] }}</button>
+                          <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 2" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[2] }]">{{ cat.quickCat[2]  | titlecase | underscore }}</button>
+                          <button class="btn btn-primary subcategory" *ngIf="cat.quickCat && cat.quickCat.length > 3" [routerLink]="['/tabular', { cat: cat.catType, subcat: cat.quickCat[3] }]">{{ cat.quickCat[3]  | titlecase | underscore }}</button>
                         </div>
                       </div>
                 </div>
