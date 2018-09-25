@@ -1,19 +1,21 @@
 import unittest
 import json
-from main import app
-import main
+from .. import main
 
 test_data = {
-	"form_id": "1197",
-	"name": "Boiler1",
-	"item": "Wood Pellets",
-	"purpose": "To Burn ",
-	"cost": "24.99 ",
-	"serial": "134-987-2210 ",
-	"date": "7/13/2018 ",
-	"attach": "C:/Users/Christian/Forms/Thing.pdf",
-	"notes": "All of these need to burn"
+    "name": "State POS Computer",
+    "item": "Card Reader",
+    "purpose": "Handles credit card payments",
+    "cost": "299.99",
+    "serial": "12867-9992837-2323683264823",
+    "date": "2018-08-25",
+    "maint_date": "2018-12-25",
+    "repeat": "6",
+    "attach": ["E:/Test1234.txt", "E:/file1.txt", "E:/Gee.txt", "E:/Oh.docx"],
+    "notes": "No chip reader functionality just yet",
+    "completed": "1"
 }
+
 
 class TestMain(unittest.TestCase):
     def setUp(self):

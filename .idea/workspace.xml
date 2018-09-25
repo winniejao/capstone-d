@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2378ccb6-f6fc-4382-b159-418275e9616d" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/DB/attachments/20180908140045_index.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB/attachments/20180910223708_DELL_HP_120301931.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB/attachments/20180910223708_Gee.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB/attachments/20180910223708_Oh.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB/attachments/20180910223708_Test1234.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DB/attachments/20180910223708_file1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/assets/equipment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DB/assets/equipment.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/databases/Equipment.db" beforeDir="false" afterPath="$PROJECT_DIR$/DB/databases/Equipment.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/attachments/20180825134608_file1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/attachments/20180825134608_somefile.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DB/req.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB/req.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,21 +17,22 @@
     <session id="-726273315">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="2" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1418" />
+          <entry key="py" value="1666" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1418" />
+          <entry key="Python" value="1666" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -57,24 +49,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DB/req.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
+            <state relative-caret-position="306">
+              <caret line="600" column="21" selection-start-line="600" selection-start-column="21" selection-end-line="600" selection-end-column="21" />
               <folding>
-                <marker date="1536647494754" expanded="true" signature="4228:4233" ph="..." />
-                <marker date="1536647494754" expanded="true" signature="4228:4725" ph="..." />
+                <marker date="1536648765266" expanded="true" signature="4240:4245" ph="..." />
+                <marker date="1536648765266" expanded="true" signature="4240:4865" ph="..." />
+                <marker date="1536648765266" expanded="true" signature="4764:4865" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dashboard/main.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
@@ -118,8 +111,8 @@
         <option value="$PROJECT_DIR$/dashboard/src/app/mainpage/mainpage.component.ts" />
         <option value="$PROJECT_DIR$/dashboard/src/app/mainpage/mainpage.component.html" />
         <option value="$PROJECT_DIR$/DB/main.py" />
-        <option value="$PROJECT_DIR$/DB/req.py" />
         <option value="$PROJECT_DIR$/dashboard/main.js" />
+        <option value="$PROJECT_DIR$/DB/req.py" />
       </list>
     </option>
   </component>
@@ -138,8 +131,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="269" />
-    <option name="y" value="-14" />
+    <option name="x" value="1912" />
+    <option name="y" value="-75" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
   </component>
@@ -148,7 +141,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -176,12 +168,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="wa&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TestCode" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="ts.external.directory.path" value="C:\Users\Raja\PycharmProjects\capstone-d\dashboard\node_modules\typescript\lib" />
   </component>
@@ -329,10 +322,9 @@
     <option name="totallyTimeSpent" value="19254000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="1912" y="-75" width="1936" height="1096" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16649105" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16649105" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -346,7 +338,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="9" weight="0.3283582" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.3283582" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.5461049" visible="true" weight="0.2733189" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.5461049" visible="true" weight="0.27234927" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.17350747" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.45389506" side_tool="true" weight="0.33768657" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -496,19 +488,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DB/get-pip.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3162" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/DB/get-pip.py" />
     <entry file="file://$PROJECT_DIR$/DB/req.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="28" column="29" selection-start-line="28" selection-start-column="29" selection-end-line="28" selection-end-column="29" />
+        <state relative-caret-position="306">
+          <caret line="600" column="21" selection-start-line="600" selection-start-column="21" selection-end-line="600" selection-end-column="21" />
           <folding>
-            <marker date="1536647494754" expanded="true" signature="4228:4233" ph="..." />
-            <marker date="1536647494754" expanded="true" signature="4228:4725" ph="..." />
+            <marker date="1536648765266" expanded="true" signature="4240:4245" ph="..." />
+            <marker date="1536648765266" expanded="true" signature="4240:4865" ph="..." />
+            <marker date="1536648765266" expanded="true" signature="4764:4865" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
@@ -519,13 +515,6 @@
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dashboard/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
