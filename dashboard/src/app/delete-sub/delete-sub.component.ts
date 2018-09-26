@@ -32,6 +32,7 @@ export class DeleteSubComponent implements OnInit {
 
   disableDelete(): void {
     this.delete = false;
+    this.removed = false;
   }
 
   deleteSubcategory(): void{
@@ -39,10 +40,10 @@ export class DeleteSubComponent implements OnInit {
       this.equipment = this.equipment.filter( item => item.toLowerCase() !== this.selectedName );
     }
     if(this.selectedCat === 'tools'){
-      this.equipment = this.equipment.splice(this.equipment.indexOf(name) , 1);
+      this.tools = this.tools.filter( item => item.toLowerCase() !== this.selectedName );
     }
     if(this.selectedCat === 'landscape'){
-      this.equipment = this.equipment.splice(this.equipment.indexOf(name) , 1);
+      this.landscape = this.landscape.filter( item => item.toLowerCase() !== this.selectedName );
     }
     this.service.deleteSubcategory(this.selectedCat, this.selectedName).subscribe();
     this.removed = true;
