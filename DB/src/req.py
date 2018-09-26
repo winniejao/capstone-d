@@ -386,7 +386,7 @@ def get_preventative_maint(category, subcat):
 ######################################################
 def write_quick_access(category, subcat):
     add_to_file = category + ".txt"
-    path_to_add = "..\\assets\\"
+    path_to_add = ".\\assets\\"
     file_list = os.listdir(path_to_add)
     if add_to_file in file_list:
         with open(os.path.join(path_to_add, add_to_file), "a") as file:
@@ -412,7 +412,7 @@ def read_quick_access(category):
     success_flag = False
     category = category.lower()
     filename = category + ".txt"
-    path = "..\\assets\\"
+    path = ".\\assets\\"
     filelist = os.listdir(path)
     mostcommon = None
     if filename in filelist:
@@ -432,7 +432,7 @@ def read_quick_access(category):
 # Description: deletes subcategory from quick access and overwrites file
 ######################################################
 def delete_from_quick_access(category, subcat):
-    path = "..\\assets\\"
+    path = ".\\assets\\"
     filename = category + ".txt"
     filelist = os.listdir(path)
     if filename in filelist:
@@ -580,7 +580,6 @@ def del_subcat(category, subcat):
 
     query = "DROP TABLE IF EXISTS {}".format(subcat)
     query_tbl = ("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence'")
-    query_cleanup = "SELECT {} FROM {}".format((formid,),(subcat))
     conn = sqlite3.connect("..\\databases\\" + category + ".db")
     c = conn.cursor()
     c.execute(query_tbl)
@@ -775,7 +774,7 @@ def search(search_dict):
         conn.close()
     return json_str
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
     # print(new_subcat("landscape", "trail"))
     # print(add_form("Equipment", "Computers", test_data))
     # print(get_form("equipment", "Computers", 20180924174146))
@@ -787,5 +786,5 @@ def search(search_dict):
 # backup_db({"path": "C:\\Users\\Ben3\\Desktop\\"})
 # restore_backup({ "path": "C:\\Users\\Ben3\\Desktop\\"})
 #     print(search({'search': 'Laptop'}))
-#     del_subcat("Landscape", "Trail")
+    print(del_subcat("Equipment", "Boilers"))
     # print(flpth_return(test_lst['attach']))

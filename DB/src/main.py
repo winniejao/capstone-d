@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from flask_restful import Api, Resource
 import json
 import req
 
@@ -119,11 +118,11 @@ def rToolSub(subcat):
 ########################## DELETE SUBCAT BANK ###########################
 @app.route('/deletesubcat/<string:category>/<string:subcat>', methods=['DELETE'])
 def rDeleteSub(category, subcat):
-    try:
+    #try:
         req.del_subcat(category, subcat)
-        return 'Subcategory Successfully Deleted', 201
-    except:
-        return "Subcategory Not Found", 404
+       # return 'Subcategory Successfully Deleted', 201
+    #except:
+        #return "Subcategory Not Found", 404
 
 
 ########################## GET SUBCAT FILTER BANK ########################

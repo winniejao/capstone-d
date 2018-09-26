@@ -7,7 +7,7 @@ let win;
 function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1024, 
+    width: 1024,
     height: 768,
     backgroundColor: '#ffffff'
   })
@@ -39,6 +39,6 @@ app.on('activate', function () {
   // macOS specific close process
   if (win === null) {
     createWindow()
-    
+
   }
 })
