@@ -285,7 +285,7 @@ export class DashService implements MasterService {
   }
 
   getQuickTool(): Observable<QuickResponse> {
-    return this.getQuick('tool');
+    return this.getQuick('tools');
   }
 
   getQuickEquip(): Observable<QuickResponse>{
