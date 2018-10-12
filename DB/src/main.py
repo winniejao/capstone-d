@@ -118,11 +118,11 @@ def rToolSub(subcat):
 ########################## DELETE SUBCAT BANK ###########################
 @app.route('/deletesubcat/<string:category>/<string:subcat>', methods=['DELETE'])
 def rDeleteSub(category, subcat):
-    #try:
+    try:
         req.del_subcat(category, subcat)
-       # return 'Subcategory Successfully Deleted', 201
-    #except:
-        #return "Subcategory Not Found", 404
+        return 'Subcategory Successfully Deleted', 201
+    except:
+        return "Subcategory Not Found", 404
 
 
 ########################## GET SUBCAT FILTER BANK ########################
@@ -176,4 +176,4 @@ def rSearch():
     return jsonify(reqHandle)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(port=5000)
